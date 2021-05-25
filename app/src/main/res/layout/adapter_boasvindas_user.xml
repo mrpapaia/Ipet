@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent" android:background="#FAFAFA"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvBemvindo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:textSize="30dp"
+        android:textColor="#716F89"
+        android:textStyle="bold"
+        android:layout_marginStart="23dp"
+        android:text="Bem-Vindo!"/>
+
+    <TextView
+        android:id="@+id/tvsubtitulo2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="13dp"
+        android:paddingLeft="5dp"
+        android:text="Escolha um dos casos abaixo e salve o dia."
+        android:textColor="#716F89"
+        android:textSize="18dp" />
+
+</LinearLayout>

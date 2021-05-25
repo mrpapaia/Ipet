@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#E5E7EC"
+    tools:context=".view.CriarCasoActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            android:layout_marginStart="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ipet_logo_pages" />
+
+        <TextView
+            android:id="@+id/tvVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="124dp"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_arrow_back"
+            android:onClick="voltar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.462"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.604" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:textSize="24dp"
+                android:layout_marginStart="16dp"
+                android:text="Crie um novo caso." />
+
+            <EditText
+                android:id="@+id/etTituloCaso"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:ems="10"
+                android:maxLength="30"
+                android:textColorHint="#716F89"
+                android:textSize="20dp"
+                android:background="@drawable/style_edit"
+                android:padding="5dp"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:hint="Titulo do Caso" />
+
+            <EditText
+                android:id="@+id/etDescricaoCaso"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:ems="10"
+                android:maxLength="200"
+                android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
+                android:textColorHint="#716F89"
+                android:textSize="20dp"
+                android:background="@drawable/style_edit"
+                android:padding="5dp"
+                android:gravity="left|top"
+                android:hint="Descricao" />
+
+            <EditText
+                android:id="@+id/etAnimalCaso"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:ems="10"
+                android:maxLength="10"
+                android:textColorHint="#716F89"
+                android:textSize="20dp"
+                android:background="@drawable/style_edit"
+                android:padding="5dp"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:hint="Nome do animal" />
+
+            <Spinner
+                android:id="@+id/spEspecieCaso"
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/style_spinner"
+                android:layout_height="45dp" />
+
+            <EditText
+                android:id="@+id/etValorCaso"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:ems="10"
+                android:textColorHint="#716F89"
+                android:textSize="20dp"
+                android:background="@drawable/style_edit"
+                android:padding="5dp"
+                android:inputType="numberDecimal"
+                android:hint="Valor em (R$)" />
+
+            <Button
+                android:id="@+id/btCriarCaso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/style_button"
+                android:textColor="#fff"
+                android:textSize="18dp"
+                android:text="Criar um Caso"
+                android:onClick="criarUmCaso"/>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+</LinearLayout>

@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1036017686308",
+    "firebase_url": "https://ipet-d80bb.firebaseio.com",
+    "project_id": "ipet-d80bb",
+    "storage_bucket": "ipet-d80bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036017686308:android:345ff81f398bc1d60205b1",
+        "android_client_info": {
+          "package_name": "br.com.bdt.ipet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036017686308-4nvvnf3qjogahjakji8pebnhbf5ksmcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhiqPlOdouBg-Lo_jrwBZNd4Ohe7bmiiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036017686308-4nvvnf3qjogahjakji8pebnhbf5ksmcu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036017686308:android:d1c3828be13a15df0205b1",
+        "android_client_info": {
+          "package_name": "com.bdtgo.ipet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036017686308-4nvvnf3qjogahjakji8pebnhbf5ksmcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhiqPlOdouBg-Lo_jrwBZNd4Ohe7bmiiY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036017686308-4nvvnf3qjogahjakji8pebnhbf5ksmcu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

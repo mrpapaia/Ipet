@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FAFAFA"
+    tools:context=".view.SouUmaOngActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/voltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="12dp"
+            android:onClick="voltar"
+            android:background="@drawable/ic_arrow_back">
+
+        </TextView>
+
+        <ImageView
+            android:id="@+id/ivtitulo1"
+            android:layout_width="204dp"
+            android:layout_height="101dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ipet_titulo" />
+
+        <ImageView
+            android:id="@+id/ivdog1"
+            android:layout_width="309dp"
+            android:layout_height="178dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/dog2" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="320dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:elevation="5dp"
+            android:ems="10"
+            android:background="@drawable/style_edit"
+            android:padding="5dp"
+            android:layout_marginTop="20dp"
+            android:hint="E-mail"
+            android:textColorHint="#716F89"
+            android:textSize="20dp"
+            android:drawableLeft="@drawable/ic_email"
+            android:drawablePadding="8dp"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/etSenha"
+            android:layout_width="320dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:elevation="5dp"
+            android:layout_gravity="center"
+            android:ems="10"
+            android:background="@drawable/style_edit"
+            android:padding="5dp"
+            android:layout_marginTop="20dp"
+            android:hint="Senha"
+            android:textColorHint="#716F89"
+            android:textSize="20dp"
+            android:drawableLeft="@drawable/ic_lock"
+            android:drawablePadding="8dp"
+            android:inputType="textPassword" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/tvEsqueciSenha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:onClick="esqueciSenha"
+                android:text="Esqueci minha senha"
+                android:textColor="#716F89"
+                android:textSize="15.33dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.82"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="0dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/bLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/style_button"
+            android:onClick="login"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:text="Login" />
+
+        <TextView
+            android:id="@+id/tvNaoTenhoCadastro"
+            android:layout_width="300dp"
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#716F89"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:onClick="naoTenhoCadastro"
+            android:drawableLeft="@drawable/ic_arrow_right"
+            android:text="Não tenho cadastro" />
+
+    </LinearLayout>
+
+</LinearLayout>
