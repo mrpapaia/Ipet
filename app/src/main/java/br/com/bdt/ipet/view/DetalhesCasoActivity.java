@@ -3,7 +3,9 @@ package br.com.bdt.ipet.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.DialogFragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.GradientDrawable;
@@ -20,6 +22,9 @@ import android.widget.TextView;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.view.dialog.MetodoPagamentoDialog;
+import br.com.bdt.ipet.view.dialog.PagamentoDialog;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -51,6 +56,21 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         tvLocalizacao = findViewById(R.id.tvLocalizacao);
 
         setarInformacoes();
+        Button btn = (Button) findViewById(R.id.btDoar);
+
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialog = new MetodoPagamentoDialog();
+
+                dialog.show(getSupportFragmentManager(), "MetodoPagamento");
+
+            }
+        };
+
+
+        btn.setOnClickListener(listener);
+
 
     }
 
