@@ -37,16 +37,6 @@
                 android:layout_marginTop="15dp">
 
                 <TextView
-                    android:id="@+id/tvOngInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="ONG"
-                    android:textColor="#716F89"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
                     android:id="@+id/trashTv"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -57,16 +47,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-            <TextView
-                android:id="@+id/tvOngData"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:text="TesteOng"
-                android:textColor="#716F89"
-                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvtTitleInfo"

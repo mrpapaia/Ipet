@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="15dp"
-    android:backgroundTint="#FAFAFA"
 
-    app:cardElevation="4dp" >
+    android:background="#ffffff"
+
+    android:elevation="5dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <TextView
             android:id="@+id/textView6"
@@ -19,183 +24,227 @@
             android:layout_marginStart="27dp"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="27dp"
-            android:text="Escolha um meio de pagamento"
+            android:layout_marginBottom="23dp"
+            android:text="@string/metodosPagamento"
             android:textColor="#716F89"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/ctMetodoUm"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="95dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView6"
-            app:srcCompat="@drawable/pix_logo" />
 
-        <TextView
-            android:id="@+id/tvMetodoUm"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctMetodoUm"
+            android:layout_width="409dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="31dp"
-            android:text="00.000.000/0000-00"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/ctMetodoDois"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+            <ImageView
+                android:id="@+id/logo1"
+                android:layout_width="96dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/descLogoPix"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/pix_logo" />
+
+            <TextView
+                android:id="@+id/tvMetodoum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/exPix"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/logo1"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:background="#E5E7EC"
+            app:layout_constraintBottom_toTopOf="@+id/ctMetodoDois"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ctMetodoUm"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <!--DOIs-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctMetodoDois"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/ctMetodoTres"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider1">
+
+            <ImageView
+                android:id="@+id/logo2"
+                android:layout_width="96dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/descLogoPix"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/pix_logo" />
+
+            <TextView
+                android:id="@+id/tvMetodoDois"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/exPix"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/logo2"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="409dp"
+            android:layout_height="1dp"
+            android:background="#E5E7EC"
+            app:layout_constraintBottom_toTopOf="@+id/ctMetodoTres"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ctMetodoDois"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+        <!--tres-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctMetodoTres"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/ctMetodoQuatro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider2"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageView
+                android:id="@+id/logo3"
+                android:layout_width="96dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/descLogoPix"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/pix_logo" />
+
+            <TextView
+                android:id="@+id/tvMetodoTres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/exPix"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/logo3"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
             android:id="@+id/divider3"
-            android:layout_width="match_parent"
+            android:layout_width="409dp"
             android:layout_height="1dp"
-            android:layout_marginTop="19dp"
             android:background="#E5E7EC"
+            app:layout_constraintBottom_toTopOf="@+id/ctMetodoQuatro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMetodoUm" />
+            app:layout_constraintTop_toBottomOf="@+id/ctMetodoTres"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="95dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider3"
-            app:srcCompat="@drawable/pix_logo" />
-
-        <TextView
-            android:id="@+id/tvMetodoDois"
-            android:layout_width="wrap_content"
+        <!--Quatro-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctMetodoQuatro"
+            android:layout_width="409dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="31dp"
-            android:text="00.000.000/0000-00"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView3"
-            app:layout_constraintTop_toBottomOf="@+id/divider3" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider3">
+
+            <ImageView
+                android:id="@+id/logo4"
+                android:layout_width="96dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:contentDescription="@string/descLogoPix"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/pix_logo" />
+
+            <TextView
+                android:id="@+id/tvMetodoQuatro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/exPix"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/logo4"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:id="@+id/divider4"
-            android:layout_width="match_parent"
+            android:id="@+id/divider9"
+            android:layout_width="409dp"
             android:layout_height="1dp"
-            android:layout_marginTop="19dp"
             android:background="#E5E7EC"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMetodoDois" />
-
-
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="95dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider4"
-            app:srcCompat="@drawable/pix_logo" />
-
-        <TextView
-            android:id="@+id/tvMetodoTres"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="31dp"
-            android:text="00.000.000/0000-00"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toBottomOf="@+id/divider4" />
-
-        <View
-            android:id="@+id/divider5"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="19dp"
-            android:background="#E5E7EC"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMetodoTres" />
-
-
-        <ImageView
-            android:id="@+id/imageView5"
-            android:layout_width="95dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="19dp"
-            android:layout_marginTop="23dp"
-            android:layout_marginEnd="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider5"
-            app:srcCompat="@drawable/pix_logo" />
-
-        <TextView
-            android:id="@+id/tvMetodoQuatro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="31dp"
-            android:text="00.000.000/0000-00"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/divider5" />
-
-        <View
-            android:id="@+id/divider6"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="19dp"
-            android:background="#E5E7EC"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMetodoQuatro" />
-
-        <Button
-            android:id="@+id/btSelecaoPagamento"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="39dp"
-            android:layout_marginTop="42dp"
-            android:layout_marginEnd="39dp"
-            android:layout_marginBottom="33dp"
-            android:background="@drawable/style_button"
-            android:text="Button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider6" />
+            app:layout_constraintTop_toBottomOf="@+id/ctMetodoQuatro"
+            app:layout_constraintVertical_bias="0.0" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

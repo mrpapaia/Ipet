@@ -8,6 +8,8 @@ import androidx.fragment.app.DialogFragment;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -41,12 +43,13 @@ public class DetalhesCasoActivity extends AppCompatActivity {
     Button btEmail, btWhatsapp;
     ImageView ivLogoAnimal, ivIconAnimal;
     TextView tvLocalizacao;
-
+    Button btn;
+    private Ong ong;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_caso);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
         caso = getIntent().getParcelableExtra("casoOng");
         btEmail = findViewById(R.id.btEmailOngCase);
@@ -56,30 +59,38 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         tvLocalizacao = findViewById(R.id.tvLocalizacao);
 
         setarInformacoes();
-        Button btn = (Button) findViewById(R.id.btDoar);
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        btn = (Button) findViewById(R.id.btDoar);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialog = new MetodoPagamentoDialog();
+                DialogFragment dialog = MetodoPagamentoDialog.newInstance(ong);
 
                 dialog.show(getSupportFragmentManager(), "MetodoPagamento");
+                getSupportFragmentManager().executePendingTransactions();
+                dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
 
             }
         };
 
 
         btn.setOnClickListener(listener);
-
-
     }
 
     /*
      * Pega todos os dados do caso e seta nos TextView's
      * */
-    public void setarInformacoes(){
+    public void setarInformacoes() {
 
-        Ong ong = caso.getOng(); //Pega a ong do caso
+     ong = caso.getOng(); //Pega a ong do caso
 
         setImgAndColorAnimal(); //Seta logo e icone do animal do caso e muda cor dos botões
 
@@ -90,10 +101,10 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         setTextTv(R.id.tvLocalizacao, localizacao); //City/Uf ong
 
         //Mudanças no tamanho da fonte de acordo com o tamanho da string
-        if(localizacao.length() > 15){
+        if (localizacao.length() > 15) {
             tvLocalizacao.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         }
-        if(localizacao.length() > 25){
+        if (localizacao.length() > 25) {
             tvLocalizacao.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
         }
 
@@ -110,24 +121,24 @@ public class DetalhesCasoActivity extends AppCompatActivity {
     }
 
     //Retorna 10% da largura do celular
-    public int sizeIcon(){
+    public int sizeIcon() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        return (int) (displayMetrics.heightPixels*0.1);
+        return (int) (displayMetrics.heightPixels * 0.1);
     }
 
     //Retorna 38% da altura do celular
-    public int sizeButton(){
+    public int sizeButton() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        return (int) (displayMetrics.widthPixels*0.38);
+        return (int) (displayMetrics.widthPixels * 0.38);
     }
 
-    public void setImgAndColorAnimal(){
+    public void setImgAndColorAnimal() {
 
         int logo = 0, icon = 0, color = 0;
 
-        switch (caso.getEspecie()){
+        switch (caso.getEspecie()) {
             case "Cachorro":
                 logo = R.drawable.logo_dog;
                 icon = R.drawable.icon_dog;
@@ -169,7 +180,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
     /*
      * Recebe id de um TextView e uma string, instanciando um TextView e setando o texto.
      * */
-    public void setTextTv(int idTextView, String text){
+    public void setTextTv(int idTextView, String text) {
         TextView tv = findViewById(idTextView);
         tv.setText(text);
     }
@@ -178,7 +189,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
      * Primeiramente é necessário fazer o carregamento das conexões que estão no bd,
      * após isso é incrementado o contador qtd para atualizar o número de conexões feitas.
      * */
-    public void setConexoes(){
+    public void setConexoes() {
         FirebaseFirestore.getInstance()
                 .collection("conexoes")
                 .document("counter")
@@ -189,7 +200,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             Integer qtd = document.get("quantidade", Integer.class);
-                            qtd ++;
+                            qtd++;
                             Map<String, Object> qtdConexoes = new HashMap<>();
                             qtdConexoes.put("quantidade", qtd);
                             FirebaseFirestore.getInstance()
@@ -205,7 +216,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
      * Chamado no onClick da setinha na parte superior da interface de detalhes de caso
      * fazendo com que apenas simule o clique no botão de voltar
      * */
-    public void voltar(View view){
+    public void voltar(View view) {
         onBackPressed();
     }
 
@@ -213,15 +224,15 @@ public class DetalhesCasoActivity extends AppCompatActivity {
      * Abre uma lista de aplicativos para mandar um email com o propósito de avisar a ong
      * que a pessoa quer ajudar no caso.
      * */
-    public void email(View view){
+    public void email(View view) {
 
         String msg = getMsgParaOng();
         String destinatario = caso.getOng().getEmail();
 
         Intent EnviarEmail = new Intent(Intent.ACTION_SEND);
-        EnviarEmail.putExtra(Intent.EXTRA_EMAIL, new String[] {destinatario});
+        EnviarEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{destinatario});
         EnviarEmail.putExtra(Intent.EXTRA_SUBJECT, "Quero ajudar um caso");
-        EnviarEmail.putExtra(Intent.EXTRA_TEXT,msg);
+        EnviarEmail.putExtra(Intent.EXTRA_TEXT, msg);
         EnviarEmail.setType("text/plain");
         startActivity(Intent.createChooser(EnviarEmail, "Escolha o cliente de e-mail"));
 
@@ -232,7 +243,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
      * Abre o whatsapp ja na conversa com o número da ong, mandando uma mensagem informando
      * o interesse no caso.
      * */
-    public void whatsapp(View view){
+    public void whatsapp(View view) {
 
         String msg = getMsgParaOng();
 
@@ -249,7 +260,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
     /*
      * Método que define a mensagem que será enviada no email ou whatsapp
      * */
-    public String getMsgParaOng(){
+    public String getMsgParaOng() {
         return getMsgHoras() + " " + caso.getOng().getNome() + ", Gostaria de ajudar no caso " +
                 caso.getTitulo() + ", com o valor de " + String.format("R$ %.2f", caso.getValor());
     }
@@ -257,16 +268,16 @@ public class DetalhesCasoActivity extends AppCompatActivity {
     /*
      * Coleta a hora atual e retorna uma mensagem de saudação
      * */
-    public String getMsgHoras(){
+    public String getMsgHoras() {
 
         SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH");
         int horas = Integer.parseInt(dateFormat_hora.format(new Date()));
 
-        if(horas >= 0 && horas < 12){
+        if (horas >= 0 && horas < 12) {
             return "Bom Dia";
-        }else if(horas < 18){
+        } else if (horas < 18) {
             return "Boa tarde";
-        }else{
+        } else {
             return "Boa Noite";
         }
 

@@ -13,6 +13,7 @@ public class Ong implements Serializable, Parcelable {
     private String uf;
     private String cidade;
 
+
     public Ong(){
     }
 
