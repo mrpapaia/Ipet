@@ -31,12 +31,13 @@
 
     <EditText
         android:id="@+id/etEmail"
+        style="@style/fildTextStyle"
         android:background="@drawable/style_edit"
         android:drawableLeft="@drawable/ic_email"
+
         android:hint="E-mail"
 
-        style="@style/fildTextStyle"
-
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/etSenha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +63,7 @@
         style="@style/fildTextStyle"
         android:drawableLeft="@drawable/ic_phone"
         android:hint="Whatsapp"
+        android:inputType="phone"
         app:layout_constraintBottom_toTopOf="@+id/acUF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

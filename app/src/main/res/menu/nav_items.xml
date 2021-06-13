@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menuItemDadosBancarios"
+            android:icon="@drawable/ic_bank"
+            android:title="@string/texto_dados_bancarios" />
+        <item
+            android:id="@+id/menuItemConfirmarDoacao"
+            android:icon="@drawable/ic_doacao"
+            android:title="@string/texto_confirmar_doacao" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menuItemSair"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/texto_sair" />
+
+
+    </group>
+
+</menu>

@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,14 +20,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.data.api.ConsumerData;
+import br.com.bdt.ipet.data.api.DadosApi;
+import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.SpinnerUtils;
 import br.com.bdt.ipet.data.model.Ong;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Collections;
+import java.util.List;
 
 import static br.com.bdt.ipet.util.GeralUtils.heightTela;
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
@@ -40,14 +52,21 @@ public class CadastroOng extends AppCompatActivity {
     ImageView ivCadastro;
     private Toolbar myToolbar;
     private TextView title;
+    private AutoCompleteTextView acUf;
+    private AutoCompleteTextView acMunicipio;
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_ong);
-       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        myToolbar= (Toolbar) findViewById(R.id.tbNormal);
-        title=(TextView) findViewById(R.id.toolbar_title);
+        // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        myToolbar = (Toolbar) findViewById(R.id.tbNormal);
+        title = (TextView) findViewById(R.id.toolbar_title);
+        acUf = findViewById(R.id.acUF);
+        acMunicipio = findViewById(R.id.acMunicipio);
         title.setText("Cadastro");
+
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -62,9 +81,9 @@ public class CadastroOng extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etSenha = findViewById(R.id.etSenha);
         etWhatsapp = findViewById(R.id.etWhatsapp);
-
-     //   spUf = findViewById(R.id.spUf);
-       // spCidade = findViewById(R.id.spCidade);
+        initAutoComplet();
+        //   spUf = findViewById(R.id.spUf);
+        // spCidade = findViewById(R.id.spCidade);
 
       /*  SpinnerUtils.confSpinnersUfCity(getApplicationContext(),
                 spUf, "UF",
@@ -74,57 +93,57 @@ public class CadastroOng extends AppCompatActivity {
 
         bCadastrar = findViewById(R.id.bCadastrar);
 
-       // ivCadastro = findViewById(R.id.ivCadastro);
+        // ivCadastro = findViewById(R.id.ivCadastro);
 
         setarInformacoes();
     }
 
     public void setarInformacoes() {
-        if(heightTela(CadastroOng.this) < 1400){
-            setMargins(ivCadastro,0, 80, 0, 0);
-            setMargins(bCadastrar,0, 40, 0, 0);
+        if (heightTela(CadastroOng.this) < 1400) {
+            setMargins(ivCadastro, 0, 80, 0, 0);
+            setMargins(bCadastrar, 0, 40, 0, 0);
         }
     }
 
     /*
-    * Método executado no onClick do botão cadastrar
-    * Irá extrair informações da interface de cadastro, criando um novo usuário e documento
-    * por meio do método criarUserOng
-    * */
-    public void cadastrar(View view){
+     * Método executado no onClick do botão cadastrar
+     * Irá extrair informações da interface de cadastro, criando um novo usuário e documento
+     * por meio do método criarUserOng
+     * */
+    public void cadastrar(View view) {
 
         String nome = etNome.getText().toString();
-        if(!isValidInput(nome, "text")){
+        if (!isValidInput(nome, "text")) {
             etNome.setError("Insira o nome da Ong");
             return;
         }
 
         String email = etEmail.getText().toString();
-        if(!isValidInput(email, "email")){
+        if (!isValidInput(email, "email")) {
             etEmail.setError("Insira um email válido");
             return;
         }
 
         String senha = etSenha.getText().toString();
-        if(!isValidInput(senha, "text")){
+        if (!isValidInput(senha, "text")) {
             etSenha.setError("Insira uma senha");
             return;
         }
 
         String whatsapp = etWhatsapp.getText().toString();
-        if(!isValidInput(whatsapp, "number") || whatsapp.length() < 8){
+        if (!isValidInput(whatsapp, "number") || whatsapp.length() < 8) {
             etWhatsapp.setError("Insira um telefone válido");
             return;
         }
 
-        String uf="" ;/*= getDataOfSp(R.id.spUf);
+        String uf = "";/*= getDataOfSp(R.id.spUf);
         if(!isValidInput(uf, "text")){
             ((TextView) spUf.getSelectedView()).setError("");
             toast(getApplicationContext(), "Informe UF");
             return;
         }*/
 
-       String cidade="" ;/* getDataOfSp(R.id.spCidade);
+        String cidade = "";/* getDataOfSp(R.id.spCidade);
         if(!isValidInput(cidade, "text")){
             ((TextView) spCidade.getSelectedView()).setError("");
             toast(getApplicationContext(), "Informe Cidade");
@@ -134,14 +153,15 @@ public class CadastroOng extends AppCompatActivity {
         Ong ong = new Ong(nome, email, whatsapp, uf, cidade);
 
         setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
-
+        startActivity(new Intent(getBaseContext(), EnviarFoto.class));
+        finish();
         criarUserOng(ong, senha);
     }
 
     /*
      * Método para habilidar/desabilidar todas views da interface de cadastro ong
      * */
-    public void setEnableViews(boolean op){
+    public void setEnableViews(boolean op) {
         etNome.setEnabled(op);
         etEmail.setEnabled(op);
         etSenha.setEnabled(op);
@@ -153,12 +173,12 @@ public class CadastroOng extends AppCompatActivity {
     }
 
     /*
-    * Método que receberá todas as informações dos campos da tela de cadastro
-    * Primeiro passo: cria um usuário no firebase authentication utilizando somente email e senha
-    * Segundo passo: quando o usuário for criado com sucesso, salvará todas as informações menos
-    * a senha, em um novo documento.
-    * */
-    public void criarUserOng(final Ong ong, String senha){
+     * Método que receberá todas as informações dos campos da tela de cadastro
+     * Primeiro passo: cria um usuário no firebase authentication utilizando somente email e senha
+     * Segundo passo: quando o usuário for criado com sucesso, salvará todas as informações menos
+     * a senha, em um novo documento.
+     * */
+    public void criarUserOng(final Ong ong, String senha) {
         mAuth.createUserWithEmailAndPassword(ong.getEmail(), senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -172,20 +192,20 @@ public class CadastroOng extends AppCompatActivity {
 
                             Exception e = task.getException();
 
-                            if(e != null){
+                            if (e != null) {
                                 msgErro += " (" + e.getMessage() + ")";
                             }
 
-                            Toast.makeText(getApplicationContext(), msgErro,Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), msgErro, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
     }
 
     /*
-    * Recebe um objeto ong e salva um documento na coleção ongs no bd firestore.
-    * */
-    public void salvarDadosOng(Ong ong){
+     * Recebe um objeto ong e salva um documento na coleção ongs no bd firestore.
+     * */
+    public void salvarDadosOng(Ong ong) {
         db.collection("ongs")
                 .document(ong.getEmail()).set(ong)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -201,16 +221,41 @@ public class CadastroOng extends AppCompatActivity {
     /*
      * Método que recebe o id de um Spinner e pega o conteudo selecionado
      * */
-    private String getDataOfSp(int idSpinner){
+    private String getDataOfSp(int idSpinner) {
         Spinner sp = findViewById(idSpinner);
         Object selected = sp.getSelectedItem();
         return selected == null ? "" : selected.toString();
     }
 
     /*
-    * Simula a ação de apertar para voltar
-    * */
-    public void voltar(View view){
+     * Simula a ação de apertar para voltar
+     * */
+    public void voltar(View view) {
         onBackPressed();
+
+    }
+    private void initAutoComplet(){
+
+        new ConsumerData(getApplicationContext(), DadosApi.estados(), dados -> {
+            ArrayAdapter<String> adapterUF = new ArrayAdapter<>(CadastroOng.this,
+                    android.R.layout.simple_dropdown_item_1line, dados);
+            acUf.setAdapter(adapterUF);
+        }).getData();
+        acMunicipio.setOnClickListener((v) -> {
+            if(acUf.getText().toString().isEmpty()){
+                GeralUtils.toast(getApplicationContext(), "Informe o UF primeiro " +
+                        "para carregar as cidades!");
+                return ;
+            }
+            new ConsumerData(getApplicationContext(), DadosApi.municipio(acUf.getText().toString()), new ConsumerData.DataSite() {
+                @Override
+                public void setData(List<String> dados) {
+                    ArrayAdapter<String> adapterMunicipio = new ArrayAdapter<>(CadastroOng.this,
+                            android.R.layout.simple_dropdown_item_1line, dados);
+                    acMunicipio.setAdapter(adapterMunicipio);
+                }
+            }).getData();
+            return ;
+        });
     }
 }

@@ -67,18 +67,14 @@ public class SpinnerUtils {
         if(spinner.getId() == R.id.spFilterCidade){
 
             spinner.setEnabled(true);
-            spinner.setOnTouchListener(new View.OnTouchListener() {
-                @SuppressLint("ClickableViewAccessibility")
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
+            spinner.setOnTouchListener((v, event) -> {
 
-                    if (event.getAction() == MotionEvent.ACTION_UP){
-                        GeralUtils.toast(context, "Informe o UF primeiro " +
-                                "para carregar as cidades!");
-                    }
-
-                    return true;
+                if (event.getAction() == MotionEvent.ACTION_UP){
+                    GeralUtils.toast(context, "Informe o UF primeiro " +
+                            "para carregar as cidades!");
                 }
+
+                return true;
             });
         }
     }

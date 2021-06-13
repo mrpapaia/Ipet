@@ -1,5 +1,11 @@
 package br.com.bdt.ipet.data.api;
 
+import android.os.Bundle;
+import android.os.Parcelable;
+
+import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.view.dialog.PagamentoDialog;
+
 public class DadosApi {
 
     private String link;
@@ -9,7 +15,15 @@ public class DadosApi {
         this.link = link;
         this.campo = campo;
     }
+    public static DadosApi estados() {
+        DadosApi dadosUrl = new DadosApi("https://servicodados.ibge.gov.br/api/v1/localidades/estados/","sigla");
 
+        return dadosUrl;
+    }
+    public static DadosApi municipio(String estado) {
+        DadosApi dadosUrl = new DadosApi("https://servicodados.ibge.gov.br/api/v1/localidades/estados/"+ estado + "/municipios", "nome");
+        return dadosUrl;
+    }
     public String getLink() {
         return link;
     }

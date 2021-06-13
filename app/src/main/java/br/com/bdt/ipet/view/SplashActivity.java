@@ -23,19 +23,16 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //Se a ong estiver logada, já inicia na tela de gerenciamento da ong
-                if (UserUtils.getUser() != null) {
-                    startActivity(new Intent(getBaseContext(), ListagemDeCasos.class));
-                    finish();
-                } else { //senão, inicia a tela main
-                    startActivity(new Intent(getBaseContext(), EnviarFoto.class));
-                    finish();
-                }
+        new Handler().postDelayed(() -> {
+            //Se a ong estiver logada, já inicia na tela de gerenciamento da ong
+            if (UserUtils.getUser() != null) {
+                startActivity(new Intent(getBaseContext(), ListagemDeCasos.class));
+                finish();
+            } else { //senão, inicia a tela main
+                startActivity(new Intent(getBaseContext(), CadastroOng.class));
+                finish();
             }
-        }, 3000);
+        }, 2000);
     }
 
 }

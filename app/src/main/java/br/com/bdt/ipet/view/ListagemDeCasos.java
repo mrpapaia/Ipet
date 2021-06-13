@@ -2,6 +2,8 @@ package br.com.bdt.ipet.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,9 +13,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
@@ -24,6 +28,7 @@ import br.com.bdt.ipet.util.RvCasoOngAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -43,14 +48,22 @@ public class ListagemDeCasos extends AppCompatActivity {
 
     RvCasoOngAdapter rvCasoOngAdapter;
     CasoUtils<RvCasoOngAdapter.CasoViewHolder> casoUtils;
-
+    private DrawerLayout dLayout;
+    private Toolbar tbMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem_de_casos);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        emailOng = UserUtils.getEmail();
+        tbMain=findViewById(R.id.tbMain);
+        tbMain.setNavigationOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dLayout.openDrawer(Gravity.LEFT);
+            }
+        });
+        setNavigationDrawer();
+      /*  emailOng = UserUtils.getEmail();
         db = FirebaseFirestore.getInstance();
         ong = new Ong();
         casosOng = new ArrayList<>();
@@ -76,7 +89,7 @@ public class ListagemDeCasos extends AppCompatActivity {
                 });
 
         rvCasosOng.setAdapter(rvCasoOngAdapter);
-        getDadosOng();
+        getDadosOng();*/
     }
 
     /*
@@ -158,6 +171,29 @@ public class ListagemDeCasos extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finishAffinity();
+    }
+
+    private  void setNavigationDrawer() {
+        dLayout = findViewById(R.id.drawer_layout);
+        NavigationView navView = findViewById(R.id.navigation);
+        navView.setItemIconTintList(null);
+        navView.setNavigationItemSelectedListener(menuItem -> {
+            int itemId = menuItem.getItemId();
+            if(itemId==R.id.menuItemDadosBancarios){
+                Intent it = new Intent(getApplicationContext(), CadastroInfoBanco.class);
+                it.putExtra("frag",4);
+                startActivity(it);
+                dLayout.closeDrawers();
+            }else if(itemId==R.id.menuItemConfirmarDoacao){
+
+            } else if (itemId == R.id.menuItemSair) {
+                finish();
+
+
+
+            }
+            return false;
+        });
     }
 
 }

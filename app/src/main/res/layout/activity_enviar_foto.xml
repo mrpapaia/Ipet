@@ -33,26 +33,26 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/ivEnviar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="64dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/btEnviarFoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13"
         app:srcCompat="@drawable/ic_enviar_foto" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btEnviarFoto"
         style="@style/botaoVerdeStyle"
         android:text="Abrir Galeria"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/ivEnviar" />
 
     <Button
         android:id="@+id/button3"
@@ -60,6 +60,6 @@
         android:text="@string/pularEtapa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/btEnviarFoto" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

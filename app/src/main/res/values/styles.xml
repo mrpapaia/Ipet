@@ -63,6 +63,20 @@
         <item name="android:textSize">16sp</item>
         <item name="android:fontWeight" tools:targetApi="o">400</item>
     </style>
+
+    <style name="textoCheckBox" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+
+    <style name="nomeUserDrawerTextStyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:fontWeight" tools:targetApi="o">700</item>
+    </style>
     <style name="titleStyle" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/revalia</item>
         <item name="android:color">@color/tileColor</item>
@@ -107,7 +121,10 @@
         <item name="android:padding">5dp</item>
     </style>
 
-
+    <style name="NavigationTheme" parent="AppTheme">
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">15dp</item>
+    </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

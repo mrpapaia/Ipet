@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.CadastroInfoBanco">
+
+
+    <include
+        layout="@layout/toolbar_default"
+
+        app:layout_constraintBottom_toTopOf="@+id/acBanco"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+    <AutoCompleteTextView
+        android:id="@+id/acBanco"
+        android:hint="@string/texto_banco"
+        android:inputType="textCapSentences|textAutoCorrect"
+        style="@style/fildTextStyleFrist"
+        app:layout_constraintBottom_toTopOf="@+id/etConta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbNormal" />
+
+
+    <EditText
+        android:id="@+id/etConta"
+        style="@style/fildTextStyle"
+        android:background="@drawable/style_edit"
+        android:hint="@string/texto_num_conta"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/etAgencia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acBanco" />
+
+    <EditText
+        android:id="@+id/etAgencia"
+        style="@style/fildTextStyle"
+        android:background="@drawable/style_edit"
+
+        android:hint="@string/texto_num_agencia"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/cbHabilitaPix"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etConta" />
+
+    <CheckBox
+        android:id="@+id/cbHabilitaPix"
+        style="@style/textoCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:buttonTint="@color/bgButaoVerde"
+        android:onClick="hablitaPix"
+        android:text="@string/texto_check_box_pix"
+        app:layout_constraintBottom_toTopOf="@+id/etChavePix"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAgencia" />
+
+    <EditText
+        android:id="@+id/etChavePix"
+        style="@style/fildTextStyle"
+        android:background="@drawable/style_edit"
+
+        android:hint="@string/chave_pix"
+        app:layout_constraintBottom_toTopOf="@+id/btConcluir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbHabilitaPix" />
+
+
+    <Button
+        android:id="@+id/btConcluir"
+        style="@style/botaoVerdeStyle"
+        android:onClick="end"
+        android:text="Concluir"
+        app:layout_constraintBottom_toTopOf="@+id/btPularEtapa"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etChavePix" />
+
+    <Button
+        android:id="@+id/btPularEtapa"
+        style="@style/botaoBrancoStyle"
+        android:layout_marginBottom="320dp"
+        android:text="@string/pularEtapa"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btConcluir" />
+</androidx.constraintlayout.widget.ConstraintLayout>

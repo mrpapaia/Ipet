@@ -42,30 +42,22 @@ public class ConsumerData {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(dadosApi.getLink(),
-                new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
+                response -> {
 
-                List<String> datas = new ArrayList<>();
+                    List<String> datas = new ArrayList<>();
 
-                for(int i=0; i<response.length(); i++){
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(i);
-                        String data = jsonObject.getString(dadosApi.getCampo());
-                        datas.add(data);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    for(int i=0; i<response.length(); i++){
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            String data = jsonObject.getString(dadosApi.getCampo());
+                            datas.add(data);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
 
-                dataSite.setData(datas);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+                    dataSite.setData(datas);
+                }, error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show());
 
         requestQueue.add(jsonArrayRequest);
     }
