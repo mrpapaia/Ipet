@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -17,10 +17,104 @@
        <item name="android:navigationBarColor">#151F20</item>
     </style>
 
+    <style name="botaoVerdeStyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">28dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginEnd">28dp</item>
+        <item name="android:background">@drawable/style_button</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/branco</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontWeight" tools:targetApi="o">900</item>
+    </style>
+
+    <style name="botaoBrancoStyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">28dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginEnd">28dp</item>
+        <item name="android:background">@drawable/style_button_white</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/bgButaoVerde</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontWeight" tools:targetApi="o">900</item>
+    </style>
+    <style name="destaque" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/textoForteColor</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">27dp</item>
+        <item name="android:layout_marginTop">30dp</item>
+        <item name="android:layout_marginEnd">27dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+    <style name="paragrafo" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+    <style name="titleStyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/revalia</item>
+        <item name="android:color">@color/tileColor</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+    <style name="fildTextStyleFrist" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textColorHint">@color/fildTextColor</item>
+        <item name="android:textSize">19sp  </item>
+        <item name="android:background">@drawable/style_edit</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">33dp</item>
+        <item name="android:layout_marginTop">40dp</item>
+        <item name="android:layout_marginEnd">33dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:ems">10</item>
+        <item name="android:padding">5dp</item>
+    </style>
+    <style name="fildTextStyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textColorHint">@color/fildTextColor</item>
+        <item name="android:textSize">19sp  </item>
+        <item name="android:background">@drawable/style_edit</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginStart">33dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginEnd">33dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:ems">10</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

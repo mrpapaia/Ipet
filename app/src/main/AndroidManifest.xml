@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.bdt.ipet"
-    >
+    package="br.com.bdt.ipet">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".view.EnviarFoto" />
         <activity android:name=".view.CriarCasoActivity" />
         <activity android:name=".view.DetalhesCasoActivity" />
         <activity android:name=".view.ListagemDeCasos" />
@@ -22,14 +22,17 @@
         <activity android:name=".view.Filter" />
         <activity
             android:name=".view.SplashActivity"
-            android:theme="@style/AppThemeSplash"
-            >
+            android:theme="@style/AppThemeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

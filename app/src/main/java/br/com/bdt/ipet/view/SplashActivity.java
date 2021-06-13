@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(new Intent(getBaseContext(), ListagemDeCasos.class));
                     finish();
                 } else { //senão, inicia a tela main
-                    startActivity(new Intent(getBaseContext(), MainActivity.class));
+                    startActivity(new Intent(getBaseContext(), EnviarFoto.class));
                     finish();
                 }
             }

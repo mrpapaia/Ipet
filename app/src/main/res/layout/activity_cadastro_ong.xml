@@ -1,162 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#E5E7EC"
+    android:background="@color/bgColor"
     tools:context=".view.CadastroOng">
 
-    <LinearLayout
+
+
+    <include
+            layout="@layout/toolbar_default"
+             />
+
+
+
+
+    <EditText
+        android:id="@+id/etNome"
+        android:drawableLeft="@drawable/ic_person"
+        android:hint="Nome da ONG"
+        android:inputType="textCapSentences|textAutoCorrect"
+        style="@style/fildTextStyleFrist"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbNormal" />
+
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:background="@drawable/style_edit"
+        android:drawableLeft="@drawable/ic_email"
+        android:hint="E-mail"
+
+        style="@style/fildTextStyle"
+
+        app:layout_constraintBottom_toTopOf="@+id/etSenha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNome" />
+
+    <EditText
+        android:id="@+id/etSenha"
+        style="@style/fildTextStyle"
+
+        android:background="@drawable/style_edit"
+        android:drawableLeft="@drawable/ic_lock"
+
+        android:hint="Senha"
+        android:inputType="textPassword"
+
+        app:layout_constraintBottom_toTopOf="@+id/etWhatsapp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+    <EditText
+        android:id="@+id/etWhatsapp"
+        style="@style/fildTextStyle"
+        android:drawableLeft="@drawable/ic_phone"
+        android:hint="Whatsapp"
+        app:layout_constraintBottom_toTopOf="@+id/acUF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSenha" />
+
+
+    <AutoCompleteTextView
+        android:id="@+id/acUF"
+
+        style="@style/fildTextStyle"
+
+        android:hint="ESTAdo"
+        app:layout_constraintBottom_toTopOf="@+id/acMunicipio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etWhatsapp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/acMunicipio"
+        style="@style/fildTextStyle"
+
+        android:hint="Municipio"
+        app:layout_constraintBottom_toTopOf="@+id/bCadastrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acUF" />
+
+    <Button
+        android:id="@+id/bCadastrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/voltar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="12dp"
-                android:onClick="voltar"
-                android:background="@drawable/ic_arrow_back">
-
-            </TextView>
-
-            <ImageView
-                android:id="@+id/ivtiutlo"
-                android:layout_width="83dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="17dp"
-                android:layout_marginLeft="10dp"
-                app:srcCompat="@drawable/ipet_titulo" />
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/ivCadastro"
-            android:layout_width="284dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="70dp"
-            app:srcCompat="@drawable/cadastro" />
-
-        <EditText
-            android:id="@+id/etNome"
-            android:layout_width="345dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:maxLength="30"
-            android:background="@drawable/style_edit"
-            android:padding="5dp"
-            android:layout_marginTop="40dp"
-            android:hint="Nome da ONG"
-            android:textColorHint="#716F89"
-            android:textSize="20dp"
-            android:drawableLeft="@drawable/ic_person"
-            android:drawablePadding="8dp"
-            android:inputType="textCapSentences|textAutoCorrect" />
-
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="345dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:background="@drawable/style_edit"
-            android:padding="5dp"
-            android:layout_marginTop="20dp"
-            android:hint="E-mail"
-            android:textColorHint="#716F89"
-            android:textSize="20dp"
-            android:drawableLeft="@drawable/ic_email"
-            android:drawablePadding="8dp"
-            android:inputType="textEmailAddress" />
-
-        <EditText
-            android:id="@+id/etSenha"
-            android:layout_width="345dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:background="@drawable/style_edit"
-            android:padding="5dp"
-            android:layout_marginTop="20dp"
-            android:hint="Senha"
-            android:textColorHint="#716F89"
-            android:textSize="20dp"
-            android:drawableLeft="@drawable/ic_lock"
-            android:drawablePadding="8dp"
-            android:inputType="textPassword" />
-
-        <EditText
-            android:id="@+id/etWhatsapp"
-            android:layout_width="345dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:background="@drawable/style_edit"
-            android:padding="5dp"
-            android:layout_marginTop="20dp"
-            android:hint="Whatsapp"
-            android:textColorHint="#716F89"
-            android:textSize="20dp"
-            android:drawableLeft="@drawable/ic_phone"
-            android:drawablePadding="8dp"
-            android:inputType="phone" />
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="33dp"
+        android:background="@drawable/style_button"
+        android:onClick="cadastrar"
+        android:text="Cadastrar"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acMunicipio" />
 
 
-        <LinearLayout
-            android:layout_width="345dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <Spinner
-                android:id="@+id/spUf"
-                android:layout_width="0dp"
-                android:layout_height="45dp"
-                android:padding="5dp"
-                android:background="@drawable/style_spinner"
-                android:layout_weight="1"
-                android:layout_gravity="left"/>
-
-            <Spinner
-                android:id="@+id/spCidade"
-                android:layout_width="150dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/style_spinner"
-                android:padding="5dp" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/bCadastrar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/style_button"
-            android:onClick="cadastrar"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:text="Cadastrar" />
-
-    </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

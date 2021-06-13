@@ -8,5 +8,11 @@
     <color name="colorCachorro">#CAA184</color>
     <color name="colorGato">#FFCEC2</color>
     <color name="colorCoelho">#F88767</color>
-
+<color name="tileColor">#3F3D56</color>
+    <color name="fildTextColor">#716F89</color>
+<color name="textoForteColor">#3F3D56</color>
+    <color name="bgColor">#FAFAFA </color>
+    <color name="black">#000000</color>
+    <color name="bgButaoVerde">#3CB7BC</color>
+    <color name="branco">#ffffff</color>
 </resources>

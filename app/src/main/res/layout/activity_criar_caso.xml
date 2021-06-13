@@ -54,10 +54,11 @@
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:textSize="24dp"
                 android:layout_marginStart="16dp"
-                android:text="Crie um novo caso." />
+                android:fontFamily="@font/roboto_thin"
+                android:paddingLeft="10dp"
+                android:text="Crie um novo caso."
+                android:textSize="24dp" />
 
             <EditText
                 android:id="@+id/etTituloCaso"

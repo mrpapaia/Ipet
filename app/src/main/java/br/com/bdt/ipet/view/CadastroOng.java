@@ -2,6 +2,7 @@ package br.com.bdt.ipet.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -37,12 +38,22 @@ public class CadastroOng extends AppCompatActivity {
     Spinner spUf, spCidade;
     Button bCadastrar;
     ImageView ivCadastro;
-
+    private Toolbar myToolbar;
+    private TextView title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_ong);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+       // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        myToolbar= (Toolbar) findViewById(R.id.tbNormal);
+        title=(TextView) findViewById(R.id.toolbar_title);
+        title.setText("Cadastro");
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        myToolbar.setNavigationOnClickListener(v -> onBackPressed());
+
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -52,18 +63,18 @@ public class CadastroOng extends AppCompatActivity {
         etSenha = findViewById(R.id.etSenha);
         etWhatsapp = findViewById(R.id.etWhatsapp);
 
-        spUf = findViewById(R.id.spUf);
-        spCidade = findViewById(R.id.spCidade);
+     //   spUf = findViewById(R.id.spUf);
+       // spCidade = findViewById(R.id.spCidade);
 
-        SpinnerUtils.confSpinnersUfCity(getApplicationContext(),
+      /*  SpinnerUtils.confSpinnersUfCity(getApplicationContext(),
                 spUf, "UF",
                 spCidade, "Cidade", -1, -1);
-
+*/
         voltar = findViewById(R.id.voltar);
 
         bCadastrar = findViewById(R.id.bCadastrar);
 
-        ivCadastro = findViewById(R.id.ivCadastro);
+       // ivCadastro = findViewById(R.id.ivCadastro);
 
         setarInformacoes();
     }
@@ -106,19 +117,19 @@ public class CadastroOng extends AppCompatActivity {
             return;
         }
 
-        String uf = getDataOfSp(R.id.spUf);
+        String uf="" ;/*= getDataOfSp(R.id.spUf);
         if(!isValidInput(uf, "text")){
             ((TextView) spUf.getSelectedView()).setError("");
             toast(getApplicationContext(), "Informe UF");
             return;
-        }
+        }*/
 
-        String cidade = getDataOfSp(R.id.spCidade);
+       String cidade="" ;/* getDataOfSp(R.id.spCidade);
         if(!isValidInput(cidade, "text")){
             ((TextView) spCidade.getSelectedView()).setError("");
             toast(getApplicationContext(), "Informe Cidade");
             return;
-        }
+        }*/
 
         Ong ong = new Ong(nome, email, whatsapp, uf, cidade);
 
