@@ -8,6 +8,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.api.DadosApi;
+import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.SpinnerUtils;
 import br.com.bdt.ipet.data.model.Ong;
@@ -33,6 +36,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,11 +47,10 @@ import static br.com.bdt.ipet.util.GeralUtils.toast;
 
 public class CadastroOng extends AppCompatActivity {
 
-    FirebaseFirestore db;
-    FirebaseAuth mAuth;
+
     EditText etNome, etEmail, etSenha, etWhatsapp;
-    TextView voltar;
-    Spinner spUf, spCidade;
+
+
     Button bCadastrar;
     ImageView ivCadastro;
     private Toolbar myToolbar;
@@ -63,9 +66,10 @@ public class CadastroOng extends AppCompatActivity {
         // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         myToolbar = (Toolbar) findViewById(R.id.tbNormal);
         title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("Cadastro");
         acUf = findViewById(R.id.acUF);
         acMunicipio = findViewById(R.id.acMunicipio);
-        title.setText("Cadastro");
+
 
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -74,28 +78,18 @@ public class CadastroOng extends AppCompatActivity {
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
 
 
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+
 
         etNome = findViewById(R.id.etNome);
         etEmail = findViewById(R.id.etEmail);
         etSenha = findViewById(R.id.etSenha);
         etWhatsapp = findViewById(R.id.etWhatsapp);
         initAutoComplet();
-        //   spUf = findViewById(R.id.spUf);
-        // spCidade = findViewById(R.id.spCidade);
-
-      /*  SpinnerUtils.confSpinnersUfCity(getApplicationContext(),
-                spUf, "UF",
-                spCidade, "Cidade", -1, -1);
-*/
-        voltar = findViewById(R.id.voltar);
 
         bCadastrar = findViewById(R.id.bCadastrar);
 
-        // ivCadastro = findViewById(R.id.ivCadastro);
 
-        setarInformacoes();
+        //setarInformacoes();
     }
 
     public void setarInformacoes() {
@@ -136,26 +130,21 @@ public class CadastroOng extends AppCompatActivity {
             return;
         }
 
-        String uf = "";/*= getDataOfSp(R.id.spUf);
-        if(!isValidInput(uf, "text")){
-            ((TextView) spUf.getSelectedView()).setError("");
-            toast(getApplicationContext(), "Informe UF");
-            return;
-        }*/
+        String uf = acUf.getText().toString();
 
-        String cidade = "";/* getDataOfSp(R.id.spCidade);
-        if(!isValidInput(cidade, "text")){
-            ((TextView) spCidade.getSelectedView()).setError("");
-            toast(getApplicationContext(), "Informe Cidade");
-            return;
-        }*/
-
+        String cidade = acMunicipio.getText().toString();
+        List<DadosBancario> d= new ArrayList<>();
+        d.add(new DadosBancario("caixa","11111","11","1"));
         Ong ong = new Ong(nome, email, whatsapp, uf, cidade);
 
-        setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
-        startActivity(new Intent(getBaseContext(), EnviarFoto.class));
-        finish();
-        criarUserOng(ong, senha);
+       setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
+
+
+        Intent it =new Intent(this, EnviarFoto.class);
+        it.putExtra("ong", (Parcelable) ong);
+        it.putExtra("senha",senha);
+        startActivity(it);
+
     }
 
     /*
@@ -166,10 +155,10 @@ public class CadastroOng extends AppCompatActivity {
         etEmail.setEnabled(op);
         etSenha.setEnabled(op);
         etWhatsapp.setEnabled(op);
-        spUf.setEnabled(op);
-        spCidade.setEnabled(op);
+        acUf.setEnabled(op);
+        acMunicipio.setEnabled(op);
         bCadastrar.setEnabled(op);
-        voltar.setEnabled(op);
+
     }
 
     /*
@@ -178,45 +167,10 @@ public class CadastroOng extends AppCompatActivity {
      * Segundo passo: quando o usuário for criado com sucesso, salvará todas as informações menos
      * a senha, em um novo documento.
      * */
-    public void criarUserOng(final Ong ong, String senha) {
-        mAuth.createUserWithEmailAndPassword(ong.getEmail(), senha)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            salvarDadosOng(ong);
-                        } else {
-                            setEnableViews(true); //ativa caso algo deu errado
-
-                            String msgErro = "Erro no cadastro.";
-
-                            Exception e = task.getException();
-
-                            if (e != null) {
-                                msgErro += " (" + e.getMessage() + ")";
-                            }
-
-                            Toast.makeText(getApplicationContext(), msgErro, Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
 
     /*
      * Recebe um objeto ong e salva um documento na coleção ongs no bd firestore.
      * */
-    public void salvarDadosOng(Ong ong) {
-        db.collection("ongs")
-                .document(ong.getEmail()).set(ong)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Cadastro Relizado.",
-                                Toast.LENGTH_LONG).show();
-                        onBackPressed();
-                    }
-                });
-    }
 
     /*
      * Método que recebe o id de um Spinner e pega o conteudo selecionado

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.data.model.Ong;
 
 public class EnviarFoto extends AppCompatActivity {
     private static final int GET_FROM_GALLERY = 3;
@@ -25,8 +27,8 @@ public class EnviarFoto extends AppCompatActivity {
     private TextView title;
     private ImageView ivEnviar;
     private Button btEnviarFoto;
-
-
+    private Ong ong;
+    private String senha;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,10 @@ public class EnviarFoto extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
         btEnviarFoto.setOnClickListener(v->pickImg());
+        Intent it= getIntent();
+        ong=it.getParcelableExtra("ong");
+        senha=it.getStringExtra("senha");
+        System.out.println(ong.toString());
 
     }
 
@@ -78,5 +84,11 @@ public class EnviarFoto extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+    public void pularEtapa(View v){
+        Intent it =new Intent(this, CadastroInfoBanco.class);
+        it.putExtra("ong", (Parcelable) ong);
+        it.putExtra("senha",senha);
+        startActivity(it);
     }
 }

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Ong implements Serializable, Parcelable {
 
@@ -12,18 +13,46 @@ public class Ong implements Serializable, Parcelable {
     private String whatsapp;
     private String uf;
     private String cidade;
+    private List<DadosBancario> dadosBancarios;
 
-
-    public Ong(){
+    public Ong() {
     }
-
     public Ong(String nome, String email, String whatsapp, String uf, String cidade) {
         this.nome = nome;
         this.email = email;
         this.whatsapp = whatsapp;
         this.uf = uf;
         this.cidade = cidade;
+
     }
+    public Ong(String nome, String email, String whatsapp, String uf, String cidade, List<DadosBancario> dadosBancarios) {
+        this.nome = nome;
+        this.email = email;
+        this.whatsapp = whatsapp;
+        this.uf = uf;
+        this.cidade = cidade;
+        this.dadosBancarios = dadosBancarios;
+    }
+
+    protected Ong(Parcel in) {
+        nome = in.readString();
+        email = in.readString();
+        whatsapp = in.readString();
+        uf = in.readString();
+        cidade = in.readString();
+    }
+
+    public static final Creator<Ong> CREATOR = new Creator<Ong>() {
+        @Override
+        public Ong createFromParcel(Parcel in) {
+            return new Ong(in);
+        }
+
+        @Override
+        public Ong[] newArray(int size) {
+            return new Ong[size];
+        }
+    };
 
     public String getNome() {
         return nome;
@@ -65,6 +94,14 @@ public class Ong implements Serializable, Parcelable {
         this.cidade = cidade;
     }
 
+    public List<DadosBancario> getDadosBancarios() {
+        return dadosBancarios;
+    }
+
+    public void setDadosBancarios(List<DadosBancario> dadosBancarios) {
+        this.dadosBancarios = dadosBancarios;
+    }
+
     @Override
     public String toString() {
         return "Ong{" +
@@ -73,6 +110,7 @@ public class Ong implements Serializable, Parcelable {
                 ", whatsapp='" + whatsapp + '\'' +
                 ", uf='" + uf + '\'' +
                 ", cidade='" + cidade + '\'' +
+                ", dadosBancarios=" + dadosBancarios +
                 '}';
     }
 
@@ -89,22 +127,4 @@ public class Ong implements Serializable, Parcelable {
         dest.writeString(uf);
         dest.writeString(cidade);
     }
-
-    public Ong(Parcel in){
-        nome = in.readString();
-        email = in.readString();
-        whatsapp = in.readString();
-        uf = in.readString();
-        cidade = in.readString();
-    }
-
-    public static final Parcelable.Creator<Ong> CREATOR = new Parcelable.Creator<Ong>() {
-        public Ong createFromParcel(Parcel in) {
-            return new Ong(in);
-        }
-
-        public Ong[] newArray(int size) {
-            return new Ong[size];
-        }
-    };
 }

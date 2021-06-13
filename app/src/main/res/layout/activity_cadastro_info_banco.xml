@@ -84,7 +84,7 @@
     <Button
         android:id="@+id/btConcluir"
         style="@style/botaoVerdeStyle"
-        android:onClick="end"
+        android:onClick="finalizarCadastro"
         android:text="Concluir"
         app:layout_constraintBottom_toTopOf="@+id/btPularEtapa"
         app:layout_constraintEnd_toEndOf="parent"
@@ -95,6 +95,7 @@
         android:id="@+id/btPularEtapa"
         style="@style/botaoBrancoStyle"
         android:layout_marginBottom="320dp"
+        android:onClick="end"
         android:text="@string/pularEtapa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

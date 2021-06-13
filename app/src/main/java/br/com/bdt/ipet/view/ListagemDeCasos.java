@@ -7,8 +7,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -17,10 +15,9 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.util.CasoUtils;
 import br.com.bdt.ipet.util.UserUtils;
@@ -29,9 +26,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,6 +46,8 @@ public class ListagemDeCasos extends AppCompatActivity {
     CasoUtils<RvCasoOngAdapter.CasoViewHolder> casoUtils;
     private DrawerLayout dLayout;
     private Toolbar tbMain;
+    private TextView tvNomeHeader;
+    private TextView title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +61,9 @@ public class ListagemDeCasos extends AppCompatActivity {
             }
         });
         setNavigationDrawer();
-      /*  emailOng = UserUtils.getEmail();
+        title = (TextView) findViewById(R.id.toolbar_title);
+        title.setText("IPet");
+        emailOng = UserUtils.getEmail();
         db = FirebaseFirestore.getInstance();
         ong = new Ong();
         casosOng = new ArrayList<>();
@@ -89,7 +89,7 @@ public class ListagemDeCasos extends AppCompatActivity {
                 });
 
         rvCasosOng.setAdapter(rvCasoOngAdapter);
-        getDadosOng();*/
+        getDadosOng();
     }
 
     /*
@@ -99,22 +99,25 @@ public class ListagemDeCasos extends AppCompatActivity {
         db.collection("ongs")
                 .document(emailOng)
                 .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                        ong = documentSnapshot.toObject(Ong.class);
-
-                        assert ong != null;
-                        tvNomeDaOng.setText("Bem-vinda, " + ong.getNome());
-                        btCriarCaso.setEnabled(true); //dados da ong carregado, pode criar caso
-
-                        casoUtils = new CasoUtils<>(db, casosOng, rvCasoOngAdapter,
-                                null, true, emailOng);
-
-                        casoUtils.listenerCasosOng();
+                .addOnSuccessListener(documentSnapshot -> {
+                    ong = new Ong();
+                    ong.setEmail(documentSnapshot.get("email").toString());
+                    ong.setCidade(documentSnapshot.get("cidade").toString());
+                    ong.setNome(documentSnapshot.get("nome").toString());
+                    ong.setUf(documentSnapshot.get("uf").toString());
+                    ong.setWhatsapp(documentSnapshot.get("whatsapp").toString());
+                    List<DadosBancario>listDadosBancarios= (List<DadosBancario>) documentSnapshot.getData().get("dadosBancarios");
+                    if(listDadosBancarios!=null){
+                        ong.setDadosBancarios(listDadosBancarios);
                     }
+                    assert ong != null;
+                    tvNomeDaOng.setText("Bem-vinda, " + ong.getNome());
+                    btCriarCaso.setEnabled(true); //dados da ong carregado, pode criar caso
+                    tvNomeHeader.setText(ong.getNome());
+                    casoUtils = new CasoUtils<>(db, casosOng, rvCasoOngAdapter,
+                            null, true, emailOng);
+
+                    casoUtils.listenerCasosOng();
                 });
     }
 
@@ -177,6 +180,9 @@ public class ListagemDeCasos extends AppCompatActivity {
         dLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.navigation);
         navView.setItemIconTintList(null);
+        View headerView = navView.getHeaderView(0);
+        tvNomeHeader=headerView.findViewById(R.id.tvNomeHeader);
+        tvNomeHeader.setText("");
         navView.setNavigationItemSelectedListener(menuItem -> {
             int itemId = menuItem.getItemId();
             if(itemId==R.id.menuItemDadosBancarios){
@@ -187,10 +193,8 @@ public class ListagemDeCasos extends AppCompatActivity {
             }else if(itemId==R.id.menuItemConfirmarDoacao){
 
             } else if (itemId == R.id.menuItemSair) {
+                FirebaseAuth.getInstance().signOut();
                 finish();
-
-
-
             }
             return false;
         });

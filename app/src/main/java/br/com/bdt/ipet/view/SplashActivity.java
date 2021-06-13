@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), ListagemDeCasos.class));
                 finish();
             } else { //senão, inicia a tela main
-                startActivity(new Intent(getBaseContext(), CadastroOng.class));
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
                 finish();
             }
         }, 2000);
