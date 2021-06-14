@@ -25,6 +25,7 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.api.DadosApi;
 import br.com.bdt.ipet.data.model.DadosBancario;
+import br.com.bdt.ipet.singleton.CadastroSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.SpinnerUtils;
 import br.com.bdt.ipet.data.model.Ong;
@@ -57,6 +58,7 @@ public class CadastroOng extends AppCompatActivity {
     private TextView title;
     private AutoCompleteTextView acUf;
     private AutoCompleteTextView acMunicipio;
+    private CadastroSingleton cadastroSingleton;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -69,7 +71,7 @@ public class CadastroOng extends AppCompatActivity {
         title.setText("Cadastro");
         acUf = findViewById(R.id.acUF);
         acMunicipio = findViewById(R.id.acMunicipio);
-
+        cadastroSingleton=CadastroSingleton.getCadastroSingleton();
 
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -133,18 +135,13 @@ public class CadastroOng extends AppCompatActivity {
         String uf = acUf.getText().toString();
 
         String cidade = acMunicipio.getText().toString();
-        List<DadosBancario> d= new ArrayList<>();
-        d.add(new DadosBancario("caixa","11111","11","1"));
+
         Ong ong = new Ong(nome, email, whatsapp, uf, cidade);
-
-       setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
-
-
+        cadastroSingleton.setOng(ong);
+        cadastroSingleton.setSenha(senha);
+        setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
         Intent it =new Intent(this, EnviarFoto.class);
-        it.putExtra("ong", (Parcelable) ong);
-        it.putExtra("senha",senha);
         startActivity(it);
-
     }
 
     /*

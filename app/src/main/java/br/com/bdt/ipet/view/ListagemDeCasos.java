@@ -9,10 +9,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.bdt.ipet.R;
@@ -28,6 +33,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +61,7 @@ public class ListagemDeCasos extends AppCompatActivity {
     private Toolbar tbMain;
     private TextView tvNomeHeader;
     private TextView title;
+    private ImageView ivUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +74,7 @@ public class ListagemDeCasos extends AppCompatActivity {
                 dLayout.openDrawer(Gravity.LEFT);
             }
         });
-        setNavigationDrawer();
+
         title = (TextView) findViewById(R.id.toolbar_title);
         title.setText("IPet");
         emailOng = UserUtils.getEmail();
@@ -90,6 +104,7 @@ public class ListagemDeCasos extends AppCompatActivity {
 
         rvCasosOng.setAdapter(rvCasoOngAdapter);
         getDadosOng();
+        setNavigationDrawer();
     }
 
     /*
@@ -106,11 +121,18 @@ public class ListagemDeCasos extends AppCompatActivity {
                     ong.setNome(documentSnapshot.get("nome").toString());
                     ong.setUf(documentSnapshot.get("uf").toString());
                     ong.setWhatsapp(documentSnapshot.get("whatsapp").toString());
+                    Log.d("Valtenis", documentSnapshot.get("imgPerfil").toString());
                     List<DadosBancario>listDadosBancarios= (List<DadosBancario>) documentSnapshot.getData().get("dadosBancarios");
                     if(listDadosBancarios!=null){
                         ong.setDadosBancarios(listDadosBancarios);
                     }
+                    if(documentSnapshot.get("imgPerfil")!=null){
+                        ong.setImgPerfil(documentSnapshot.get("imgPerfil").toString());
+                    }
                     assert ong != null;
+
+                    Picasso.get().load(ong.getImgPerfil()).into(ivUser);
+
                     tvNomeDaOng.setText("Bem-vinda, " + ong.getNome());
                     btCriarCaso.setEnabled(true); //dados da ong carregado, pode criar caso
                     tvNomeHeader.setText(ong.getNome());
@@ -183,6 +205,8 @@ public class ListagemDeCasos extends AppCompatActivity {
         View headerView = navView.getHeaderView(0);
         tvNomeHeader=headerView.findViewById(R.id.tvNomeHeader);
         tvNomeHeader.setText("");
+        ivUser=headerView.findViewById(R.id.ivUser);
+
         navView.setNavigationItemSelectedListener(menuItem -> {
             int itemId = menuItem.getItemId();
             if(itemId==R.id.menuItemDadosBancarios){
@@ -199,5 +223,20 @@ public class ListagemDeCasos extends AppCompatActivity {
             return false;
         });
     }
-
+    private Bitmap getImageBitmap(String url) throws IOException {
+        Bitmap bm = null;
+        try {
+            URL aURL = new URL(url);
+            URLConnection conn = aURL.openConnection();
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            bm = BitmapFactory.decodeStream(bis);
+            bis.close();
+            is.close();
+        } catch (IOException e) {
+            Log.e("TAG", "Error getting bitmap", e);
+        }
+        return bm;
+    }
 }

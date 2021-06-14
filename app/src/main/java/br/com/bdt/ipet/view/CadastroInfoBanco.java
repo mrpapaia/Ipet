@@ -27,6 +27,7 @@ import java.util.List;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.singleton.CadastroSingleton;
 
 public class CadastroInfoBanco extends AppCompatActivity {
     private Toolbar myToolbar;
@@ -36,11 +37,12 @@ public class CadastroInfoBanco extends AppCompatActivity {
     private EditText etAgencia;
     private CheckBox cbHablitapix;
     private EditText etChavePix;
-    private Ong ong;
+
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
-    private String senha;
+
+    private CadastroSingleton cadastroSingleton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +61,9 @@ public class CadastroInfoBanco extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
         etChavePix.setVisibility(View.INVISIBLE);
-        Intent it= getIntent();
-        ong=it.getParcelableExtra("ong");
-        senha=it.getStringExtra("senha");
-        db = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+        cadastroSingleton=CadastroSingleton.getCadastroSingleton();
+
+
     }
 
 
@@ -85,53 +85,19 @@ public class CadastroInfoBanco extends AppCompatActivity {
                         etChavePix.getText().toString()
                 )
         );
-        ong.setDadosBancarios(listDadosBancario);
-        System.out.println(ong.toString());
-        criarUserOng(ong, senha);
+       cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
+        cadastroSingleton.criarUserOng(this);
+
+
 
     }
     public void end(View v){
-        criarUserOng(ong, senha);
+        cadastroSingleton.criarUserOng(this);
+
+
 
     }
 
-    public void criarUserOng(final Ong ong, String senha) {
-        mAuth.createUserWithEmailAndPassword(ong.getEmail(), senha)
-                .addOnCompleteListener(CadastroInfoBanco.this, task -> {
-                    if (task.isSuccessful()) {
-                        Log.d("VALTENIS","Cadastrou");
-                        salvarDadosOng(ong);
-                    } else {
 
-                        String msgErro = "Erro no cadastro.";
-                        Log.d("VALTENIS",msgErro);
-                        Exception e = task.getException();
-
-                        if (e != null) {
-                            msgErro += " (" + e.getMessage() + ")";
-                        }
-
-                        Toast.makeText(getApplicationContext(), msgErro, Toast.LENGTH_LONG).show();
-                    }
-                });
-    }
-    public void salvarDadosOng(Ong ong) {
-
-
-        db.collection("ongs")
-                .document(ong.getEmail()).set(ong)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("VALTENIS","Cadastrado");
-                        Toast.makeText(getApplicationContext(), "Cadastro Relizado.",
-                                Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getBaseContext(), FimCadastro.class));
-                        finish();
-                    }
-
-
-                });
-    }
 
 }

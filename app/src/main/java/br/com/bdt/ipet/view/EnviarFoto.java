@@ -1,5 +1,6 @@
 package br.com.bdt.ipet.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -15,11 +16,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.singleton.CadastroSingleton;
 
 public class EnviarFoto extends AppCompatActivity {
     private static final int GET_FROM_GALLERY = 3;
@@ -29,6 +38,7 @@ public class EnviarFoto extends AppCompatActivity {
     private Button btEnviarFoto;
     private Ong ong;
     private String senha;
+    private CadastroSingleton cadastroSingleton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +53,8 @@ public class EnviarFoto extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
         btEnviarFoto.setOnClickListener(v->pickImg());
-        Intent it= getIntent();
-        ong=it.getParcelableExtra("ong");
-        senha=it.getStringExtra("senha");
-        System.out.println(ong.toString());
+        cadastroSingleton=CadastroSingleton.getCadastroSingleton();
+
 
     }
 
@@ -56,10 +64,7 @@ public class EnviarFoto extends AppCompatActivity {
 
     }
 
-    public void sendImg() {
 
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -75,7 +80,8 @@ public class EnviarFoto extends AppCompatActivity {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 ivEnviar.setImageBitmap(bitmap);
                 btEnviarFoto.setText("Enviar foto");
-                btEnviarFoto.setOnClickListener(v->sendImg());
+                cadastroSingleton.setUri(selectedImage);
+                btEnviarFoto.setOnClickListener(v->pularEtapa(btEnviarFoto));
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -87,8 +93,6 @@ public class EnviarFoto extends AppCompatActivity {
     }
     public void pularEtapa(View v){
         Intent it =new Intent(this, CadastroInfoBanco.class);
-        it.putExtra("ong", (Parcelable) ong);
-        it.putExtra("senha",senha);
         startActivity(it);
     }
 }

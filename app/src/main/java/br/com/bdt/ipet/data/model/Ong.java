@@ -1,9 +1,11 @@
 package br.com.bdt.ipet.data.model;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.List;
 
 public class Ong implements Serializable, Parcelable {
@@ -14,7 +16,7 @@ public class Ong implements Serializable, Parcelable {
     private String uf;
     private String cidade;
     private List<DadosBancario> dadosBancarios;
-
+    private String imgPerfil;
     public Ong() {
     }
     public Ong(String nome, String email, String whatsapp, String uf, String cidade) {
@@ -40,6 +42,22 @@ public class Ong implements Serializable, Parcelable {
         whatsapp = in.readString();
         uf = in.readString();
         cidade = in.readString();
+        dadosBancarios = in.createTypedArrayList(DadosBancario.CREATOR);
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(nome);
+        dest.writeString(email);
+        dest.writeString(whatsapp);
+        dest.writeString(uf);
+        dest.writeString(cidade);
+        dest.writeTypedList(dadosBancarios);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Ong> CREATOR = new Creator<Ong>() {
@@ -102,6 +120,15 @@ public class Ong implements Serializable, Parcelable {
         this.dadosBancarios = dadosBancarios;
     }
 
+    public String getImgPerfil() {
+        return imgPerfil;
+    }
+
+    public void setImgPerfil(String imgPerfil) {
+        this.imgPerfil = imgPerfil;
+
+    }
+
     @Override
     public String toString() {
         return "Ong{" +
@@ -111,20 +138,7 @@ public class Ong implements Serializable, Parcelable {
                 ", uf='" + uf + '\'' +
                 ", cidade='" + cidade + '\'' +
                 ", dadosBancarios=" + dadosBancarios +
+                ", imgPerfil=" + imgPerfil +
                 '}';
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(nome);
-        dest.writeString(email);
-        dest.writeString(whatsapp);
-        dest.writeString(uf);
-        dest.writeString(cidade);
     }
 }
