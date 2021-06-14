@@ -87,11 +87,11 @@ public class Filter extends AppCompatActivity {
         DadosFiltro dados = QueroAjudarOng.dadosDoFiltro;
 
         //Inicia os spinners com valores de ufs, cidades.
-        SpinnerUtils.confSpinnersUfCity(getApplicationContext(),
+/*        SpinnerUtils.confSpinnersUfCity(getApplicationContext(),
                 spFilterUf, "UF",
                 spFilterCidade, "Cidade",
                 dados.getIdUf(), dados.getIdCity()
-        );
+        );*/
 
         etValorMin.setText((dados.getMinValue() == 0.0 ? "" : String.valueOf(dados.getMinValue())));
         etValorMax.setText((dados.getMaxValue() == 0.0 ? "" : String.valueOf(dados.getMaxValue())));

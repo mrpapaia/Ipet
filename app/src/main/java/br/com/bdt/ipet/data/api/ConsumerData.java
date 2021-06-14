@@ -4,8 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -16,50 +14,77 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.bdt.ipet.data.model.Estado;
+
 public class ConsumerData {
 
-    public interface DataSite {
-        void setData(List<String> dados);
+    public interface SendData {
+        void onData(JSONArray response);
     }
 
-    Context context;
-    DataSite dataSite;
-    DadosApi dadosApi;
-
-    public ConsumerData(Context context, DadosApi dadosApi, DataSite dataSite) {
-        this.context = context;
-        this.dadosApi = dadosApi;
-        this.dataSite = dataSite;
+    public interface DataSiteEstado {
+        void setDataEstado(List<Estado> estados);
     }
 
-    /*
-    * Método que irá realizar requisição GET a uma API, salvando os dados em uma lista de String.
-    * Quando obter resposta, o método setData será chamado, onde o corpo deste será definido por
-    * quem instânciar ele por fora, pois nesta classe ele é apenas uma interface.
-    * */
-    public void getData(){
+    public interface DataSiteCidade {
+        void setDataCidade(List<String> cidades);
+    }
+
+    public void sendGet(Context context, String url, SendData sendData){
 
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(dadosApi.getLink(),
-                response -> {
-
-                    List<String> datas = new ArrayList<>();
-
-                    for(int i=0; i<response.length(); i++){
-                        try {
-                            JSONObject jsonObject = response.getJSONObject(i);
-                            String data = jsonObject.getString(dadosApi.getCampo());
-                            datas.add(data);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    dataSite.setData(datas);
-                }, error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url,
+                response -> sendData.onData(response),
+                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show());
 
         requestQueue.add(jsonArrayRequest);
+    }
+
+    public void getEstados(Context context, DataSiteEstado dataSiteEstado){
+
+        String url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/";
+
+        sendGet(context, url,  response -> {
+
+            List<Estado> estados = new ArrayList<>();
+
+            for(int i=0; i<response.length(); i++){
+                try {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    String uf = jsonObject.getString("sigla");
+                    String nome = jsonObject.getString("nome");
+                    Estado estado = new Estado(uf, nome);
+                    estados.add(estado);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            dataSiteEstado.setDataEstado(estados);
+        });
+    }
+
+    public void getCidades(Context context, String uf, DataSiteCidade dataSiteCidade){
+
+        String url = "https://servicodados.ibge.gov.br/api/v1/localidades/estados/"+uf+"/municipios/";
+
+        sendGet(context, url,  response -> {
+
+            List<String> cidades = new ArrayList<>();
+
+            for(int i=0; i<response.length(); i++){
+                try {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    String nome = jsonObject.getString("nome");
+                    cidades.add(nome);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            dataSiteCidade.setDataCidade(cidades);
+        });
     }
 
 }

@@ -45,7 +45,7 @@ public class ConfigureSpinner {
     * Método que irá configurar um style_spinner quase por completo, definindo os dados do mesmo, além
     * de definir a ação de quando um item for clicado, ou quando o spinner for clicado
     * */
-    public void runConf(){
+ /*   public void runConf(){
 
         setDataOnSpinner();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -67,23 +67,24 @@ public class ConfigureSpinner {
             }
         });
 
-    }
+    }*/
 
     /*
     * Método que irá consumir a api com ajuda da classe ConsumerData, onde foi definido o corpo
     * do método setData, pois o mesmo é uma interface.
     * */
-    private void setDataOnSpinner(){
+
+/*    private void setDataOnSpinner(){
 
         spinner.setEnabled(false); //desativa o style_spinner enquanto não carrega os dados das cidades
 
         new ConsumerData(context, dadosApi, new ConsumerData.DataSite() {
-            /*
+            *//*
             * Definição do corpo do método setData, pois o mesmo é de uma interface.
             * Terá acesso a uma lista de Strings, podendo ser ordenado dependendo do valor da
             * variável isSorted, por fim, o style_spinner terá seu adaptador alterado já com os dados,
             * além de personalizar o style_spinner com um título.
-            * */
+            * *//*
             @Override
             public void setData(List<String> dados) {
 
@@ -102,5 +103,5 @@ public class ConfigureSpinner {
             }
         }).getData();
 
-    }
+    }*/
 }

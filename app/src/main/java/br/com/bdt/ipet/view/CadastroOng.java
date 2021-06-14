@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.api.DadosApi;
 import br.com.bdt.ipet.data.model.DadosBancario;
+import br.com.bdt.ipet.data.model.Estado;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.SpinnerUtils;
 import br.com.bdt.ipet.data.model.Ong;
@@ -47,9 +49,7 @@ import static br.com.bdt.ipet.util.GeralUtils.toast;
 
 public class CadastroOng extends AppCompatActivity {
 
-
     EditText etNome, etEmail, etSenha, etWhatsapp;
-
 
     Button bCadastrar;
     ImageView ivCadastro;
@@ -58,7 +58,6 @@ public class CadastroOng extends AppCompatActivity {
     private AutoCompleteTextView acUf;
     private AutoCompleteTextView acMunicipio;
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,15 +69,11 @@ public class CadastroOng extends AppCompatActivity {
         acUf = findViewById(R.id.acUF);
         acMunicipio = findViewById(R.id.acMunicipio);
 
-
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
-
-
-
 
         etNome = findViewById(R.id.etNome);
         etEmail = findViewById(R.id.etEmail);
@@ -87,23 +82,16 @@ public class CadastroOng extends AppCompatActivity {
         initAutoComplet();
 
         bCadastrar = findViewById(R.id.bCadastrar);
-
-
         //setarInformacoes();
     }
 
-    public void setarInformacoes() {
-        if (heightTela(CadastroOng.this) < 1400) {
-            setMargins(ivCadastro, 0, 80, 0, 0);
-            setMargins(bCadastrar, 0, 40, 0, 0);
-        }
-    }
+//    public void setarInformacoes() {
+//        if (heightTela(CadastroOng.this) < 1400) {
+//            setMargins(ivCadastro, 0, 80, 0, 0);
+//            setMargins(bCadastrar, 0, 40, 0, 0);
+//        }
+//    }
 
-    /*
-     * Método executado no onClick do botão cadastrar
-     * Irá extrair informações da interface de cadastro, criando um novo usuário e documento
-     * por meio do método criarUserOng
-     * */
     public void cadastrar(View view) {
 
         String nome = etNome.getText().toString();
@@ -135,16 +123,14 @@ public class CadastroOng extends AppCompatActivity {
         String cidade = acMunicipio.getText().toString();
         List<DadosBancario> d= new ArrayList<>();
         d.add(new DadosBancario("caixa","11111","11","1"));
-        Ong ong = new Ong(nome, email, whatsapp, uf, cidade);
+        Ong ong = new Ong(nome, email, whatsapp, uf, cidade, d);
 
-       setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
+        setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
 
-
-        Intent it =new Intent(this, EnviarFoto.class);
+        Intent it = new Intent(this, EnviarFoto.class);
         it.putExtra("ong", (Parcelable) ong);
         it.putExtra("senha",senha);
         startActivity(it);
-
     }
 
     /*
@@ -161,55 +147,36 @@ public class CadastroOng extends AppCompatActivity {
 
     }
 
-    /*
-     * Método que receberá todas as informações dos campos da tela de cadastro
-     * Primeiro passo: cria um usuário no firebase authentication utilizando somente email e senha
-     * Segundo passo: quando o usuário for criado com sucesso, salvará todas as informações menos
-     * a senha, em um novo documento.
-     * */
-
-    /*
-     * Recebe um objeto ong e salva um documento na coleção ongs no bd firestore.
-     * */
-
-    /*
-     * Método que recebe o id de um Spinner e pega o conteudo selecionado
-     * */
-    private String getDataOfSp(int idSpinner) {
-        Spinner sp = findViewById(idSpinner);
-        Object selected = sp.getSelectedItem();
-        return selected == null ? "" : selected.toString();
-    }
-
-    /*
-     * Simula a ação de apertar para voltar
-     * */
     public void voltar(View view) {
         onBackPressed();
-
     }
+
     private void initAutoComplet(){
 
-        new ConsumerData(getApplicationContext(), DadosApi.estados(), dados -> {
-            ArrayAdapter<String> adapterUF = new ArrayAdapter<>(CadastroOng.this,
-                    android.R.layout.simple_dropdown_item_1line, dados);
+        new ConsumerData().getEstados(getApplicationContext(), estados -> {
+            ArrayAdapter<Estado> adapterUF = new ArrayAdapter<>(CadastroOng.this,
+                    android.R.layout.simple_dropdown_item_1line, estados);
             acUf.setAdapter(adapterUF);
-        }).getData();
-        acMunicipio.setOnClickListener((v) -> {
-            if(acUf.getText().toString().isEmpty()){
-                GeralUtils.toast(getApplicationContext(), "Informe o UF primeiro " +
-                        "para carregar as cidades!");
-                return ;
-            }
-            new ConsumerData(getApplicationContext(), DadosApi.municipio(acUf.getText().toString()), new ConsumerData.DataSite() {
-                @Override
-                public void setData(List<String> dados) {
-                    ArrayAdapter<String> adapterMunicipio = new ArrayAdapter<>(CadastroOng.this,
-                            android.R.layout.simple_dropdown_item_1line, dados);
-                    acMunicipio.setAdapter(adapterMunicipio);
-                }
-            }).getData();
-            return ;
         });
+
+        acUf.setOnItemClickListener((parent, view, position, id) -> {
+
+            Estado estado = (Estado)parent.getItemAtPosition(position);
+
+            new ConsumerData().getCidades(getApplicationContext(), estado.getUf(), cidades -> {
+                ArrayAdapter<String> adapterMunicipio = new ArrayAdapter<>(CadastroOng.this,
+                    android.R.layout.simple_dropdown_item_1line, cidades);
+                acMunicipio.setAdapter(adapterMunicipio);
+            });
+
+        });
+
+        acMunicipio.setOnFocusChangeListener((view, b) -> {
+            if(acUf.getText().toString().isEmpty()){
+                GeralUtils.toast(getApplicationContext(), "Informe o UF primeiro para carregar as cidades!");
+            }
+        });
+
     }
+
 }
