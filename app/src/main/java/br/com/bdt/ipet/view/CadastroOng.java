@@ -25,6 +25,7 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.api.DadosApi;
 import br.com.bdt.ipet.data.model.DadosBancario;
+import br.com.bdt.ipet.data.model.Estado;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.SpinnerUtils;
@@ -188,26 +189,29 @@ public class CadastroOng extends AppCompatActivity {
     }
     private void initAutoComplet(){
 
-        new ConsumerData(getApplicationContext(), DadosApi.estados(), dados -> {
-            ArrayAdapter<String> adapterUF = new ArrayAdapter<>(CadastroOng.this,
-                    android.R.layout.simple_dropdown_item_1line, dados);
+        new ConsumerData().getEstados(getApplicationContext(), estados -> {
+            ArrayAdapter<Estado> adapterUF = new ArrayAdapter<>(CadastroOng.this,
+                    android.R.layout.simple_dropdown_item_1line, estados);
             acUf.setAdapter(adapterUF);
-        }).getData();
-        acMunicipio.setOnClickListener((v) -> {
-            if(acUf.getText().toString().isEmpty()){
-                GeralUtils.toast(getApplicationContext(), "Informe o UF primeiro " +
-                        "para carregar as cidades!");
-                return ;
-            }
-            new ConsumerData(getApplicationContext(), DadosApi.municipio(acUf.getText().toString()), new ConsumerData.DataSite() {
-                @Override
-                public void setData(List<String> dados) {
-                    ArrayAdapter<String> adapterMunicipio = new ArrayAdapter<>(CadastroOng.this,
-                            android.R.layout.simple_dropdown_item_1line, dados);
-                    acMunicipio.setAdapter(adapterMunicipio);
-                }
-            }).getData();
-            return ;
         });
+
+        acUf.setOnItemClickListener((parent, view, position, id) -> {
+
+            Estado estado = (Estado)parent.getItemAtPosition(position);
+
+            new ConsumerData().getCidades(getApplicationContext(), estado.getUf(), cidades -> {
+                ArrayAdapter<String> adapterMunicipio = new ArrayAdapter<>(CadastroOng.this,
+                        android.R.layout.simple_dropdown_item_1line, cidades);
+                acMunicipio.setAdapter(adapterMunicipio);
+            });
+
+        });
+
+        acMunicipio.setOnFocusChangeListener((view, b) -> {
+            if(acUf.getText().toString().isEmpty()){
+                GeralUtils.toast(getApplicationContext(), "Informe o UF primeiro para carregar as cidades!");
+            }
+        });
+
     }
 }
