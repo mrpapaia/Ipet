@@ -56,12 +56,12 @@ public class CriarCasoActivity extends AppCompatActivity {
 
         btCriarCaso = findViewById(R.id.btCriarCaso);
 
-        SpinnerUtils.setDataSpinner(
+/*        SpinnerUtils.setDataSpinner(
                 spEspecieCaso,  //spinner
                 getApplicationContext(),   //contexto
                 "Espécie",     //hint do spinner
                 Arrays.asList("Cachorro", "Gato", "Coelho") //conteudo do spinner
-        );
+        );*/
     }
 
     /*

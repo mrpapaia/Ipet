@@ -16,7 +16,7 @@ public class DadosApi {
         this.campo = campo;
     }
     public static DadosApi estados() {
-        DadosApi dadosUrl = new DadosApi("https://servicodados.ibge.gov.br/api/v1/localidades/estados/","sigla");
+        DadosApi dadosUrl = new DadosApi("https://servicodados.ibge.gov.br/api/v1/localidades/estados/","nome");
 
         return dadosUrl;
     }

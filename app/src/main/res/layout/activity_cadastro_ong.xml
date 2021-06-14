@@ -72,10 +72,8 @@
 
     <AutoCompleteTextView
         android:id="@+id/acUF"
-
         style="@style/fildTextStyle"
-
-        android:hint="ESTAdo"
+        android:hint="Estado"
         app:layout_constraintBottom_toTopOf="@+id/acMunicipio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,8 +82,7 @@
     <AutoCompleteTextView
         android:id="@+id/acMunicipio"
         style="@style/fildTextStyle"
-
-        android:hint="Municipio"
+        android:hint="Município"
         app:layout_constraintBottom_toTopOf="@+id/bCadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

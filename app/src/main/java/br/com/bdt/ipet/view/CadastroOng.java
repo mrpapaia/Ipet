@@ -142,6 +142,7 @@ public class CadastroOng extends AppCompatActivity {
         setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
         Intent it =new Intent(this, EnviarFoto.class);
         startActivity(it);
+
     }
 
     /*

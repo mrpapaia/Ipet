@@ -17,9 +17,9 @@ import java.util.List;
 
 public class SpinnerUtils {
 
-    /*
+/*    *//*
      * Método para inicializar, inserir dados e configurar os spinners de UF e Cidade.
-     * */
+     * *//*
     public static void confSpinnersUfCity(final Context context, final Spinner spinnerUF,
                                           String titleSpUf, final Spinner spinnerCity,
                                           final String titleSpCity, Integer preIndexUf,
@@ -52,10 +52,10 @@ public class SpinnerUtils {
         ).runConf();
     }
 
-    /*
+    *//*
      * Método que irá inicializar um style_spinner, setando um conjunto de dados vazios, porém também
      * setará um titulo, adicionando um adaptador personalizado
-     * */
+     * *//*
     private static void initSpinner(Spinner spinner, String title, final Context context) {
         //spinner é desativado, e só é ativado na classe ConfigureSpinner
         spinner.setEnabled(false);
@@ -79,9 +79,9 @@ public class SpinnerUtils {
         }
     }
 
-    /*
+    *//*
      * Irá setar os dados no style_spinner com ajuda do método runConf da classe ConfigureSpinner
-     * */
+     * *//*
     private static void setDataSpCity(Context context, Spinner spinnerCity, String titleSpCity,
                                       String urlStatic, String itemSelected, Integer preIndexCity) {
 
@@ -105,13 +105,13 @@ public class SpinnerUtils {
         ).runConf();
     }
 
-    /*
+    *//*
      * Método para setar dados dentro de um spinner, além de configurar o layout
-     * */
+     * *//*
     public static void setDataSpinner(Spinner spinner, Context context, String title, List<String> dados) {
         spinner.setAdapter(new NothingSelectedSpinnerAdapter(new ArrayAdapter<>(context,
                 R.layout.spinner_row, dados), title, R.layout.spinner_row, context)
         );
-    }
+    }*/
 
 }
