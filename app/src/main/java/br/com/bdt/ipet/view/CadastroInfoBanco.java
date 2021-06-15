@@ -86,7 +86,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
                 )
         );
        cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
-        cadastroSingleton.criarUserOng(this);
+       cadastroSingleton.criarUserOng(this);
 
 
 
