@@ -1,6 +1,7 @@
 package br.com.bdt.ipet.repository;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import br.com.bdt.ipet.data.model.Ong;
@@ -16,7 +17,7 @@ public class OngRepository implements IRepository<Ong> {
 
     @Override
     public Task<Void> save(Ong ong) {
-         return db.collection("ongs").document(ong.getEmail()).set(ong);
+        return db.collection("ongs").document(ong.getEmail()).set(ong);
     }
 
     @Override
@@ -25,8 +26,8 @@ public class OngRepository implements IRepository<Ong> {
     }
 
     @Override
-    public Ong findById(String id) {
-        return null;
+    public Task<DocumentSnapshot> findById(String email) {
+        return db.collection("ongs").document(email).get();
     }
 
     @Override
@@ -38,4 +39,5 @@ public class OngRepository implements IRepository<Ong> {
     public void update(String id, Ong ong) {
 
     }
+
 }

@@ -7,6 +7,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -21,9 +23,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.OngMainController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.CasoUtils;
 import br.com.bdt.ipet.util.UserUtils;
 import br.com.bdt.ipet.util.RvCasoOngAdapter;
@@ -44,7 +48,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListagemDeCasos extends AppCompatActivity {
+public class OngMain extends AppCompatActivity {
 
     FloatingActionButton btCriarCaso;
     RecyclerView rvCasosOng;
@@ -62,6 +66,8 @@ public class ListagemDeCasos extends AppCompatActivity {
     private TextView tvNomeHeader;
     private TextView title;
     private ImageView ivUser;
+    private OngMainController ongMainController;
+    private OngSingleton ongSingleton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,12 +80,15 @@ public class ListagemDeCasos extends AppCompatActivity {
                 dLayout.openDrawer(Gravity.LEFT);
             }
         });
+        ongMainController= new OngMainController();
+        ongSingleton=OngSingleton.getOngSingleton();
 
         title = (TextView) findViewById(R.id.toolbar_title);
         title.setText("IPet");
         emailOng = UserUtils.getEmail();
+
         db = FirebaseFirestore.getInstance();
-        ong = new Ong();
+
         casosOng = new ArrayList<>();
 
         tvNomeDaOng = findViewById(R.id.tvNomeDaOng);
@@ -94,53 +103,37 @@ public class ListagemDeCasos extends AppCompatActivity {
         rvCasosOng.setHasFixedSize(true);
 
         rvCasoOngAdapter = new RvCasoOngAdapter(this, casosOng,
-                new RvCasoOngAdapter.CasoOnClickListener() {
-                    @Override
-                    public void onClickTrash(int position, TextView tv) {
-                        tv.setEnabled(false); //garante que o icone nao será clicável durante a op
-                        apagarCaso(casosOng.get(position).getId(), tv);
-                    }
+                (position, tv) -> {
+                    tv.setEnabled(false); //garante que o icone nao será clicável durante a op
+                    apagarCaso(casosOng.get(position).getId(), tv);
                 });
 
         rvCasosOng.setAdapter(rvCasoOngAdapter);
-        getDadosOng();
+
         setNavigationDrawer();
+
+        ongMainController.initOng(emailOng).addOnCompleteListener(command ->  getDadosOng());
+
+
     }
 
     /*
     * Obtem os dados da Ong filtrada pelo email vindo do login
     * */
+
     public void getDadosOng(){
-        db.collection("ongs")
-                .document(emailOng)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    ong = new Ong();
-                    ong.setEmail(documentSnapshot.get("email").toString());
-                    ong.setCidade(documentSnapshot.get("cidade").toString());
-                    ong.setNome(documentSnapshot.get("nome").toString());
-                    ong.setUf(documentSnapshot.get("uf").toString());
-                    ong.setWhatsapp(documentSnapshot.get("whatsapp").toString());
-                    Log.d("Valtenis", documentSnapshot.get("imgPerfil").toString());
-                    List<DadosBancario>listDadosBancarios= (List<DadosBancario>) documentSnapshot.getData().get("dadosBancarios");
-                    if(listDadosBancarios!=null){
-                        ong.setDadosBancarios(listDadosBancarios);
-                    }
-                    if(documentSnapshot.get("imgPerfil")!=null){
-                        ong.setImgPerfil(documentSnapshot.get("imgPerfil").toString());
-                    }
-                    assert ong != null;
+        if(ongSingleton.getOng().getImgPerfil().isEmpty()){
 
-                    Picasso.get().load(ong.getImgPerfil()).into(ivUser);
+        }else {
+            Picasso.get().load(ongSingleton.getOng().getImgPerfil()).into(ivUser);
+        }
+        tvNomeDaOng.setText("Bem-vinda, " + ongSingleton.getOng().getNome());
+        btCriarCaso.setEnabled(true); //dados da ong carregado, pode criar caso
+        tvNomeHeader.setText(ongSingleton.getOng().getNome());
+        casoUtils = new CasoUtils<>(db, casosOng, rvCasoOngAdapter,
+                null, true, emailOng);
 
-                    tvNomeDaOng.setText("Bem-vinda, " + ong.getNome());
-                    btCriarCaso.setEnabled(true); //dados da ong carregado, pode criar caso
-                    tvNomeHeader.setText(ong.getNome());
-                    casoUtils = new CasoUtils<>(db, casosOng, rvCasoOngAdapter,
-                            null, true, emailOng);
-
-                    casoUtils.listenerCasosOng();
-                });
+        casoUtils.listenerCasosOng();
     }
 
     /*

@@ -23,7 +23,9 @@ public class AuthController {
     public String getCurrentEmail(){
         return mAuth.getCurrentUser().getEmail();
     }
-
+    public Task<Void> recoveryPassword(String email){
+        return mAuth.sendPasswordResetEmail(email);
+    }
     public void logout(){
         mAuth.signOut();
     }

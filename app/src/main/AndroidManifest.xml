@@ -17,10 +17,10 @@
         <activity android:name=".view.EnviarFoto" />
         <activity android:name=".view.CriarCasoActivity" />
         <activity android:name=".view.DetalhesCasoActivity" />
-        <activity android:name=".view.ListagemDeCasos" />
+        <activity android:name=".view.OngMain" />
         <activity android:name=".view.CadastroOng" />
         <activity android:name=".view.QueroAjudarOng" />
-        <activity android:name=".view.SouUmaOngActivity" />
+        <activity android:name=".view.OngLogin" />
         <activity android:name=".view.MainActivity" />
         <activity android:name=".view.Filter" />
         <activity

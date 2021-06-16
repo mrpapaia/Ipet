@@ -12,20 +12,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.AuthController;
 import br.com.bdt.ipet.util.GeralUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 
 import static br.com.bdt.ipet.util.GeralUtils.heightTela;
 import static br.com.bdt.ipet.util.GeralUtils.setMargins;
 import static br.com.bdt.ipet.util.GeralUtils.validateEmailFormat;
 
-public class SouUmaOngActivity extends AppCompatActivity {
+public class OngLogin extends AppCompatActivity {
 
-    FirebaseAuth mAuth;
+
     EditText etEmail, etSenha;
     Button bLogin;
     TextView tvNaoTenhoCadastro, tvEsqueciSenha, voltar;
@@ -34,7 +34,7 @@ public class SouUmaOngActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sou_uma_ong);
+        setContentView(R.layout.activity_ong_login_screen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         etEmail = findViewById(R.id.etEmail);
@@ -47,7 +47,6 @@ public class SouUmaOngActivity extends AppCompatActivity {
 
         setarInformacoes();
 
-        mAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -91,7 +90,7 @@ public class SouUmaOngActivity extends AppCompatActivity {
      * */
     public void setarInformacoes() {
 
-        int heighScreen = heightTela(SouUmaOngActivity.this);
+        int heighScreen = heightTela(OngLogin.this);
 
         if(heighScreen < 1400){
             ivTitulo.getLayoutParams().width = (int)(heighScreen*0.34);
@@ -107,8 +106,8 @@ public class SouUmaOngActivity extends AppCompatActivity {
     public void realizarLogin(String email, String senha){
 
         enableViews(false); //desativa as views enquanto aguarda a requisição, para evitar bug
-
-        mAuth.signInWithEmailAndPassword(email, senha)
+        AuthController authController= new AuthController();
+        authController.login(email, senha)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -136,8 +135,8 @@ public class SouUmaOngActivity extends AppCompatActivity {
                     "no campo E-mail para recuperar sua senha!");
             return;
         }
-
-        mAuth.sendPasswordResetEmail(emailAtual)
+        AuthController authController= new AuthController();
+        authController.recoveryPassword(emailAtual)
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -162,7 +161,7 @@ public class SouUmaOngActivity extends AppCompatActivity {
      * Serve para chamar a activity de listagem de casos passando a informação do email da ong
      * */
     public void listagemDeCasos(){
-        Intent intent = new Intent(this, ListagemDeCasos.class);
+        Intent intent = new Intent(this, OngMain.class);
         startActivity(intent);
     }
 

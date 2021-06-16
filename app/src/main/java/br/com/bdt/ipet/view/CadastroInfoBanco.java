@@ -19,13 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.CadastroController;
 import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.repository.BancoRepository;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 
 public class CadastroInfoBanco extends AppCompatActivity {
-
+    private CadastroController cadastroController;
     private Toolbar myToolbar;
     private TextView title;
     private AutoCompleteTextView acBanco;
@@ -39,6 +40,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_info_banco);
+        cadastroController= new CadastroController();
         myToolbar = (Toolbar) findViewById(R.id.tbNormal);
         title = (TextView) findViewById(R.id.toolbar_title);
         acBanco =findViewById(R.id.acBanco);
@@ -101,11 +103,11 @@ public class CadastroInfoBanco extends AppCompatActivity {
                 )
         );
        cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
-       cadastroSingleton.criarUserOng(this);
+        cadastroController.criarUserOng(this);
     }
 
     public void end(View v){
-        cadastroSingleton.criarUserOng(this);
+        cadastroController.criarUserOng(this);
     }
 
 }

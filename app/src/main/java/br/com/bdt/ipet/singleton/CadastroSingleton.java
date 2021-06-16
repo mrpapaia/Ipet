@@ -35,62 +35,23 @@ public class CadastroSingleton {
         return cadastroSingleton;
     }
 
-    public void criarUserOng(Activity act) {
 
-        AuthController authController = new AuthController();
-
-        authController.create(ong.getEmail(), senha)
-                .addOnCompleteListener(act, task -> {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "Cadastrou");
-                        sendImg(act);
-                    } else {
-                        Log.d(TAG, "Erro no cadastro");
-                    }
-                });
-    }
-
-    public void salvarDadosOng(Activity act) {
-
-        IRepository<Ong> ongRepository = new OngRepository(FirebaseFirestore.getInstance());
-
-        ongRepository.save(ong).addOnSuccessListener(aVoid -> {
-            Log.d(TAG, "Sucesso save");
-            act.startActivity(new Intent(act.getApplicationContext(), FimCadastro.class));
-            act.finish();
-        }).addOnFailureListener(aVoid -> {
-            Log.d(TAG, ong.toString());
-        });
-    }
-
-    public void sendImg(Activity act) {
-
-        IStorage storageRepository = new StorageRepository(FirebaseStorage.getInstance());
-
-        storageRepository.saveImg(ong.getEmail(), uri).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Log.d(TAG, "Sucesso save IMG");
-                ong.setImgPerfil(task.getResult().toString());
-                salvarDadosOng(act);
-            } else {
-                Log.d(TAG, "Erro save IMG");
-            }
-        });
-
-    }
 
     public Ong getOng() {
         return ong;
     }
-
     public void setOng(Ong ong) {
         this.ong = ong;
     }
-
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
+    public String getSenha() {
+        return senha;
+    }
+    public Uri getUri() {
+        return uri;
+    }
     public void setUri(Uri uri) {
         this.uri = uri;
     }

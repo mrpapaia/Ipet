@@ -9,8 +9,6 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.google.firebase.FirebaseApp;
-
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.util.UserUtils;
 
@@ -26,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(() -> {
             //Se a ong estiver logada, já inicia na tela de gerenciamento da ong
             if (UserUtils.getUser() != null) {
-                startActivity(new Intent(getBaseContext(), ListagemDeCasos.class));
+                startActivity(new Intent(getBaseContext(), OngMain.class));
                 finish();
             } else { //senão, inicia a tela main
                 startActivity(new Intent(getBaseContext(), MainActivity.class));

@@ -30,7 +30,7 @@ public class BancoRepository implements IRepository<Banco> {
     }
 
     @Override
-    public Banco findById(String id) {
+    public Task<DocumentSnapshot> findById(String id) {
         return null;
     }
 

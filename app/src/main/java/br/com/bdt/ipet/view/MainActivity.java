@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
      * Serve para chamar a activity que irá credenciar uma Ong
      * */
     public void openSouUmaOng(View view){
-        Intent intent = new Intent(this, SouUmaOngActivity.class);
+        Intent intent = new Intent(this, OngLogin.class);
         startActivity(intent);
     }
 

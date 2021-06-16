@@ -117,7 +117,7 @@ public class CadastroOng extends AppCompatActivity {
 
         String CNPJ = etCNPJ.getText().toString();
         if (!isValidInput(CNPJ, "text")) {
-            etSenha.setError("Insira um CNPJ");
+            etCNPJ.setError("Insira um CNPJ");
             return;
         }
 
@@ -180,11 +180,7 @@ public class CadastroOng extends AppCompatActivity {
     /*
      * Método que recebe o id de um Spinner e pega o conteudo selecionado
      * */
-    private String getDataOfSp(int idSpinner) {
-        Spinner sp = findViewById(idSpinner);
-        Object selected = sp.getSelectedItem();
-        return selected == null ? "" : selected.toString();
-    }
+
 
     /*
      * Simula a ação de apertar para voltar

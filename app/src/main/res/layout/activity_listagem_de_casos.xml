@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#FAFAFA"
 
-    tools:context=".view.ListagemDeCasos">
+    tools:context=".view.OngMain">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
