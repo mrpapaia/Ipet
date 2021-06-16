@@ -1,11 +1,9 @@
 package br.com.bdt.ipet.data.model;
 
-import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
-import java.net.URI;
 import java.util.List;
 
 public class Ong implements Serializable, Parcelable {
@@ -13,6 +11,7 @@ public class Ong implements Serializable, Parcelable {
     private String nome;
     private String email;
     private String whatsapp;
+    private String CNPJ;
     private String uf;
     private String cidade;
     private List<DadosBancario> dadosBancarios;
@@ -21,18 +20,20 @@ public class Ong implements Serializable, Parcelable {
     public Ong() {
     }
 
-    public Ong(String nome, String email, String whatsapp, String uf, String cidade) {
+    public Ong(String nome, String email, String whatsapp, String CNPJ, String uf, String cidade) {
         this.nome = nome;
         this.email = email;
         this.whatsapp = whatsapp;
+        this.CNPJ = CNPJ;
         this.uf = uf;
         this.cidade = cidade;
-
     }
-    public Ong(String nome, String email, String whatsapp, String uf, String cidade, List<DadosBancario> dadosBancarios) {
+
+    public Ong(String nome, String email, String whatsapp, String CNPJ, String uf, String cidade, List<DadosBancario> dadosBancarios) {
         this.nome = nome;
         this.email = email;
         this.whatsapp = whatsapp;
+        this.CNPJ = CNPJ;
         this.uf = uf;
         this.cidade = cidade;
         this.dadosBancarios = dadosBancarios;
@@ -42,6 +43,7 @@ public class Ong implements Serializable, Parcelable {
         nome = in.readString();
         email = in.readString();
         whatsapp = in.readString();
+        CNPJ = in.readString();
         uf = in.readString();
         cidade = in.readString();
         dadosBancarios = in.createTypedArrayList(DadosBancario.CREATOR);
@@ -52,6 +54,7 @@ public class Ong implements Serializable, Parcelable {
         dest.writeString(nome);
         dest.writeString(email);
         dest.writeString(whatsapp);
+        dest.writeString(CNPJ);
         dest.writeString(uf);
         dest.writeString(cidade);
         dest.writeTypedList(dadosBancarios);
@@ -98,6 +101,14 @@ public class Ong implements Serializable, Parcelable {
         this.whatsapp = whatsapp;
     }
 
+    public String getCNPJ() {
+        return CNPJ;
+    }
+
+    public void setCNPJ(String CNPJ) {
+        this.CNPJ = CNPJ;
+    }
+
     public String getUf() {
         return uf;
     }
@@ -137,10 +148,11 @@ public class Ong implements Serializable, Parcelable {
                 "nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", whatsapp='" + whatsapp + '\'' +
+                ", CNPJ='" + CNPJ + '\'' +
                 ", uf='" + uf + '\'' +
                 ", cidade='" + cidade + '\'' +
                 ", dadosBancarios=" + dadosBancarios +
-                ", imgPerfil=" + imgPerfil +
+                ", imgPerfil='" + imgPerfil + '\'' +
                 '}';
     }
 }

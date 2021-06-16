@@ -1,35 +1,31 @@
 package br.com.bdt.ipet.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.data.model.DadosBancario;
-import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.repository.BancoRepository;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 
 public class CadastroInfoBanco extends AppCompatActivity {
+
     private Toolbar myToolbar;
     private TextView title;
     private AutoCompleteTextView acBanco;
@@ -38,10 +34,6 @@ public class CadastroInfoBanco extends AppCompatActivity {
     private CheckBox cbHablitapix;
     private EditText etChavePix;
 
-
-    private FirebaseFirestore db;
-    private FirebaseAuth mAuth;
-
     private CadastroSingleton cadastroSingleton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +41,11 @@ public class CadastroInfoBanco extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_info_banco);
         myToolbar = (Toolbar) findViewById(R.id.tbNormal);
         title = (TextView) findViewById(R.id.toolbar_title);
-        acBanco=findViewById(R.id.acBanco);
-        etConta= findViewById(R.id.etConta);
-        etAgencia=findViewById(R.id.etConta);
-        cbHablitapix=findViewById(R.id.cbHabilitaPix);
-        etChavePix=findViewById(R.id.etChavePix);
+        acBanco =findViewById(R.id.acBanco);
+        etConta = findViewById(R.id.etConta);
+        etAgencia = findViewById(R.id.etConta);
+        cbHablitapix = findViewById(R.id.cbHabilitaPix);
+        etChavePix = findViewById(R.id.etChavePix);
         title.setText("Dados Bancarios");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -61,11 +53,34 @@ public class CadastroInfoBanco extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
         etChavePix.setVisibility(View.INVISIBLE);
-        cadastroSingleton=CadastroSingleton.getCadastroSingleton();
-
-
+        cadastroSingleton = CadastroSingleton.getCadastroSingleton();
+        initAutoComplet();
     }
 
+    @SuppressWarnings("unchecked")
+    private void initAutoComplet(){
+        BancoRepository bancoRepository = new BancoRepository(FirebaseFirestore.getInstance());
+
+        bancoRepository.getAll().addOnCompleteListener(task -> {
+
+            DocumentSnapshot documentSnapshot = task.getResult();
+
+            assert documentSnapshot != null;
+            List<Map<String, String>> bancosMap = (List<Map<String, String>>) documentSnapshot.get("bancos");
+
+            List<Banco> bancos = new ArrayList<>();
+
+            assert bancosMap != null;
+            for(Map<String, String> map : bancosMap){
+                bancos.add(new Banco(map.get("label"), map.get("value")));
+            }
+
+            ArrayAdapter<Banco> adapterBancos = new ArrayAdapter<>(CadastroInfoBanco.this,
+                    android.R.layout.simple_dropdown_item_1line, bancos);
+            acBanco.setAdapter(adapterBancos);
+
+        });
+    }
 
     public void hablitaPix(View v){
         if(cbHablitapix.isChecked()){
@@ -87,17 +102,10 @@ public class CadastroInfoBanco extends AppCompatActivity {
         );
        cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
        cadastroSingleton.criarUserOng(this);
-
-
-
     }
+
     public void end(View v){
         cadastroSingleton.criarUserOng(this);
-
-
-
     }
-
-
 
 }

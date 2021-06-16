@@ -1,16 +1,11 @@
 package br.com.bdt.ipet.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -19,42 +14,29 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.CadastroController;
 import br.com.bdt.ipet.data.api.ConsumerData;
-import br.com.bdt.ipet.data.api.DadosApi;
-import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Estado;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
-import br.com.bdt.ipet.util.SpinnerUtils;
 import br.com.bdt.ipet.data.model.Ong;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import static br.com.bdt.ipet.util.GeralUtils.heightTela;
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 import static br.com.bdt.ipet.util.GeralUtils.setMargins;
-import static br.com.bdt.ipet.util.GeralUtils.toast;
 
 public class CadastroOng extends AppCompatActivity {
 
+    private EditText etNome;
+    private EditText etEmail;
+    private EditText etSenha;
+    private EditText etWhatsapp;
+    private EditText etCNPJ;
 
-    EditText etNome, etEmail, etSenha, etWhatsapp;
-
-
-    Button bCadastrar;
-    ImageView ivCadastro;
+    private Button bCadastrar;
+    private ImageView ivCadastro;
     private Toolbar myToolbar;
     private TextView title;
     private AutoCompleteTextView acUf;
@@ -80,13 +62,11 @@ public class CadastroOng extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-
-
-
         etNome = findViewById(R.id.etNome);
         etEmail = findViewById(R.id.etEmail);
         etSenha = findViewById(R.id.etSenha);
         etWhatsapp = findViewById(R.id.etWhatsapp);
+        etCNPJ = findViewById(R.id.etCNPJ);
         initAutoComplet();
 
         bCadastrar = findViewById(R.id.bCadastrar);
@@ -108,6 +88,8 @@ public class CadastroOng extends AppCompatActivity {
      * por meio do método criarUserOng
      * */
     public void cadastrar(View view) {
+
+        CadastroController cadastroController = new CadastroController();
 
         String nome = etNome.getText().toString();
         if (!isValidInput(nome, "text")) {
@@ -133,16 +115,40 @@ public class CadastroOng extends AppCompatActivity {
             return;
         }
 
+        String CNPJ = etCNPJ.getText().toString();
+        if (!isValidInput(CNPJ, "text")) {
+            etSenha.setError("Insira um CNPJ");
+            return;
+        }
+
         String uf = acUf.getText().toString();
 
         String cidade = acMunicipio.getText().toString();
 
-        Ong ong = new Ong(nome, email, whatsapp, uf, cidade);
-        cadastroSingleton.setOng(ong);
-        cadastroSingleton.setSenha(senha);
-        setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
-        Intent it =new Intent(this, EnviarFoto.class);
-        startActivity(it);
+        cadastroController.isValidCNPJ(CNPJ, getApplicationContext(), response -> {
+
+            String status = response.getString("status");
+            boolean valid = false;
+
+            if(status.equals("OK")){
+                String code = response.getJSONArray("atividade_principal")
+                        .getJSONObject(0)
+                        .getString("code");
+                valid = code.equals("94.30-8-00");
+            }
+
+            if(!valid) {
+                Ong ong = new Ong(nome, email, whatsapp, CNPJ, uf, cidade);
+                cadastroSingleton.setOng(ong);
+                cadastroSingleton.setSenha(senha);
+                setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
+                Intent it = new Intent(this, EnviarFoto.class);
+                startActivity(it);
+            }else{
+                etCNPJ.setError("Insira um CNPJ válido!");
+            }
+
+        });
 
     }
 
@@ -154,10 +160,10 @@ public class CadastroOng extends AppCompatActivity {
         etEmail.setEnabled(op);
         etSenha.setEnabled(op);
         etWhatsapp.setEnabled(op);
+        etCNPJ.setEnabled(op);
         acUf.setEnabled(op);
         acMunicipio.setEnabled(op);
         bCadastrar.setEnabled(op);
-
     }
 
     /*

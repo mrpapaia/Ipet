@@ -43,6 +43,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etNome" />
 
+
     <EditText
         android:id="@+id/etSenha"
         style="@style/fildTextStyle"
@@ -64,25 +65,38 @@
         android:drawableLeft="@drawable/ic_phone"
         android:hint="Whatsapp"
         android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/acUF"
+        app:layout_constraintBottom_toTopOf="@+id/etCNPJ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etSenha" />
 
-
-    <AutoCompleteTextView
-        android:id="@+id/acUF"
+    <EditText
+        android:id="@+id/etCNPJ"
         style="@style/fildTextStyle"
-        android:hint="Estado"
-        app:layout_constraintBottom_toTopOf="@+id/acMunicipio"
+        android:drawableLeft="@drawable/ic_cnpjdoc"
+        android:hint="CNPJ"
+        android:inputType="phone"
+        app:layout_constraintBottom_toTopOf="@+id/acUF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etWhatsapp" />
 
     <AutoCompleteTextView
+        android:id="@+id/acUF"
+        style="@style/fildTextStyle"
+        android:hint="Estado"
+        android:drawableLeft="@drawable/ic_location"
+        app:layout_constraintBottom_toTopOf="@+id/acMunicipio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etCNPJ" />
+
+    <AutoCompleteTextView
         android:id="@+id/acMunicipio"
         style="@style/fildTextStyle"
+        android:layout_marginBottom="79dp"
         android:hint="Município"
+        android:drawableLeft="@drawable/ic_location"
         app:layout_constraintBottom_toTopOf="@+id/bCadastrar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="33dp"
         android:background="@drawable/style_button"
         android:onClick="cadastrar"
@@ -101,6 +115,7 @@
         android:textColor="#fff"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/acMunicipio" />
 
