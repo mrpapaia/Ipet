@@ -1,1 +1,1 @@
-# Ipet
+https://github.com/mrpapaia/Ipet.wiki.git
