@@ -6,8 +6,9 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="metodosPagamento">Escolha um meio de pagamento</string>
-    <string name="exPix">00.000.000/0000–00</string>
+    <string name="metodosPagamento">Agora escolha um banco para continuar</string>
+    <string name="valorDoacao">Informe o valor da doação</string>
+    <string name="nomeBanco">Caixa Econômica Federal</string>
     <string name="descLogoPix">logo pix</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
