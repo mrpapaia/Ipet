@@ -102,7 +102,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
                         etChavePix.getText().toString()
                 )
         );
-       cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
+        cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
         cadastroController.criarUserOng(this);
     }
 

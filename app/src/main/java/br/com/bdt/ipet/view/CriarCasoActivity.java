@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.SpinnerUtils;
 import br.com.bdt.ipet.data.model.Ong;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,8 +43,10 @@ public class CriarCasoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_criar_caso);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        OngSingleton ongSingleton = OngSingleton.getOngSingleton();
+
         db = FirebaseFirestore.getInstance();
-        ong = getIntent().getParcelableExtra("ong");
+        ong = ongSingleton.getOng();
 
         etTituloCaso = findViewById(R.id.etTituloCaso);
         etDescricaoCaso = findViewById(R.id.etDescricaoCaso);
@@ -56,12 +59,12 @@ public class CriarCasoActivity extends AppCompatActivity {
 
         btCriarCaso = findViewById(R.id.btCriarCaso);
 
-/*        SpinnerUtils.setDataSpinner(
+        SpinnerUtils.setDataSpinner(
                 spEspecieCaso,  //spinner
                 getApplicationContext(),   //contexto
                 "Espécie",     //hint do spinner
                 Arrays.asList("Cachorro", "Gato", "Coelho") //conteudo do spinner
-        );*/
+        );
     }
 
     /*

@@ -4,29 +4,28 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import br.com.bdt.ipet.data.model.Banco;
-import br.com.bdt.ipet.repository.interfaces.IRepository;
+import java.util.Objects;
 
-public class BancoRepository implements IRepository<Banco> {
+import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.repository.interfaces.IRepository;
+import br.com.bdt.ipet.util.UserUtils;
+
+public class CasoRepository implements IRepository<Caso> {
 
     private FirebaseFirestore db;
 
-    public BancoRepository(FirebaseFirestore db) {
+    public CasoRepository(FirebaseFirestore db) {
         this.db = db;
     }
 
     @Override
-    public Task<Void> save(Banco banco) {
+    public Task<Void> save(Caso caso) {
         return null;
     }
 
     @Override
     public Task<Void> findAll() {
         return null;
-    }
-
-    public Task<DocumentSnapshot> getAll(){
-        return db.collection("utils").document("bancos").get();
     }
 
     @Override
@@ -36,11 +35,16 @@ public class BancoRepository implements IRepository<Banco> {
 
     @Override
     public Task<Void> delete(String id) {
-        return null;
+        String emailOng = Objects.requireNonNull(UserUtils.getEmail());
+        return db.collection("ongs")
+                .document(emailOng)
+                .collection("casos")
+                .document(id)
+                .delete();
     }
 
     @Override
-    public Task<Void> update(String id, Banco banco) {
+    public Task<Void> update(String id, Caso caso) {
         return null;
     }
 }

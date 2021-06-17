@@ -9,6 +9,6 @@ public interface IRepository<T> {
     Task<Void> save(T t);
     Task<Void> findAll();
     Task<DocumentSnapshot> findById(String id);
-    void delete(T t);
-    void update(String id, T t);
+    Task<Void> delete(String id);
+    Task<Void> update(String id, T t);
 }

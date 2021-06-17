@@ -26,10 +26,9 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
         void onClickTrash(int position, TextView tv);
     }
 
-    public RvCasoOngAdapter(Context context, List<Caso> casosOng,
-                            CasoOnClickListener onClickListener) {
+    public RvCasoOngAdapter(Context context, List<Caso> casosOng, CasoOnClickListener onClickListener) {
         this.context = context;
-        this.casosOng = casosOng != null ? casosOng : new ArrayList<Caso>();
+        this.casosOng = casosOng != null ? casosOng : new ArrayList<>();
         this.onClickListener = onClickListener;
     }
 
@@ -52,23 +51,16 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
 
         Caso caso = casosOng.get(position);
 
-        holder.tvOng.setText(caso.getOng().getNome());
         holder.tvTitulo.setText(caso.getTitulo());
         holder.tvDescricao.setText(caso.getDescricao());
         holder.tvAnimalData.setText(caso.getNomeAnimal() + " (" + caso.getEspecie() + ")");
         holder.tvValor.setText(String.valueOf(caso.getValor()));
 
-        holder.trashTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickListener.onClickTrash(position, holder.trashTv);
-            }
-        });
+        holder.trashTv.setOnClickListener(v -> onClickListener.onClickTrash(position, holder.trashTv));
     }
 
     public static class CasoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvOng;
         TextView tvTitulo;
         TextView tvDescricao;
         TextView tvValor;
@@ -79,7 +71,6 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
         public CasoViewHolder(View view) {
             super(view);
             this.view = view;
-            tvOng = view.findViewById(R.id.tvOngData);
             tvTitulo = view.findViewById(R.id.tvTitleData);
             tvDescricao = view.findViewById(R.id.tvDescricaoData);
             tvValor = view.findViewById(R.id.tvValorData);

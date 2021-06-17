@@ -11,6 +11,10 @@ public class DadosBancario implements Serializable, Parcelable {
     private String agencia;
     private String chavePix;
 
+    public DadosBancario() {
+
+    }
+
     public DadosBancario(String banco, String conta, String agencia, String chavePix) {
         this.banco = banco;
         this.conta = conta;

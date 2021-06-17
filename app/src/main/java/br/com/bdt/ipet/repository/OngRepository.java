@@ -31,13 +31,13 @@ public class OngRepository implements IRepository<Ong> {
     }
 
     @Override
-    public void delete(Ong ong) {
-
+    public Task<Void> delete(String id) {
+        return null;
     }
 
     @Override
-    public void update(String id, Ong ong) {
-
+    public Task<Void> update(String id, Ong ong) {
+        return null;
     }
 
 }

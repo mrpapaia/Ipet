@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class CasoUtils<T extends RecyclerView.ViewHolder> {
 
-    public interface Changes{
+    public interface Changes {
         void setarQuantidadeCasos(int qtd);
     }
 

@@ -90,7 +90,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:onClick="abrirFiltro"
             android:backgroundTint="#3CB7BC"
             android:src="@drawable/filter"
             app:fabCustomSize="65dp"

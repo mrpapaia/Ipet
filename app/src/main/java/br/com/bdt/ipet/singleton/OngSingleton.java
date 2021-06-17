@@ -1,11 +1,8 @@
 package br.com.bdt.ipet.singleton;
 
-
-
 import br.com.bdt.ipet.data.model.Ong;
 
 public class OngSingleton {
-
 
     private final String TAG = "OngSingleton.class";
 
