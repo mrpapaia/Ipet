@@ -13,9 +13,6 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="texto_toolbar">texto</string>
-
-    <string name="pularEtapa">Pular etapa</string>
-
     <string name="textoParagrafo">Ao utilizar uma foto, você poderá aumentar as chances de receber ajuda em uma doação.</string>
     <string name="texto_banco">Banco</string>
     <string name="texto_num_conta">Conta</string>
@@ -25,4 +22,7 @@
     <string name="texto_dados_bancarios">Dados Bancários</string>
     <string name="texto_confirmar_doacao">Confirmar Doações</string>
     <string name="texto_sair">Sair</string>
+    <string name="pular_etapa_e_concluir">Pular etapa e concluir</string>
+    <string name="concluir">Concluir</string>
+    <string name="pular_etapa">Pular etapa</string>
 </resources>

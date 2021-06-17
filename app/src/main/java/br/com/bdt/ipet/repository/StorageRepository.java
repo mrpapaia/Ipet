@@ -3,7 +3,6 @@ package br.com.bdt.ipet.repository;
 import android.net.Uri;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -12,7 +11,7 @@ import br.com.bdt.ipet.repository.interfaces.IStorage;
 
 public class StorageRepository implements IStorage {
 
-    private FirebaseStorage storage;
+    private final FirebaseStorage storage;
 
     public StorageRepository(FirebaseStorage storage) {
         this.storage = storage;

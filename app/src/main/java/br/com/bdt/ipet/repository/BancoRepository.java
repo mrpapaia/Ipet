@@ -9,7 +9,7 @@ import br.com.bdt.ipet.repository.interfaces.IRepository;
 
 public class BancoRepository implements IRepository<Banco> {
 
-    private FirebaseFirestore db;
+    private final FirebaseFirestore db;
 
     public BancoRepository(FirebaseFirestore db) {
         this.db = db;

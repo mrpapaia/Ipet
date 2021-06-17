@@ -1,12 +1,8 @@
 package br.com.bdt.ipet.control;
 
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,11 +12,10 @@ import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.repository.OngRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepository;
 import br.com.bdt.ipet.singleton.OngSingleton;
-import br.com.bdt.ipet.util.CasoUtils;
-import br.com.bdt.ipet.util.UserUtils;
 
 public class OngMainController {
-    private OngSingleton ongSingleton;
+
+    private final OngSingleton ongSingleton;
 
     public OngMainController() {
         this.ongSingleton = OngSingleton.getOngSingleton();
@@ -28,32 +23,34 @@ public class OngMainController {
 
     public Task<DocumentSnapshot> initOng(){
 
-        String email = Objects.requireNonNull(UserUtils.getEmail());
+        AuthController authController = new AuthController();
+        String email = authController.getCurrentEmail();
         IRepository<Ong> ongRepository = new OngRepository(FirebaseFirestore.getInstance());
 
         return ongRepository.findById(email).addOnSuccessListener(documentSnapshot -> {
 
-           Ong ong = new Ong();
-           ong.setEmail(documentSnapshot.get("email").toString());
-           ong.setCidade(documentSnapshot.get("cidade").toString());
-           ong.setNome(documentSnapshot.get("nome").toString());
-           ong.setUf(documentSnapshot.get("uf").toString());
-           ong.setWhatsapp(documentSnapshot.get("whatsapp").toString());
+            Ong ong = new Ong();
+            ong.setEmail(documentSnapshot.getString("email"));
+            ong.setCidade(documentSnapshot.getString("cidade"));
+            ong.setNome(documentSnapshot.getString("nome"));
+            ong.setUf(documentSnapshot.getString("uf"));
+            ong.setWhatsapp(documentSnapshot.getString("whatsapp"));
 
-            List<DadosBancario> listDadosBancarios= (List<DadosBancario>) documentSnapshot.getData().get("dadosBancarios");
+            Object dadosbanco = Objects.requireNonNull(documentSnapshot.getData()).get("dadosBancarios");
+            @SuppressWarnings("unchecked")
+            List<DadosBancario> listDadosBancarios = (List<DadosBancario>) dadosbanco;
 
-            if(listDadosBancarios!=null){
+            if(listDadosBancarios != null){
                 ong.setDadosBancarios(listDadosBancarios);
             }
 
-            if(documentSnapshot.get("imgPerfil")!=null){
-                ong.setImgPerfil(documentSnapshot.get("imgPerfil").toString());
+            if(documentSnapshot.get("imgPerfil") != null){
+                ong.setImgPerfil(documentSnapshot.getString("imgPerfil"));
             }else{
                 ong.setImgPerfil("");
             }
 
             ongSingleton.setOng(ong);
-
         });
     }
 }

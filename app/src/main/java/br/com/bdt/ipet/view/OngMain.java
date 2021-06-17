@@ -15,20 +15,18 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.AuthController;
 import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.control.OngMainController;
-import br.com.bdt.ipet.control.interfaces.IChanges;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.repository.CasoRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepository;
 import br.com.bdt.ipet.singleton.OngSingleton;
-import br.com.bdt.ipet.util.UserUtils;
+import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.RvCasoOngAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -39,11 +37,8 @@ public class OngMain extends AppCompatActivity {
     private RecyclerView rvCasosOng;
     private RvCasoOngAdapter rvCasoOngAdapter;
     private DrawerLayout dLayout;
-    private Toolbar tbMain;
     private TextView tvNomeHeader;
-    private TextView title;
     private ImageView ivUser;
-    private OngMainController ongMainController;
     private OngSingleton ongSingleton;
     private CasoController casoController;
 
@@ -53,12 +48,11 @@ public class OngMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listagem_de_casos);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        tbMain=findViewById(R.id.tbMain);
+        Toolbar tbMain = findViewById(R.id.tbMain);
         tbMain.setNavigationOnClickListener(view -> dLayout.openDrawer(Gravity.LEFT));
-        ongMainController= new OngMainController();
-        ongSingleton=OngSingleton.getOngSingleton();
+        ongSingleton = OngSingleton.getOngSingleton();
 
-        title = (TextView) findViewById(R.id.toolbar_title);
+        TextView title = findViewById(R.id.toolbar_title);
         title.setText("IPet");
 
         tvNomeDaOng = findViewById(R.id.tvNomeDaOng);
@@ -78,14 +72,12 @@ public class OngMain extends AppCompatActivity {
         casoController.initDataRecyclerViewOng(casos -> {
 
             rvCasoOngAdapter = new RvCasoOngAdapter(getApplicationContext(), casos, (position, tv) -> {
-
                 tv.setEnabled(false);
-
                 casoRepository.delete(casos.get(position).getId()).addOnSuccessListener(aVoid -> {
-                            Toast.makeText(getApplicationContext(), "Caso apagado", Toast.LENGTH_LONG).show();
-                            tv.setEnabled(true);
+                    GeralUtils.toast(getApplicationContext(), "Caso apagado");
+                    tv.setEnabled(true);
                 }).addOnFailureListener(e -> {
-                    Toast.makeText(getApplicationContext(), "Erro ao apagar, tente novamente mais tarde", Toast.LENGTH_LONG).show();
+                    GeralUtils.toast(getApplicationContext(), "Erro ao apagar, tente novamente mais tarde");
                 });
             });
 
@@ -94,12 +86,13 @@ public class OngMain extends AppCompatActivity {
 
         setNavigationDrawer();
 
+        OngMainController ongMainController = new OngMainController();
         ongMainController.initOng().addOnCompleteListener(command ->  getDadosOng());
     }
 
     @SuppressLint("SetTextI18n")
     public void getDadosOng(){
-        if(!ongSingleton.getOng().getImgPerfil().isEmpty()){
+        if(ongSingleton.getOng().getImgPerfil().isEmpty()){
             //Lógica para ONG sem foto
         } else {
             Picasso.get().load(ongSingleton.getOng().getImgPerfil()).into(ivUser);
@@ -111,46 +104,54 @@ public class OngMain extends AppCompatActivity {
         casoController.listenerCasosOng();
     }
 
-    public void criarCaso(View view){
-        Intent intent = new Intent(getApplicationContext(), CriarCasoActivity.class);
-        startActivity(intent);
-    }
-
-    public void deslogar(View view){
-        UserUtils.logoutUser();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-    }
-
     @Override
     public void onBackPressed() {
         finishAffinity();
     }
 
+    @SuppressLint("NonConstantResourceId")
     private  void setNavigationDrawer() {
         dLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.navigation);
         navView.setItemIconTintList(null);
         View headerView = navView.getHeaderView(0);
-        tvNomeHeader=headerView.findViewById(R.id.tvNomeHeader);
+        tvNomeHeader = headerView.findViewById(R.id.tvNomeHeader);
         tvNomeHeader.setText("");
-        ivUser=headerView.findViewById(R.id.ivUser);
+        ivUser = headerView.findViewById(R.id.ivUser);
 
         navView.setNavigationItemSelectedListener(menuItem -> {
-            int itemId = menuItem.getItemId();
-            if(itemId==R.id.menuItemDadosBancarios){
-                Intent it = new Intent(getApplicationContext(), CadastroInfoBanco.class);
-                it.putExtra("frag",4);
-                startActivity(it);
-                dLayout.closeDrawers();
-            }else if(itemId==R.id.menuItemConfirmarDoacao){
-
-            } else if (itemId == R.id.menuItemSair) {
-                FirebaseAuth.getInstance().signOut();
-                finish();
+            switch (menuItem.getItemId()){
+                case R.id.menuItemDadosBancarios: initCadastroBancario(); break;
+                case R.id.menuItemConfirmarDoacao: initConfirmarDoacao(); break;
+                case R.id.menuItemSair: initSair(); break;
             }
             return false;
         });
+    }
+
+    public void initCadastroBancario(){
+        Intent it = new Intent(getApplicationContext(), CadastroInfoBanco.class);
+        it.putExtra("frag",4);
+        startActivity(it);
+        dLayout.closeDrawers();
+    }
+
+    public void initConfirmarDoacao(){
+
+    }
+
+    public void initSair(){
+        AuthController authController = new AuthController();
+        authController.logout();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+    }
+
+    public void criarCaso(View view){
+        Intent intent = new Intent(getApplicationContext(), CriarCasoActivity.class);
+        startActivity(intent);
     }
 
 }

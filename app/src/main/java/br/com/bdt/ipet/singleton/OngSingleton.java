@@ -4,8 +4,6 @@ import br.com.bdt.ipet.data.model.Ong;
 
 public class OngSingleton {
 
-    private final String TAG = "OngSingleton.class";
-
     private static OngSingleton ongSingleton;
     private Ong ong;
 

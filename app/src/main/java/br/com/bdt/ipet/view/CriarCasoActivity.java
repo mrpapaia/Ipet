@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.singleton.OngSingleton;
-import br.com.bdt.ipet.util.SpinnerUtils;
+import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.data.model.Ong;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,7 +59,7 @@ public class CriarCasoActivity extends AppCompatActivity {
 
         btCriarCaso = findViewById(R.id.btCriarCaso);
 
-        SpinnerUtils.setDataSpinner(
+        GeralUtils.setDataSpinner(
                 spEspecieCaso,  //spinner
                 getApplicationContext(),   //contexto
                 "Espécie",     //hint do spinner

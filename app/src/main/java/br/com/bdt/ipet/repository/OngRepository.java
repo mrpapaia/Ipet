@@ -9,7 +9,7 @@ import br.com.bdt.ipet.repository.interfaces.IRepository;
 
 public class OngRepository implements IRepository<Ong> {
 
-    private FirebaseFirestore db;
+    private final FirebaseFirestore db;
 
     public OngRepository(FirebaseFirestore db) {
         this.db = db;

@@ -6,14 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".view.CadastroInfoBanco">
 
-
     <include
         layout="@layout/toolbar_default"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <AutoCompleteTextView
         android:id="@+id/acBanco"
@@ -82,7 +79,7 @@
         android:id="@+id/btConcluir"
         style="@style/botaoVerdeStyle"
         android:onClick="finalizarCadastro"
-        android:text="Concluir"
+        android:text="@string/concluir"
         app:layout_constraintBottom_toTopOf="@+id/btPularEtapa"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,7 +89,7 @@
         android:id="@+id/btPularEtapa"
         style="@style/botaoBrancoStyle"
         android:onClick="end"
-        android:text="@string/pularEtapa"
+        android:text="@string/pular_etapa_e_concluir"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

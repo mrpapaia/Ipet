@@ -4,15 +4,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Objects;
-
+import br.com.bdt.ipet.control.AuthController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.repository.interfaces.IRepository;
-import br.com.bdt.ipet.util.UserUtils;
 
 public class CasoRepository implements IRepository<Caso> {
 
-    private FirebaseFirestore db;
+    private final FirebaseFirestore db;
 
     public CasoRepository(FirebaseFirestore db) {
         this.db = db;
@@ -35,7 +33,8 @@ public class CasoRepository implements IRepository<Caso> {
 
     @Override
     public Task<Void> delete(String id) {
-        String emailOng = Objects.requireNonNull(UserUtils.getEmail());
+        AuthController authController = new AuthController();
+        String emailOng = authController.getCurrentEmail();
         return db.collection("ongs")
                 .document(emailOng)
                 .collection("casos")
