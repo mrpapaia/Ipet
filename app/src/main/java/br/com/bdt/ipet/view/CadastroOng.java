@@ -4,16 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.Objects;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CadastroController;
@@ -23,9 +23,7 @@ import br.com.bdt.ipet.singleton.CadastroSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.data.model.Ong;
 
-import static br.com.bdt.ipet.util.GeralUtils.heightTela;
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
-import static br.com.bdt.ipet.util.GeralUtils.setMargins;
 
 public class CadastroOng extends AppCompatActivity {
 
@@ -34,30 +32,26 @@ public class CadastroOng extends AppCompatActivity {
     private EditText etSenha;
     private EditText etWhatsapp;
     private EditText etCNPJ;
-
     private Button bCadastrar;
-    private ImageView ivCadastro;
-    private Toolbar myToolbar;
-    private TextView title;
     private AutoCompleteTextView acUf;
     private AutoCompleteTextView acMunicipio;
     private CadastroSingleton cadastroSingleton;
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "SetTextI18n", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_ong);
-        // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        myToolbar = (Toolbar) findViewById(R.id.tbNormal);
-        title = (TextView) findViewById(R.id.toolbar_title);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Toolbar myToolbar = findViewById(R.id.tbNormal);
+        TextView title = findViewById(R.id.toolbar_title);
         title.setText("Cadastro");
         acUf = findViewById(R.id.acUF);
         acMunicipio = findViewById(R.id.acMunicipio);
         cadastroSingleton=CadastroSingleton.getCadastroSingleton();
 
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
@@ -75,18 +69,13 @@ public class CadastroOng extends AppCompatActivity {
         //setarInformacoes();
     }
 
-    public void setarInformacoes() {
-        if (heightTela(CadastroOng.this) < 1400) {
-            setMargins(ivCadastro, 0, 80, 0, 0);
-            setMargins(bCadastrar, 0, 40, 0, 0);
-        }
-    }
+//    public void setarInformacoes() {
+//        if (heightTela(CadastroOng.this) < 1400) {
+//            setMargins(ivCadastro, 0, 80, 0, 0);
+//            setMargins(bCadastrar, 0, 40, 0, 0);
+//        }
+//    }
 
-    /*
-     * Método executado no onClick do botão cadastrar
-     * Irá extrair informações da interface de cadastro, criando um novo usuário e documento
-     * por meio do método criarUserOng
-     * */
     public void cadastrar(View view) {
 
         CadastroController cadastroController = new CadastroController();
@@ -141,9 +130,8 @@ public class CadastroOng extends AppCompatActivity {
                 Ong ong = new Ong(nome, email, whatsapp, CNPJ, uf, cidade);
                 cadastroSingleton.setOng(ong);
                 cadastroSingleton.setSenha(senha);
-                setEnableViews(false); //desativa as views enquanto o cadastro esta sendo realizado
-                Intent it = new Intent(this, EnviarFoto.class);
-                startActivity(it);
+                setEnableViews(false);
+                cadastroController.saveUserOng(this);
             }else{
                 etCNPJ.setError("Insira um CNPJ válido!");
             }
@@ -152,9 +140,6 @@ public class CadastroOng extends AppCompatActivity {
 
     }
 
-    /*
-     * Método para habilidar/desabilidar todas views da interface de cadastro ong
-     * */
     public void setEnableViews(boolean op) {
         etNome.setEnabled(op);
         etEmail.setEnabled(op);
@@ -166,25 +151,6 @@ public class CadastroOng extends AppCompatActivity {
         bCadastrar.setEnabled(op);
     }
 
-    /*
-     * Método que receberá todas as informações dos campos da tela de cadastro
-     * Primeiro passo: cria um usuário no firebase authentication utilizando somente email e senha
-     * Segundo passo: quando o usuário for criado com sucesso, salvará todas as informações menos
-     * a senha, em um novo documento.
-     * */
-
-    /*
-     * Recebe um objeto ong e salva um documento na coleção ongs no bd firestore.
-     * */
-
-    /*
-     * Método que recebe o id de um Spinner e pega o conteudo selecionado
-     * */
-
-
-    /*
-     * Simula a ação de apertar para voltar
-     * */
     public void voltar(View view) {
         onBackPressed();
 

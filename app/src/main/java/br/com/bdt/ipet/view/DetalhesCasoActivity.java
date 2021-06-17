@@ -5,16 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
-import android.app.Dialog;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +22,6 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.view.dialog.MetodoPagamentoDialog;
-import br.com.bdt.ipet.view.dialog.PagamentoDialog;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -68,26 +64,16 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         super.onStart();
         btn = (Button) findViewById(R.id.btDoar);
 
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dialog = MetodoPagamentoDialog.newInstance(ong);
-
-                dialog.show(getSupportFragmentManager(), "MetodoPagamento");
-                getSupportFragmentManager().executePendingTransactions();
-                dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-
-            }
+        View.OnClickListener listener = v -> {
+            DialogFragment dialog = MetodoPagamentoDialog.newInstance(ong);
+            dialog.show(getSupportFragmentManager(), "MetodoPagamento");
+            getSupportFragmentManager().executePendingTransactions();
+            dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         };
-
 
         btn.setOnClickListener(listener);
     }
 
-    /*
-     * Pega todos os dados do caso e seta nos TextView's
-     * */
     public void setarInformacoes() {
 
      ong = caso.getOng(); //Pega a ong do caso
@@ -212,18 +198,11 @@ public class DetalhesCasoActivity extends AppCompatActivity {
                 });
     }
 
-    /*
-     * Chamado no onClick da setinha na parte superior da interface de detalhes de caso
-     * fazendo com que apenas simule o clique no botão de voltar
-     * */
+
     public void voltar(View view) {
         onBackPressed();
     }
 
-    /*
-     * Abre uma lista de aplicativos para mandar um email com o propósito de avisar a ong
-     * que a pessoa quer ajudar no caso.
-     * */
     public void email(View view) {
 
         String msg = getMsgParaOng();
@@ -239,10 +218,6 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         setConexoes();
     }
 
-    /*
-     * Abre o whatsapp ja na conversa com o número da ong, mandando uma mensagem informando
-     * o interesse no caso.
-     * */
     public void whatsapp(View view) {
 
         String msg = getMsgParaOng();
@@ -257,19 +232,16 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         setConexoes();
     }
 
-    /*
-     * Método que define a mensagem que será enviada no email ou whatsapp
-     * */
+    @SuppressLint("DefaultLocale")
     public String getMsgParaOng() {
         return getMsgHoras() + " " + caso.getOng().getNome() + ", Gostaria de ajudar no caso " +
                 caso.getTitulo() + ", com o valor de " + String.format("R$ %.2f", caso.getValor());
     }
 
-    /*
-     * Coleta a hora atual e retorna uma mensagem de saudação
-     * */
+
     public String getMsgHoras() {
 
+        @SuppressLint("SimpleDateFormat")
         SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH");
         int horas = Integer.parseInt(dateFormat_hora.format(new Date()));
 
@@ -280,7 +252,6 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         } else {
             return "Boa Noite";
         }
-
     }
 
 }

@@ -43,9 +43,9 @@ public class CadastroInfoBanco extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_info_banco);
         cadastroController= new CadastroController();
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.tbNormal);
-        TextView title = (TextView) findViewById(R.id.toolbar_title);
-        acBanco =findViewById(R.id.acBanco);
+        Toolbar myToolbar = findViewById(R.id.tbNormal);
+        TextView title = findViewById(R.id.toolbar_title);
+        acBanco = findViewById(R.id.acBanco);
         etConta = findViewById(R.id.etConta);
         etAgencia = findViewById(R.id.etAgencia);
         cbHablitapix = findViewById(R.id.cbHabilitaPix);
@@ -105,11 +105,11 @@ public class CadastroInfoBanco extends AppCompatActivity {
                 )
         );
         cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
-        cadastroController.criarUserOng(this);
+        cadastroController.saveDadosOng(this);
     }
 
     public void end(View v){
-        cadastroController.criarUserOng(this);
+        cadastroController.saveDadosOng(this);
     }
 
 }

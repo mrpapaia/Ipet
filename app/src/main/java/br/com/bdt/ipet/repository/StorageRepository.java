@@ -7,6 +7,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Objects;
+
 import br.com.bdt.ipet.repository.interfaces.IStorage;
 
 public class StorageRepository implements IStorage {
@@ -24,7 +26,7 @@ public class StorageRepository implements IStorage {
         UploadTask uploadTask = ref.putFile(uri);
         return uploadTask.continueWithTask(task -> {
             if (!task.isSuccessful()) {
-                throw task.getException();
+                throw Objects.requireNonNull(task.getException());
             }
             return ref.getDownloadUrl();
         });

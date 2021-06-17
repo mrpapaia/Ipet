@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivEnviar" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btPularEtapaImg"
         style="@style/botaoBrancoStyle"
         android:onClick="pularEtapa"
         android:text="@string/pular_etapa"

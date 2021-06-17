@@ -1,6 +1,7 @@
 package br.com.bdt.ipet.control;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -18,6 +19,8 @@ import br.com.bdt.ipet.repository.StorageRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepository;
 import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
+import br.com.bdt.ipet.view.CadastroInfoBanco;
+import br.com.bdt.ipet.view.EnviarFoto;
 import br.com.bdt.ipet.view.FimCadastro;
 
 public class CadastroController {
@@ -34,22 +37,26 @@ public class CadastroController {
         new ConsumerData().sendGetObject(context, url, sendDataObject);
     }
 
-    public void criarUserOng(Activity act) {
+    public void saveUserOng(Activity act) {
 
+        ProgressDialog progressDialog = ProgressDialog.show(act, "Aguarde um momento", "Estamos criando seu usuário...");
         AuthController authController = new AuthController();
 
         authController.create(cadastroSingleton.getOng().getEmail(), cadastroSingleton.getSenha())
             .addOnCompleteListener(act, task -> {
                 if (task.isSuccessful()) {
+                    progressDialog.dismiss();
                     Log.d(TAG, "Sucesso criarUserOng");
-                    salvarDadosOng(act);
+                    act.startActivity(new Intent(act, EnviarFoto.class));
                 } else {
                     Log.d(TAG, "Falha criarUserOng");
                 }
             });
     }
 
-    public void salvarDadosOng(Activity act) {
+    public void saveImgOng(Activity act) {
+
+        ProgressDialog progressDialog = ProgressDialog.show(act, "Aguarde um momento", "Estamos enviando sua foto...");
 
         if(cadastroSingleton.getUri() != null){
             IStorage storageRepository = new StorageRepository(FirebaseStorage.getInstance());
@@ -58,23 +65,25 @@ public class CadastroController {
                 if (task.isSuccessful()) {
                     cadastroSingleton.getOng().setImgPerfil(Objects.requireNonNull(task.getResult()).toString());
                     Log.d(TAG, "Sucesso save IMG");
-                    saveOng(act);
-                }else {
+                    progressDialog.dismiss();
+                    act.startActivity(new Intent(act, CadastroInfoBanco.class));
+                } else {
                     Log.d(TAG, "Falha save IMG");
                 }
             });
-        } else {
-            saveOng(act);
         }
-
     }
 
-    public void saveOng(Activity act){
+    public void saveDadosOng(Activity act){
 
+        ProgressDialog progressDialog = ProgressDialog.show(act, "Aguarde um momento", "Estamos salvando todos seus dados...");
         IRepository<Ong> ongRepository = new OngRepository(FirebaseFirestore.getInstance());
 
         ongRepository.save(cadastroSingleton.getOng())
             .addOnSuccessListener(aVoid -> {
+                progressDialog.dismiss();
+                AuthController authController = new AuthController();
+                authController.logout();
                 Log.d(TAG, "Sucesso save ONG");
                 Intent intent = new Intent(act, FimCadastro.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

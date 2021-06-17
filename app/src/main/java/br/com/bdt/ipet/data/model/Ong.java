@@ -18,6 +18,7 @@ public class Ong implements Serializable, Parcelable {
     private String imgPerfil;
 
     public Ong() {
+
     }
 
     public Ong(String nome, String email, String whatsapp, String CNPJ, String uf, String cidade) {

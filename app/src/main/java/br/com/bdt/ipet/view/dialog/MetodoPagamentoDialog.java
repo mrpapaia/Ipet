@@ -2,13 +2,10 @@ package br.com.bdt.ipet.view.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Ong;
@@ -17,9 +14,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
-import java.util.Objects;
-
 public class MetodoPagamentoDialog extends DialogFragment {
+
     private Ong ong;
 
     public static MetodoPagamentoDialog newInstance(Ong ong) {
@@ -60,6 +56,7 @@ public class MetodoPagamentoDialog extends DialogFragment {
 
             }
         };
+
         btnMetodoUm.setOnClickListener(listenerMetodoUm);
 
         ConstraintLayout btnMetodoDois = (ConstraintLayout) view.findViewById(R.id.ctMetodoDois);

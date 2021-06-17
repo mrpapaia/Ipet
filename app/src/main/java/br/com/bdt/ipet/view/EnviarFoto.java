@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.io.IOException;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.CadastroController;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 
 public class EnviarFoto extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class EnviarFoto extends AppCompatActivity {
     private static final int GET_FROM_GALLERY = 3;
     private Button btEnviarFoto;
     private CadastroSingleton cadastroSingleton;
+    private boolean imgSelected;
 
     @SuppressWarnings("ConstantConditions")
     @SuppressLint("SetTextI18n")
@@ -32,6 +34,7 @@ public class EnviarFoto extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enviar_foto);
+        imgSelected = false;
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
         btEnviarFoto = findViewById(R.id.btEnviarFoto);
@@ -41,13 +44,18 @@ public class EnviarFoto extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
-        btEnviarFoto.setOnClickListener(v->pickImg());
-        cadastroSingleton=CadastroSingleton.getCadastroSingleton();
+        btEnviarFoto.setOnClickListener(this::pickImg);
+        cadastroSingleton = CadastroSingleton.getCadastroSingleton();
     }
 
-    public void pickImg() {
-        Intent it = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-        startActivityForResult(it, GET_FROM_GALLERY);
+    public void pickImg(View view) {
+        if(imgSelected){
+            CadastroController cadastroController = new CadastroController();
+            cadastroController.saveImgOng(this);
+        }else{
+            Intent it = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+            startActivityForResult(it, GET_FROM_GALLERY);
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -64,7 +72,7 @@ public class EnviarFoto extends AppCompatActivity {
                 ivEnviar.setImageBitmap(bitmap);
                 btEnviarFoto.setText("Enviar foto");
                 cadastroSingleton.setUri(selectedImage);
-                btEnviarFoto.setOnClickListener(v->pularEtapa(btEnviarFoto));
+                imgSelected = true;
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -14,7 +14,9 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Ong;
 
 public class PagamentoDialog extends DialogFragment {
+
     private Ong ong;
+
     public static PagamentoDialog newInstance(Ong ong) {
         PagamentoDialog f = new PagamentoDialog();
 

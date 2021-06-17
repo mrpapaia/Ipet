@@ -20,7 +20,8 @@ public class FimCadastro extends AppCompatActivity {
         GeralUtils.setFullscreen(this);
         clearCadastroSingleton();
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            startActivity(new Intent(getBaseContext(), MainActivity.class));
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(intent);
             finish();
         }, 2000);
     }

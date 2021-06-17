@@ -26,7 +26,11 @@ public class AuthController {
     }
 
     public String getCurrentEmail(){
-        return getCurrentUser().getEmail();
+        FirebaseUser user = getCurrentUser();
+        if(user != null){
+            return user.getEmail();
+        }
+        return null;
     }
 
     public Task<Void> recoveryPassword(String email){

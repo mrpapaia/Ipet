@@ -3,6 +3,7 @@ package br.com.bdt.ipet.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -37,6 +38,7 @@ public class CriarCasoActivity extends AppCompatActivity {
     Spinner spEspecieCaso;
     Button btCriarCaso;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,10 +69,6 @@ public class CriarCasoActivity extends AppCompatActivity {
         );
     }
 
-    /*
-    * Extrai os dados da interface de criar caso e salva na subcoleção casos no doc da ong atual
-    * no firestore.
-    * */
     public void criarUmCaso(View view){
 
         String id = UUID.randomUUID().toString();
@@ -139,9 +137,6 @@ public class CriarCasoActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    * Método para habilidar/desabilidar todas views da interface de criar um caso
-    * */
     public void setEnableViews(boolean op){
         etTituloCaso.setEnabled(op);
         etDescricaoCaso.setEnabled(op);
@@ -152,16 +147,10 @@ public class CriarCasoActivity extends AppCompatActivity {
         tvVoltar.setEnabled(op);
     }
 
-    /*
-    * Simula o click no botão voltar
-    * */
     public void voltar(View view){
         onBackPressed();
     }
 
-    /*
-     * Método que recebe o id de um Spinner e pega o conteudo selecionado
-     * */
     private String getDataOfSp(int idSpinner){
         Spinner sp = findViewById(idSpinner);
         Object selected = sp.getSelectedItem();

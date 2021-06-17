@@ -41,11 +41,10 @@ public class QueroAjudarOng extends AppCompatActivity {
 
         casoController.initDataRecyclerViewAll(casos -> {
 
-            rvTodosCasosOngAdapter = new RvTodosCasosOngAdapter(getApplicationContext(), casos,
-                    (RvTodosCasosOngAdapter.CasoOnClickListener) position -> {
-                        Intent intent = new Intent(getApplicationContext(), DetalhesCasoActivity.class);
-                        intent.putExtra("casoOng", (Parcelable) casos.get(position));
-                        startActivity(intent);
+            rvTodosCasosOngAdapter = new RvTodosCasosOngAdapter(getApplicationContext(), casos, position -> {
+                Intent intent = new Intent(getApplicationContext(), DetalhesCasoActivity.class);
+                intent.putExtra("casoOng", (Parcelable) casos.get(position));
+                startActivity(intent);
             });
 
             rvQueroAjudar.setAdapter(rvTodosCasosOngAdapter);
