@@ -1,9 +1,11 @@
 package br.com.bdt.ipet.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -50,6 +53,24 @@ public class Filter extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         casoSingleton = CasoSingleton.getCasoSingleton();
         ongSingleton = OngSingleton.getOngSingleton();
+        Toolbar myToolbar = findViewById(R.id.tbNormal);
+        TextView title = findViewById(R.id.toolbar_title);
+        TextView title_extra = findViewById(R.id.toolbar_extra);
+        setSupportActionBar(myToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        myToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        myToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+        title.setText("Filtro");
+        title_extra.setText("Limpar");
+        title_extra.setOnClickListener(v->{
+            casoSingleton.setDadosFiltro(null);
+            casoSingleton.getiFilter().onClearFilter();
+            GeralUtils.toast(getApplicationContext(), "Filtro(s) Removido(s).");
+        });
         initViews();
         initValues();
     }

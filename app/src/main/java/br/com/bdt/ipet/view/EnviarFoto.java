@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -37,13 +38,18 @@ public class EnviarFoto extends AppCompatActivity {
         imgSelected = false;
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
+        TextView title_extra = findViewById(R.id.toolbar_extra);
         btEnviarFoto = findViewById(R.id.btEnviarFoto);
         title.setText("Foto");
+        title_extra.setText("");
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        myToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+
         btEnviarFoto.setOnClickListener(this::pickImg);
         cadastroSingleton = CadastroSingleton.getCadastroSingleton();
     }

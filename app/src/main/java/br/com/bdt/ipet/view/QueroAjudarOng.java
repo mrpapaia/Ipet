@@ -1,6 +1,7 @@
 package br.com.bdt.ipet.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Objects;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CasoController;
@@ -36,8 +39,18 @@ public class QueroAjudarOng extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quero_ajudar_ong);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Toolbar myToolbar = findViewById(R.id.tbNormal);
+        TextView title = findViewById(R.id.toolbar_title);
+        TextView title_extra = findViewById(R.id.toolbar_extra);
+        setSupportActionBar(myToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        myToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        myToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
-        tvTotalCasos = findViewById(R.id.tvLimpar);
+        title.setText("");
+
+
         rvQueroAjudar = findViewById(R.id.rvQueroAjudar);
         rvQueroAjudar.setLayoutManager(new LinearLayoutManager(this));
         rvQueroAjudar.setItemAnimator(new DefaultItemAnimator());
@@ -59,7 +72,7 @@ public class QueroAjudarOng extends AppCompatActivity {
             casoController.setiChanges(() -> {
                 rvTodosCasosOngAdapter.notifyDataSetChanged();
                 if(casoSingleton.getDadosFiltro().isClear()){
-                    tvTotalCasos.setText(casoSingleton.textSizeCasos());
+                    title_extra.setText("Total de Casos: "+ casoSingleton.textSizeCasos());
                 }
             });
 
@@ -70,13 +83,13 @@ public class QueroAjudarOng extends AppCompatActivity {
             @Override
             public void onFilter(List<Caso> casosFiltrados) {
                 rvTodosCasosOngAdapter.setCasosOng(casosFiltrados);
-                tvTotalCasos.setText(String.valueOf(casosFiltrados.size()));
+                title_extra.setText("Total de Casos: "+String.valueOf(casosFiltrados.size()));
             }
 
             @Override
             public void onClearFilter() {
                 rvTodosCasosOngAdapter.setCasosOng(casoSingleton.getCasos());
-                tvTotalCasos.setText(casoSingleton.textSizeCasos());
+                title_extra.setText("Total de Casos: "+casoSingleton.textSizeCasos());
             }
         });
 

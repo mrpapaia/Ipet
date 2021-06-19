@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -45,17 +46,24 @@ public class CadastroInfoBanco extends AppCompatActivity {
         cadastroController= new CadastroController();
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
+        TextView title_extra = findViewById(R.id.toolbar_extra);
         acBanco = findViewById(R.id.acBanco);
         etConta = findViewById(R.id.etConta);
         etAgencia = findViewById(R.id.etAgencia);
         cbHablitapix = findViewById(R.id.cbHabilitaPix);
         etChavePix = findViewById(R.id.etChavePix);
         title.setText("Dados Bancarios");
+        title_extra.setText("");
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        myToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        myToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+        myToolbar.setNavigationOnClickListener(v -> {
+            v.setBackgroundResource(R.color.colorPrimary);
+            onBackPressed();
+        });
         etChavePix.setVisibility(View.INVISIBLE);
         cadastroSingleton = CadastroSingleton.getCadastroSingleton();
         initAutoComplet();

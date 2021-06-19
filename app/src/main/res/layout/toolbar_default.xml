@@ -1,18 +1,30 @@
-<androidx.appcompat.widget.Toolbar
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tbNormal"
-    android:theme="@style/ThemeOverlay.AppCompat"
-    app:layout_scrollFlags="scroll|enterAlways"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/bgColor"
+    android:elevation="4dp"
+    android:theme="@style/ThemeOverlay.AppCompat"
+    app:layout_scrollFlags="scroll|enterAlways"
     app:titleTextAppearance="@style/titleStyle">
+
     <TextView
         android:id="@+id/toolbar_title"
         style="@style/titleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="start|center_vertical"
+        android:fontFamily="@font/revalia"
+        android:text="@string/texto_toolbar" />
+
+    <TextView
+        android:id="@+id/toolbar_extra"
+        style="@style/titleExtraStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_gravity="center|end"
+        android:layout_marginEnd="10dp"
         android:text="@string/texto_toolbar" />
 </androidx.appcompat.widget.Toolbar>

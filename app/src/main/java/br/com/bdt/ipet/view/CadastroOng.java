@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -42,17 +43,27 @@ public class CadastroOng extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
+        TextView title_extra = findViewById(R.id.toolbar_extra);
+        setSupportActionBar(myToolbar);
+        myToolbar.setNavigationOnClickListener(v -> {
+            
+            onBackPressed();
+        });
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        myToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
+
+        title_extra.setText("");
         title.setText("Cadastro");
         acUf = findViewById(R.id.acUF);
         acMunicipio = findViewById(R.id.acMunicipio);
         GeralUtils.initAutoCompletUfCity(getApplicationContext(), acUf, acMunicipio);
         cadastroSingleton = CadastroSingleton.getCadastroSingleton();
 
-        setSupportActionBar(myToolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        myToolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+
+
 
         etNome = findViewById(R.id.etNome);
         etEmail = findViewById(R.id.etEmail);
