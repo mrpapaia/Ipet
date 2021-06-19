@@ -36,6 +36,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
     private EditText etAgencia;
     private CheckBox cbHablitapix;
     private EditText etChavePix;
+    private EditText etCNPJContaBanco;
     private CadastroSingleton cadastroSingleton;
 
     @SuppressLint("SetTextI18n")
@@ -52,6 +53,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
         etAgencia = findViewById(R.id.etAgencia);
         cbHablitapix = findViewById(R.id.cbHabilitaPix);
         etChavePix = findViewById(R.id.etChavePix);
+        etCNPJContaBanco=findViewById(R.id.etCNPJContaBanco);
         title.setText("Dados Bancarios");
         title_extra.setText("");
         setSupportActionBar(myToolbar);
@@ -109,7 +111,8 @@ public class CadastroInfoBanco extends AppCompatActivity {
                         acBanco.getText().toString(),
                         etConta.getText().toString(),
                         etAgencia.getText().toString(),
-                        etChavePix.getText().toString()
+                        etChavePix.getText().toString(),
+                        etCNPJContaBanco.getText().toString()
                 )
         );
         cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);

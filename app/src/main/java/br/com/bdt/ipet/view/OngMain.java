@@ -53,7 +53,7 @@ public class OngMain extends AppCompatActivity {
         ongSingleton = OngSingleton.getOngSingleton();
 
         TextView title = findViewById(R.id.toolbar_title);
-        title.setText("IPet");
+        title.setText("iPet");
 
         tvNomeDaOng = findViewById(R.id.tvNomeDaOng);
         tvNomeDaOng.setText("");
@@ -92,7 +92,7 @@ public class OngMain extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void getDadosOng(){
-        if(ongSingleton.getOng().getImgPerfil().isEmpty()){
+        if(ongSingleton.getOng().getImgPerfil()==null){
             //Lógica para ONG sem foto
         } else {
             Picasso.get().load(ongSingleton.getOng().getImgPerfil()).into(ivUser);
@@ -130,7 +130,7 @@ public class OngMain extends AppCompatActivity {
     }
 
     public void initCadastroBancario(){
-        Intent it = new Intent(getApplicationContext(), CadastroInfoBanco.class);
+        Intent it = new Intent(getApplicationContext(), ListDadosBancarios.class);
         it.putExtra("frag",4);
         startActivity(it);
         dLayout.closeDrawers();

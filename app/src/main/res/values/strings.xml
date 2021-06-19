@@ -28,7 +28,7 @@
     <string name="estado">Estado</string>
     <string name="munic_pio">Município</string>
     <string name="cadastrar">Cadastrar</string>
-    <string name="cnpj">CNPJ</string>
+    <string name="cnpj">CPF/CNPJ</string>
     <string name="whatsapp">Whatsapp</string>
     <string name="senha">Senha</string>
     <string name="e_mail">E-mail</string>
@@ -37,4 +37,9 @@
     <string name="m_ximo">Máximo</string>
     <string name="localiza_o">Localização</string>
     <string name="minimo">Minimo</string>
+    <string name="caixa_economica_federal">Caixa Econômica Federal</string>
+    <string name="chave_pix_exemple">Pix: 123123123123</string>
+    <string name="cpf_cnpj_exemple">CPF/CNPJ: 00.000.000-00</string>
+    <string name="agencia_exemple">Agência: 1243</string>
+    <string name="conta_exemple">Conta: 000002-3</string>
 </resources>

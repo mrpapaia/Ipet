@@ -10,16 +10,18 @@ public class DadosBancario implements Serializable, Parcelable {
     private String conta;
     private String agencia;
     private String chavePix;
+    private String cpfCNPJ;
 
     public DadosBancario() {
 
     }
 
-    public DadosBancario(String banco, String conta, String agencia, String chavePix) {
+    public DadosBancario(String banco, String conta, String agencia, String chavePix, String cpfCNPJ) {
         this.banco = banco;
         this.conta = conta;
         this.agencia = agencia;
         this.chavePix = chavePix;
+        this.cpfCNPJ = cpfCNPJ;
     }
 
     protected DadosBancario(Parcel in) {
@@ -27,6 +29,21 @@ public class DadosBancario implements Serializable, Parcelable {
         conta = in.readString();
         agencia = in.readString();
         chavePix = in.readString();
+        cpfCNPJ = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(banco);
+        dest.writeString(conta);
+        dest.writeString(agencia);
+        dest.writeString(chavePix);
+        dest.writeString(cpfCNPJ);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<DadosBancario> CREATOR = new Creator<DadosBancario>() {
@@ -73,16 +90,11 @@ public class DadosBancario implements Serializable, Parcelable {
         this.chavePix = chavePix;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public String getCpfCNPJ() {
+        return cpfCNPJ;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(banco);
-        dest.writeString(conta);
-        dest.writeString(agencia);
-        dest.writeString(chavePix);
+    public void setCpfCNPJ(String cpfCNPJ) {
+        this.cpfCNPJ = cpfCNPJ;
     }
 }

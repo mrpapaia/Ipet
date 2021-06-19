@@ -41,11 +41,21 @@
 
         android:hint="@string/texto_num_agencia"
         android:inputType="number"
-        app:layout_constraintBottom_toTopOf="@+id/cbHabilitaPix"
+        app:layout_constraintBottom_toTopOf="@+id/etCNPJContaBanco"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etConta" />
+    <EditText
+        android:id="@+id/etCNPJContaBanco"
+        style="@style/fildTextStyle"
+        android:background="@drawable/style_edit"
 
+        android:hint="@string/cnpj"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/cbHabilitaPix"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAgencia" />
     <CheckBox
         android:id="@+id/cbHabilitaPix"
         style="@style/textoCheckBox"

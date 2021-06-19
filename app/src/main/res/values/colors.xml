@@ -14,5 +14,6 @@
     <color name="bgColor">#FAFAFA </color>
     <color name="black">#000000</color>
     <color name="bgButaoVerde">#3CB7BC</color>
+    <color name="textoButaoBranco">#3CB7BC</color>
     <color name="branco">#ffffff</color>
 </resources>
