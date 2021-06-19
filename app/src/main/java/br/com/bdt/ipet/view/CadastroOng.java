@@ -7,7 +7,6 @@ import android.annotation.SuppressLint;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,8 +16,6 @@ import java.util.Objects;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CadastroController;
-import br.com.bdt.ipet.data.api.ConsumerData;
-import br.com.bdt.ipet.data.model.Estado;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.data.model.Ong;
@@ -48,7 +45,8 @@ public class CadastroOng extends AppCompatActivity {
         title.setText("Cadastro");
         acUf = findViewById(R.id.acUF);
         acMunicipio = findViewById(R.id.acMunicipio);
-        cadastroSingleton=CadastroSingleton.getCadastroSingleton();
+        GeralUtils.initAutoCompletUfCity(getApplicationContext(), acUf, acMunicipio);
+        cadastroSingleton = CadastroSingleton.getCadastroSingleton();
 
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -61,20 +59,8 @@ public class CadastroOng extends AppCompatActivity {
         etSenha = findViewById(R.id.etSenha);
         etWhatsapp = findViewById(R.id.etWhatsapp);
         etCNPJ = findViewById(R.id.etCNPJ);
-        initAutoComplet();
-
-        bCadastrar = findViewById(R.id.bCadastrar);
-
-
-        //setarInformacoes();
+        bCadastrar = findViewById(R.id.bFiltrar);
     }
-
-//    public void setarInformacoes() {
-//        if (heightTela(CadastroOng.this) < 1400) {
-//            setMargins(ivCadastro, 0, 80, 0, 0);
-//            setMargins(bCadastrar, 0, 40, 0, 0);
-//        }
-//    }
 
     public void cadastrar(View view) {
 
@@ -153,33 +139,6 @@ public class CadastroOng extends AppCompatActivity {
 
     public void voltar(View view) {
         onBackPressed();
-
-    }
-    private void initAutoComplet(){
-
-        new ConsumerData().getEstados(getApplicationContext(), estados -> {
-            ArrayAdapter<Estado> adapterUF = new ArrayAdapter<>(CadastroOng.this,
-                    android.R.layout.simple_dropdown_item_1line, estados);
-            acUf.setAdapter(adapterUF);
-        });
-
-        acUf.setOnItemClickListener((parent, view, position, id) -> {
-
-            Estado estado = (Estado)parent.getItemAtPosition(position);
-
-            new ConsumerData().getCidades(getApplicationContext(), estado.getUf(), cidades -> {
-                ArrayAdapter<String> adapterMunicipio = new ArrayAdapter<>(CadastroOng.this,
-                        android.R.layout.simple_dropdown_item_1line, cidades);
-                acMunicipio.setAdapter(adapterMunicipio);
-            });
-
-        });
-
-        acMunicipio.setOnFocusChangeListener((view, b) -> {
-            if(acUf.getText().toString().isEmpty()){
-                GeralUtils.toast(getApplicationContext(), "Informe o UF primeiro para carregar as cidades!");
-            }
-        });
 
     }
 }

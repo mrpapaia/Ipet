@@ -3,6 +3,7 @@ package br.com.bdt.ipet.repository;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.repository.interfaces.IRepository;
@@ -21,7 +22,7 @@ public class BancoRepository implements IRepository<Banco> {
     }
 
     @Override
-    public Task<Void> findAll() {
+    public Task<QuerySnapshot> findAll() {
         return null;
     }
 

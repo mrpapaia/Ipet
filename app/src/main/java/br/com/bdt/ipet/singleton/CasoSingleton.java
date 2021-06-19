@@ -3,12 +3,15 @@ package br.com.bdt.ipet.singleton;
 import java.util.List;
 
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.data.model.DadosFiltro;
+import br.com.bdt.ipet.util.interfaces.IFilter;
 
 public class CasoSingleton {
 
     private static CasoSingleton casoSingleton;
-    private List<Caso> casosAll;
-    private List<Caso> casosOng;
+    private List<Caso> casos;
+    private DadosFiltro dadosFiltro;
+    private IFilter iFilter;
 
     private CasoSingleton() {
 
@@ -21,19 +24,51 @@ public class CasoSingleton {
         return casoSingleton;
     }
 
-    public List<Caso> getCasosAll() {
-        return casosAll;
+    public List<Caso> getCasos() {
+        return casos;
     }
 
-    public void setCasosAll(List<Caso> casosAll) {
-        this.casosAll = casosAll;
+    public String textSizeCasos(){
+        return String.valueOf(casos.size());
     }
 
-    public List<Caso> getCasosOng() {
-        return casosOng;
+    public void setCasos(List<Caso> casos) {
+        this.casos = casos;
     }
 
-    public void setCasosOng(List<Caso> casosOng) {
-        this.casosOng = casosOng;
+    public DadosFiltro getDadosFiltro() {
+        if(dadosFiltro == null){
+            setDadosFiltro(null);
+        }
+        return dadosFiltro;
+    }
+
+    public void setDadosFiltro(DadosFiltro dadosFiltro) {
+
+        if(dadosFiltro == null){ //se for null = clear nele
+
+            if(this.dadosFiltro == null){
+                this.dadosFiltro = new DadosFiltro();
+            }
+
+            this.dadosFiltro.setEspecies(new String[0]);
+            this.dadosFiltro.setMinValue(0.0);
+            this.dadosFiltro.setMaxValue(0.0);
+            this.dadosFiltro.setUf("");
+            this.dadosFiltro.setCidade("");
+            this.dadosFiltro.setEmailOng("");
+
+            return;
+        }
+
+        this.dadosFiltro = dadosFiltro;
+    }
+
+    public IFilter getiFilter() {
+        return iFilter;
+    }
+
+    public void setiFilter(IFilter iFilter) {
+        this.iFilter = iFilter;
     }
 }

@@ -35,6 +35,7 @@ public class RvTodosCasosOngAdapter extends RecyclerView.Adapter<RvTodosCasosOng
 
     public void setCasosOng(List<Caso> casosOng) {
         this.casosOng = casosOng;
+        notifyDataSetChanged();
     }
 
     @Override

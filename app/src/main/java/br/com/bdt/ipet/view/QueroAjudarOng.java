@@ -13,9 +13,14 @@ import android.os.Parcelable;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CasoController;
+import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.util.RvTodosCasosOngAdapter;
+import br.com.bdt.ipet.util.interfaces.IFilter;
 
 public class QueroAjudarOng extends AppCompatActivity {
 
@@ -23,6 +28,7 @@ public class QueroAjudarOng extends AppCompatActivity {
     private RvTodosCasosOngAdapter rvTodosCasosOngAdapter;
     private TextView tvTotalCasos;
     private CasoController casoController;
+    private CasoSingleton casoSingleton;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -38,8 +44,9 @@ public class QueroAjudarOng extends AppCompatActivity {
         rvQueroAjudar.setHasFixedSize(true);
 
         casoController = new CasoController();
+        casoSingleton = CasoSingleton.getCasoSingleton();
 
-        casoController.initDataRecyclerViewAll(casos -> {
+        casoController.initDataRecyclerView(casos -> {
 
             rvTodosCasosOngAdapter = new RvTodosCasosOngAdapter(getApplicationContext(), casos, position -> {
                 Intent intent = new Intent(getApplicationContext(), DetalhesCasoActivity.class);
@@ -49,14 +56,35 @@ public class QueroAjudarOng extends AppCompatActivity {
 
             rvQueroAjudar.setAdapter(rvTodosCasosOngAdapter);
 
-            casoController.setiChanges((qtd) -> {
+            casoController.setiChanges(() -> {
                 rvTodosCasosOngAdapter.notifyDataSetChanged();
-                tvTotalCasos.setText(String.valueOf(qtd));
+                if(casoSingleton.getDadosFiltro().isClear()){
+                    tvTotalCasos.setText(casoSingleton.textSizeCasos());
+                }
             });
 
             casoController.listenerCasosAll();
         });
 
+        casoSingleton.setiFilter(new IFilter() {
+            @Override
+            public void onFilter(List<Caso> casosFiltrados) {
+                rvTodosCasosOngAdapter.setCasosOng(casosFiltrados);
+                tvTotalCasos.setText(String.valueOf(casosFiltrados.size()));
+            }
+
+            @Override
+            public void onClearFilter() {
+                rvTodosCasosOngAdapter.setCasosOng(casoSingleton.getCasos());
+                tvTotalCasos.setText(casoSingleton.textSizeCasos());
+            }
+        });
+
+    }
+
+    public void initFilter(View view){
+        Intent intent = new Intent(getApplicationContext(), Filter.class);
+        startActivity(intent);
     }
 
     public void voltar(View view){

@@ -15,8 +15,6 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.AuthController;
 import br.com.bdt.ipet.util.GeralUtils;
 
-import static br.com.bdt.ipet.util.GeralUtils.heightTela;
-import static br.com.bdt.ipet.util.GeralUtils.setMargins;
 import static br.com.bdt.ipet.util.GeralUtils.validateEmailFormat;
 
 public class OngLogin extends AppCompatActivity {
@@ -43,7 +41,6 @@ public class OngLogin extends AppCompatActivity {
         voltar = findViewById(R.id.voltar);
         ivTitulo = findViewById(R.id.ivtitulo1);
         authController = new AuthController();
-        setarInformacoes();
     }
 
     public void enableViews(boolean op){
@@ -84,19 +81,6 @@ public class OngLogin extends AppCompatActivity {
                     }
                 });
 
-    }
-
-    /*
-     * Realiza ajustes nas views para telas menores
-     * */
-    public void setarInformacoes() {
-
-        int heighScreen = heightTela(OngLogin.this);
-
-        if(heighScreen < 1400){
-            ivTitulo.getLayoutParams().width = (int)(heighScreen*0.34);
-            setMargins(ivTitulo,0, -50, 0, 0);
-        }
     }
 
     public void esqueciSenha(View view){

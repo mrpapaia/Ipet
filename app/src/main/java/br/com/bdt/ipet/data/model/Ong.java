@@ -145,15 +145,6 @@ public class Ong implements Serializable, Parcelable {
 
     @Override
     public String toString() {
-        return "Ong{" +
-                "nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", whatsapp='" + whatsapp + '\'' +
-                ", CNPJ='" + CNPJ + '\'' +
-                ", uf='" + uf + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", dadosBancarios=" + dadosBancarios +
-                ", imgPerfil='" + imgPerfil + '\'' +
-                '}';
+        return nome;
     }
 }

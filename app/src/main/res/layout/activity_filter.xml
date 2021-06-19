@@ -25,8 +25,7 @@
                 android:onClick="voltar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginLeft="8dp">
+                app:layout_constraintTop_toTopOf="parent">
 
             </TextView>
 
@@ -59,6 +58,45 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="375dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/acUF"
+            style="@style/fildTextStyle"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/ic_location"
+            android:hint="@string/estado"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <AutoCompleteTextView
+            android:id="@+id/acMunicipio"
+            style="@style/fildTextStyle"
+            android:layout_marginTop="8dp"
+            android:drawableStart="@drawable/ic_location"
+            android:hint="@string/munic_pio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/acUF" />
+
+        <AutoCompleteTextView
+            android:id="@+id/acOng"
+            style="@style/fildTextStyle"
+            android:layout_marginTop="12dp"
+            android:hint="Nome Ong"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/acMunicipio" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -143,12 +181,12 @@
             android:background="@drawable/style_edit"
             android:elevation="5dp"
             android:ems="10"
-            android:hint="Minimo"
+            android:hint="@string/minimo"
             android:inputType="numberDecimal"
             android:padding="5dp"
             android:textAlignment="center"
             android:textColorHint="#716F89"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -164,7 +202,7 @@
             android:layout_marginEnd="4dp"
             android:elevation="5dp"
             android:text="-"
-            android:textSize="40dp"
+            android:textSize="40sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/etValorMax"
             app:layout_constraintHorizontal_bias="0.428"
@@ -179,12 +217,12 @@
             android:background="@drawable/style_edit"
             android:elevation="5dp"
             android:ems="10"
-            android:hint="Máximo"
+            android:hint="@string/m_ximo"
             android:inputType="numberDecimal"
             android:padding="5dp"
             android:textAlignment="center"
             android:textColorHint="#716F89"
-            android:textSize="20dp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.847"
@@ -198,7 +236,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="40dp"
-            android:text="Localização"
+            android:text="@string/localiza_o"
             android:textColor="#716F89"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -211,55 +249,18 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="345dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal"
-        android:paddingBottom="20dp">
 
-        <Spinner
-            android:id="@+id/spFilterUf"
-            android:layout_width="0dp"
-            android:layout_height="45dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/style_spinner"
-            android:elevation="3dp"
-            android:padding="5dp" />
-
-        <Spinner
-            android:id="@+id/spFilterCidade"
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/style_spinner"
-            android:elevation="3dp"
-            android:padding="5dp" />
-
-    </LinearLayout>
 
     <Button
-        android:id="@+id/bCadastrar"
+        android:id="@+id/bFiltrar"
         android:layout_width="345dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="60dp"
+        android:layout_marginEnd="2dp"
         android:background="@drawable/style_button"
-        android:layout_marginRight="2dp"
         android:onClick="filtrar"
-        android:text="Filtrar"
+        android:text="@string/filtrar"
         android:textColor="#fff"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
 </LinearLayout>

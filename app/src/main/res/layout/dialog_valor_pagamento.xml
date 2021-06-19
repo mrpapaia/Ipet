@@ -60,7 +60,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/bCadastrar"
+                android:id="@+id/bFiltrar"
                 android:layout_width="299dp"
                 android:layout_height="46dp"
                 android:layout_marginTop="20dp"

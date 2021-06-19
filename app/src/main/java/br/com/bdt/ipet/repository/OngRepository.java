@@ -3,6 +3,7 @@ package br.com.bdt.ipet.repository;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.repository.interfaces.IRepository;
@@ -21,8 +22,8 @@ public class OngRepository implements IRepository<Ong> {
     }
 
     @Override
-    public Task<Void> findAll() {
-        return null;
+    public Task<QuerySnapshot> findAll() {
+        return db.collection("ongs").get();
     }
 
     @Override

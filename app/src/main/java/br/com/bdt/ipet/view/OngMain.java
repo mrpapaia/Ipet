@@ -69,7 +69,7 @@ public class OngMain extends AppCompatActivity {
         casoController = new CasoController();
         IRepository<Caso> casoRepository = new CasoRepository(FirebaseFirestore.getInstance());
 
-        casoController.initDataRecyclerViewOng(casos -> {
+        casoController.initDataRecyclerView(casos -> {
 
             rvCasoOngAdapter = new RvCasoOngAdapter(getApplicationContext(), casos, (position, tv) -> {
                 tv.setEnabled(false);
@@ -100,7 +100,7 @@ public class OngMain extends AppCompatActivity {
         tvNomeDaOng.setText("Bem-vinda, " + ongSingleton.getOng().getNome());
         btCriarCaso.setEnabled(true); //dados da ong carregado, pode criar caso
         tvNomeHeader.setText(ongSingleton.getOng().getNome());
-        casoController.setiChanges(sizeList -> rvCasoOngAdapter.notifyDataSetChanged());
+        casoController.setiChanges(() -> rvCasoOngAdapter.notifyDataSetChanged());
         casoController.listenerCasosOng();
     }
 

@@ -25,4 +25,16 @@
     <string name="pular_etapa_e_concluir">Pular etapa e concluir</string>
     <string name="concluir">Concluir</string>
     <string name="pular_etapa">Pular etapa</string>
+    <string name="estado">Estado</string>
+    <string name="munic_pio">Município</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="cnpj">CNPJ</string>
+    <string name="whatsapp">Whatsapp</string>
+    <string name="senha">Senha</string>
+    <string name="e_mail">E-mail</string>
+    <string name="nome_da_ong">Nome da ONG</string>
+    <string name="filtrar">Filtrar</string>
+    <string name="m_ximo">Máximo</string>
+    <string name="localiza_o">Localização</string>
+    <string name="minimo">Minimo</string>
 </resources>

@@ -18,10 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
-import static br.com.bdt.ipet.util.GeralUtils.heightTela;
-import static br.com.bdt.ipet.util.GeralUtils.setMargins;
-
-
 public class MainActivity extends AppCompatActivity {
 
     ImageView titulo;
@@ -38,38 +34,14 @@ public class MainActivity extends AppCompatActivity {
         botao1= findViewById(R.id.bSouUmaOng);
         botao2= findViewById(R.id.bQueroAjudarOng);
 
-        setarAjustesViews();
         getQtdConexoes();
     }
 
-    /*
-     * Realiza ajustes nas views para telas menores
-     * */
-    public void setarAjustesViews() {
-
-        int heighScreen = heightTela(MainActivity.this);
-
-        if(heighScreen < 1400){
-            titulo.getLayoutParams().width = (int)(heighScreen*0.3);
-            setMargins(titulo,100, 30, 0, -100);
-            setMargins(botao1, 30,20,30,10);
-            setMargins(botao2, 30,5,30,10);
-        }
-    }
-
-    /*
-     * Método do onClick do Botão Sou Uma Ong
-     * Serve para chamar a activity que irá credenciar uma Ong
-     * */
     public void openSouUmaOng(View view){
         Intent intent = new Intent(this, OngLogin.class);
         startActivity(intent);
     }
 
-    /*
-     * Método do onClick do Botão Quero Ajudar Uma Ong
-     * Serve para chamar a activity que irá listar os casos de todas ongs
-     * */
     public void openQueroAjudarOng(View view){
         Intent intent = new Intent(this, QueroAjudarOng.class);
         startActivity(intent);

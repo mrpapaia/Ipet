@@ -9,17 +9,19 @@ public class DadosFiltro {
     private Double maxValue;
     private String uf;
     private String cidade;
-    private Integer idUf;
-    private Integer idCity;
+    private String emailOng;
 
-    public DadosFiltro(String[] especies, Double minValue, Double maxValue, String uf, String cidade, Integer idUf, Integer idCity) {
+    public DadosFiltro(){
+
+    }
+
+    public DadosFiltro(String[] especies, Double minValue, Double maxValue, String uf, String cidade, String emailOng) {
         this.especies = especies;
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.uf = uf;
         this.cidade = cidade;
-        this.idUf = idUf;
-        this.idCity = idCity;
+        this.emailOng = emailOng;
     }
 
     public String[] getEspecies() {
@@ -62,20 +64,21 @@ public class DadosFiltro {
         this.cidade = cidade;
     }
 
-    public Integer getIdUf() {
-        return idUf;
+    public String getEmailOng() {
+        return emailOng;
     }
 
-    public void setIdUf(Integer idUf) {
-        this.idUf = idUf;
+    public void setEmailOng(String emailOng) {
+        this.emailOng = emailOng;
     }
 
-    public Integer getIdCity() {
-        return idCity;
-    }
-
-    public void setIdCity(Integer idCity) {
-        this.idCity = idCity;
+    public boolean isClear() {
+        return Arrays.equals(especies, new String[0]) &&
+                minValue.equals(0.0) &&
+                maxValue.equals(0.0) &&
+                uf.equals("") &&
+                cidade.equals("") &&
+                emailOng.equals("");
     }
 
     @Override
@@ -86,18 +89,7 @@ public class DadosFiltro {
                 ", maxValue=" + maxValue +
                 ", uf='" + uf + '\'' +
                 ", cidade='" + cidade + '\'' +
-                ", idUf=" + idUf +
-                ", idCity=" + idCity +
+                ", emailOng='" + emailOng + '\'' +
                 '}';
-    }
-
-    public boolean isClear() {
-
-        DadosFiltro dadosVazios = new DadosFiltro(new String[0], 0.0, 0.0,
-                "","", -1, -1);
-
-        return Arrays.equals(especies, dadosVazios.especies) && minValue.equals(dadosVazios.getMinValue())
-                && maxValue.equals(dadosVazios.getMaxValue()) && idUf.equals(dadosVazios.getIdUf())
-                && idCity.equals(dadosVazios.getIdCity());
     }
 }
