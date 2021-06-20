@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +26,7 @@ public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancari
     private final RvDadosBancariosAdapter.DadosBancariosOnClickListener onClickListener;
 
     public interface DadosBancariosOnClickListener {
-        void onClickTrash(int position, TextView tv);
+        void onClickTrash(int position, ImageButton btTash);
     }
 
     public RvDadosBancariosAdapter(Context context, List<DadosBancario> dadosBancarios, RvDadosBancariosAdapter.DadosBancariosOnClickListener onClickListener) {
@@ -63,7 +64,7 @@ public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancari
             holder.tvpix.setText("");
         }
 
-        //holder.tvpix.setOnClickListener(v -> onClickListener.onClickTrash(position, holder.trashTv));
+        holder.btTrash.setOnClickListener(v -> onClickListener.onClickTrash(position, holder.btTrash));
     }
 
     public static class DadosBancariosViewHolder extends RecyclerView.ViewHolder {
@@ -74,6 +75,7 @@ public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancari
         TextView tvcpforcnpj;
         TextView tvpix;
         ImageView ivBank;
+        ImageButton btTrash;
         View view;
 
         public DadosBancariosViewHolder(View view) {
@@ -85,6 +87,7 @@ public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancari
             tvcpforcnpj = view.findViewById(R.id.tvcpforcnpj);
             tvpix = view.findViewById(R.id.tvpix);
             ivBank= view.findViewById(R.id.ivBank);
+            btTrash=view.findViewById(R.id.btTrash);
         }
     }
 }

@@ -90,6 +90,7 @@ public class OngMain extends AppCompatActivity {
         setNavigationDrawer();
 
         OngMainController ongMainController = new OngMainController();
+
         ongMainController.initOng().addOnCompleteListener(command ->  getDadosOng());
     }
 

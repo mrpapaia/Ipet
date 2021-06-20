@@ -8,8 +8,8 @@
     tools:context=".view.ListDadosBancarios">
 
     <include
-        android:id="@+id/include"
-        layout="@layout/toolbar_main"
+
+        layout="@layout/toolbar_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toTopOf="@+id/rvDadosBancarios"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include" />
+        app:layout_constraintTop_toBottomOf="@+id/tbNormal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDadosBancarios"

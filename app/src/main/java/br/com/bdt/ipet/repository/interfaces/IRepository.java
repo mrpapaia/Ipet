@@ -1,6 +1,7 @@
 package br.com.bdt.ipet.repository.interfaces;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -14,6 +15,8 @@ public interface IRepository<T,C> {
     Task<DocumentSnapshot> findById(String id);
     Task<Void> delete(String id);
     Task<Void> update(String id, T t);
-    Task<Void> updateDadosBancarios(String path, C list);
+    Task<Void> updateDocAddFild(String path, C list);
+    Task<Void> updateDocRemoveFild(String path, C list);
+    public DocumentReference listennerDoc(String id);
 
 }

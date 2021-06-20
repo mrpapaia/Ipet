@@ -1,6 +1,7 @@
 package br.com.bdt.ipet.repository;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -66,7 +67,18 @@ public class CasoRepository implements IRepository<Caso,Object> {
     }
 
     @Override
-    public Task<Void> updateDadosBancarios(String path, Object list) {
+    public Task<Void> updateDocAddFild(String path, Object list) {
+        return null;
+    }
+
+    @Override
+    public Task<Void> updateDocRemoveFild(String path, Object list) {
+        return null;
+    }
+
+
+    @Override
+    public DocumentReference listennerDoc(String id) {
         return null;
     }
 
