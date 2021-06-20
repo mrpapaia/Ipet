@@ -1,29 +1,28 @@
 package br.com.bdt.ipet.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.data.model.Ong;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
@@ -31,35 +30,41 @@ import static br.com.bdt.ipet.util.GeralUtils.toast;
 
 public class CriarCasoActivity extends AppCompatActivity {
 
-    FirebaseFirestore db;
-    Ong ong;
-    EditText etTituloCaso, etDescricaoCaso, etAnimalCaso, etValorCaso;
-    TextView tvVoltar;
-    Spinner spEspecieCaso;
-    Button btCriarCaso;
+    private Ong ong;
+    private EditText etTituloCaso;
+    private EditText etDescricaoCaso;
+    private EditText etNomeAnimalCaso;
+    private EditText etValorCaso;
+    private Spinner spEspecieCaso;
 
-    @SuppressLint("SourceLockedOrientationActivity")
+    @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_criar_caso);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        OngSingleton ongSingleton = OngSingleton.getOngSingleton();
+        Toolbar myToolbar = findViewById(R.id.tbNormal);
+        TextView title = findViewById(R.id.toolbar_title);
+        TextView title_extra = findViewById(R.id.toolbar_extra);
+        title.setText("Criar caso");
+        title_extra.setText("");
+        setSupportActionBar(myToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        myToolbar.setNavigationOnClickListener(v -> onBackPressed());
+        Objects.requireNonNull(myToolbar.getNavigationIcon()).setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
-        db = FirebaseFirestore.getInstance();
+        OngSingleton ongSingleton = OngSingleton.getOngSingleton();
         ong = ongSingleton.getOng();
 
         etTituloCaso = findViewById(R.id.etTituloCaso);
         etDescricaoCaso = findViewById(R.id.etDescricaoCaso);
-        etAnimalCaso = findViewById(R.id.etAnimalCaso);
+        etNomeAnimalCaso = findViewById(R.id.etNomeAnimalCaso);
         etValorCaso = findViewById(R.id.etValorCaso);
-
-        tvVoltar = findViewById(R.id.tvVoltar);
-
         spEspecieCaso = findViewById(R.id.spEspecieCaso);
-
-        btCriarCaso = findViewById(R.id.btCriarCaso);
+        Button bCriarCaso = findViewById(R.id.bCriarCaso);
 
         GeralUtils.setDataSpinner(
                 spEspecieCaso,  //spinner
@@ -85,9 +90,9 @@ public class CriarCasoActivity extends AppCompatActivity {
             return;
         }
 
-        String nomeAnimal = etAnimalCaso.getText().toString();
+        String nomeAnimal = etNomeAnimalCaso.getText().toString();
         if(!isValidInput(nomeAnimal, "text")){
-            etAnimalCaso.setError("Insira o nome do animal");
+            etNomeAnimalCaso.setError("Insira o nome do animal");
             return;
         }
 
@@ -103,48 +108,15 @@ public class CriarCasoActivity extends AppCompatActivity {
             etValorCaso.setError("Insira um valor válido");
             return;
         }
+
         Double valor = Double.parseDouble(valorString);
 
-        Map<String, Object> caso = new HashMap<>();
-        caso.put("id", id);
-        caso.put("titulo", titulo);
-        caso.put("descricao", descricao);
-        caso.put("nomeAnimal", nomeAnimal);
-        caso.put("especie", especie);
-        caso.put("valor", valor);
+        CasoSingleton casoSingleton = CasoSingleton.getCasoSingleton();
+        casoSingleton.setCaso(new Caso(id, titulo, descricao, nomeAnimal, especie, valor, "", ong));
 
-        setEnableViews(false);
-
-        db.collection("ongs")
-                .document(ong.getEmail())
-                .collection("casos")
-                .document(id)
-                .set(caso)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Caso Criado.",
-                                Toast.LENGTH_LONG).show();
-                        onBackPressed();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "Falha ao criar um caso.",
-                        Toast.LENGTH_LONG).show();
-                setEnableViews(true);
-            }
-        });
-    }
-
-    public void setEnableViews(boolean op){
-        etTituloCaso.setEnabled(op);
-        etDescricaoCaso.setEnabled(op);
-        etValorCaso.setEnabled(op);
-        etAnimalCaso.setEnabled(op);
-        spEspecieCaso.setEnabled(op);
-        btCriarCaso.setEnabled(op);
-        tvVoltar.setEnabled(op);
+        Intent intent = new Intent(getApplicationContext(), EnviarFoto.class);
+        intent.putExtra("isCaso", true);
+        startActivity(intent);
     }
 
     public void voltar(View view){

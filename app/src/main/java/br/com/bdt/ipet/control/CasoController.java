@@ -1,10 +1,15 @@
 package br.com.bdt.ipet.control;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +21,18 @@ import br.com.bdt.ipet.control.interfaces.IRecycler;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosFiltro;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.repository.CasoRepository;
 import br.com.bdt.ipet.repository.OngRepository;
+import br.com.bdt.ipet.repository.StorageRepository;
+import br.com.bdt.ipet.repository.interfaces.IRepository;
+import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.util.FiltroUtils;
+import br.com.bdt.ipet.view.FimCadastro;
 
 public class CasoController {
+
+    private final static String TAG = "CasoController.class";
 
     private final CasoSingleton casoSingleton;
     private final FirebaseFirestore db;
@@ -32,6 +44,40 @@ public class CasoController {
         db = FirebaseFirestore.getInstance();
         AuthController authController = new AuthController();
         emailOng = authController.getCurrentEmail();
+    }
+
+    public void salvarCaso(Activity act) {
+
+        ProgressDialog progressDialog = ProgressDialog.show(act, "Aguarde um momento", "Estamos salvando os dados do caso...");
+
+        if(casoSingleton.getUri() != null){
+            IStorage storageRepository = new StorageRepository(FirebaseStorage.getInstance());
+            storageRepository.saveImg(casoSingleton.getCaso().getOng().getEmail(), casoSingleton.getUri())
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            casoSingleton.getCaso().setLinkImg(Objects.requireNonNull(task.getResult()).toString());
+                            Log.d(TAG, "Sucesso save IMG Caso");
+                            salvarDadosCaso(act, progressDialog);
+                        } else {
+                            Log.d(TAG, "Falha save IMG Caso");
+                        }
+                    });
+        }else{
+            salvarDadosCaso(act, progressDialog);
+        }
+    }
+
+    public void salvarDadosCaso(Activity act, ProgressDialog progressDialog){
+
+        IRepository<Caso, Object> casoRepository = new CasoRepository(FirebaseFirestore.getInstance());
+
+        casoRepository.save(casoSingleton.getCaso()).addOnCompleteListener(task -> {
+            progressDialog.dismiss();
+            Intent intent = new Intent(act, FimCadastro.class);
+            intent.putExtra("isCaso", true);
+            act.startActivity(intent);
+        });
+
     }
 
     public void initDataRecyclerView(IRecycler irc){
@@ -86,6 +132,7 @@ public class CasoController {
                     document.getString("nomeAnimal"),
                     document.getString("especie"),
                     document.getDouble("valor"),
+                    document.getString("linkImg"),
                     Objects.requireNonNull(task.getResult()).toObject(Ong.class)
                 )
         ));

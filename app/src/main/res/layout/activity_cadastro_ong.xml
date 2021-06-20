@@ -102,6 +102,7 @@
         android:background="@drawable/style_button"
         android:onClick="cadastrar"
         android:text="@string/cadastrar"
+        android:textAllCaps="false"
         android:textColor="#fff"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,7 @@
 package br.com.bdt.ipet.singleton;
 
+import android.net.Uri;
+
 import java.util.List;
 
 import br.com.bdt.ipet.data.model.Caso;
@@ -12,6 +14,8 @@ public class CasoSingleton {
     private List<Caso> casos;
     private DadosFiltro dadosFiltro;
     private IFilter iFilter;
+    private Caso caso;
+    private Uri uri;
 
     private CasoSingleton() {
 
@@ -70,5 +74,21 @@ public class CasoSingleton {
 
     public void setiFilter(IFilter iFilter) {
         this.iFilter = iFilter;
+    }
+
+    public Caso getCaso() {
+        return caso;
+    }
+
+    public void setCaso(Caso caso) {
+        this.caso = caso;
+    }
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 }

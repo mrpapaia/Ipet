@@ -16,11 +16,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import java.io.IOException;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CadastroController;
+import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
+import br.com.bdt.ipet.singleton.CasoSingleton;
 
 public class EnviarFoto extends AppCompatActivity {
 
@@ -28,6 +31,9 @@ public class EnviarFoto extends AppCompatActivity {
     private Button btEnviarFoto;
     private CadastroSingleton cadastroSingleton;
     private boolean imgSelected;
+    private boolean isCaso;
+    private CasoSingleton casoSingleton;
+    private CasoController casoController;
 
     @SuppressWarnings("ConstantConditions")
     @SuppressLint("SetTextI18n")
@@ -39,7 +45,9 @@ public class EnviarFoto extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
         TextView title_extra = findViewById(R.id.toolbar_extra);
+        TextView tvMsgImg = findViewById(R.id.tvMsgImg);
         btEnviarFoto = findViewById(R.id.btEnviarFoto);
+        Button btPularEtapaImg = findViewById(R.id.btPularEtapaImg);
         title.setText("Foto");
         title_extra.setText("");
         setSupportActionBar(myToolbar);
@@ -49,15 +57,34 @@ public class EnviarFoto extends AppCompatActivity {
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
         myToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
+        casoController = new CasoController();
 
         btEnviarFoto.setOnClickListener(this::pickImg);
         cadastroSingleton = CadastroSingleton.getCadastroSingleton();
+        casoSingleton = CasoSingleton.getCasoSingleton();
+
+        isCaso = getIntent().getBooleanExtra("isCaso", false);
+
+        if(isCaso){
+            btPularEtapaImg.setText("Cancelar");
+        }
+
+        String nomeOng = casoSingleton.getCaso().getOng().getNome();
+        String endText = isCaso
+                ? "no seu caso ?"
+                : "em sua Ong ?";
+
+        tvMsgImg.setText("Olá " + nomeOng + ", gostaria de inserir uma foto " + endText);
     }
 
     public void pickImg(View view) {
         if(imgSelected){
-            CadastroController cadastroController = new CadastroController();
-            cadastroController.saveImgOng(this);
+            if(isCaso){
+                casoController.salvarCaso(this);
+            }else {
+                CadastroController cadastroController = new CadastroController();
+                cadastroController.saveImgOng(this);
+            }
         }else{
             Intent it = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
             startActivityForResult(it, GET_FROM_GALLERY);
@@ -76,8 +103,12 @@ public class EnviarFoto extends AppCompatActivity {
                 ImageView ivEnviar = findViewById(R.id.ivEnviar);
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 ivEnviar.setImageBitmap(bitmap);
-                btEnviarFoto.setText("Enviar foto");
-                cadastroSingleton.setUri(selectedImage);
+                btEnviarFoto.setText(isCaso ? "Concluir" : "Enviar foto");
+                if(isCaso){
+                    casoSingleton.setUri(selectedImage);
+                }else {
+                    cadastroSingleton.setUri(selectedImage);
+                }
                 imgSelected = true;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -86,7 +117,11 @@ public class EnviarFoto extends AppCompatActivity {
     }
 
     public void pularEtapa(View v){
-        Intent it = new Intent(this, CadastroInfoBanco.class);
-        startActivity(it);
+        if(isCaso){
+            casoController.salvarCaso(this);
+        }else{
+            Intent it = new Intent(this, CadastroInfoBanco.class);
+            startActivity(it);
+        }
     }
 }

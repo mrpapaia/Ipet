@@ -12,8 +12,8 @@
       />
 
     <TextView
-        android:id="@+id/textView11"
-        android:text="Olá Focinho de Luz, gostaria de inserir uma foto? "
+        android:id="@+id/tvMsgImg"
+        android:text="Olá Focinho de Luz, gostaria de inserir uma foto?"
         style="@style/destaque"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
         style="@style/paragrafo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+        app:layout_constraintTop_toBottomOf="@+id/tvMsgImg" />
 
     <ImageView
         android:id="@+id/ivEnviar"

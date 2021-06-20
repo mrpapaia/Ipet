@@ -1,5 +1,6 @@
 package br.com.bdt.ipet.view;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -42,11 +44,12 @@ public class OngMain extends AppCompatActivity {
     private OngSingleton ongSingleton;
     private CasoController casoController;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"RtlHardcoded", "SourceLockedOrientationActivity", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listagem_de_casos);
+        setContentView(R.layout.activity_ong_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar tbMain = findViewById(R.id.tbMain);
         tbMain.setNavigationOnClickListener(view -> dLayout.openDrawer(Gravity.LEFT));

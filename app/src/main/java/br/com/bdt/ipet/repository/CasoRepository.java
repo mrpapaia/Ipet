@@ -5,24 +5,40 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import br.com.bdt.ipet.control.AuthController;
-import br.com.bdt.ipet.control.interfaces.IChanges;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.repository.interfaces.IRepository;
 
 public class CasoRepository implements IRepository<Caso,Object> {
 
     private final FirebaseFirestore db;
+    private final AuthController authController;
 
     public CasoRepository(FirebaseFirestore db) {
         this.db = db;
+        authController = new AuthController();
     }
 
     @Override
     public Task<Void> save(Caso caso) {
-        return null;
+
+        Map<String, Object> docCaso = new HashMap<>();
+        docCaso.put("id", caso.getId());
+        docCaso.put("titulo", caso.getTitulo());
+        docCaso.put("descricao", caso.getDescricao());
+        docCaso.put("nomeAnimal", caso.getNomeAnimal());
+        docCaso.put("especie", caso.getEspecie());
+        docCaso.put("valor", caso.getValor());
+        docCaso.put("linkImg", caso.getLinkImg());
+
+        return db.collection("ongs")
+                .document(authController.getCurrentEmail())
+                .collection("casos")
+                .document(caso.getId())
+                .set(docCaso);
     }
 
     @Override
@@ -37,10 +53,8 @@ public class CasoRepository implements IRepository<Caso,Object> {
 
     @Override
     public Task<Void> delete(String id) {
-        AuthController authController = new AuthController();
-        String emailOng = authController.getCurrentEmail();
         return db.collection("ongs")
-                .document(emailOng)
+                .document(authController.getCurrentEmail())
                 .collection("casos")
                 .document(id)
                 .delete();

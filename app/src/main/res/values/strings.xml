@@ -28,7 +28,7 @@
     <string name="estado">Estado</string>
     <string name="munic_pio">Município</string>
     <string name="cadastrar">Cadastrar</string>
-    <string name="cnpj">CPF/CNPJ</string>
+    <string name="cnpj">CNPJ</string>
     <string name="whatsapp">Whatsapp</string>
     <string name="senha">Senha</string>
     <string name="e_mail">E-mail</string>
@@ -42,4 +42,10 @@
     <string name="cpf_cnpj_exemple">CPF/CNPJ: 00.000.000-00</string>
     <string name="agencia_exemple">Agência: 1243</string>
     <string name="conta_exemple">Conta: 000002-3</string>
+    <string name="crie_um_novo_caso">Crie um novo caso</string>
+    <string name="t_tulo_do_caso">Título do caso</string>
+    <string name="descri_o">Descrição</string>
+    <string name="nome_do_animal">Nome do animal</string>
+    <string name="valor_em_reais_r">Valor em Reais (R$)</string>
+    <string name="pr_xima_etapa">Próxima etapa</string>
 </resources>

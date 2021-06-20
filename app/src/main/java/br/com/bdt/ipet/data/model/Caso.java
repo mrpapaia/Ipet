@@ -13,18 +13,20 @@ public class Caso implements Serializable, Parcelable {
     private String nomeAnimal;
     private String especie;
     private Double valor;
+    private String linkImg;
     private Ong ong;
 
     public Caso(){
     }
 
-    public Caso(String id, String titulo, String descricao, String nomeAnimal, String especie, Double valor, Ong ong) {
+    public Caso(String id, String titulo, String descricao, String nomeAnimal, String especie, Double valor, String linkImg, Ong ong) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.nomeAnimal = nomeAnimal;
         this.especie = especie;
         this.valor = valor;
+        this.linkImg = linkImg;
         this.ong = ong;
     }
 
@@ -84,6 +86,14 @@ public class Caso implements Serializable, Parcelable {
         this.especie = especie;
     }
 
+    public String getLinkImg() {
+        return linkImg;
+    }
+
+    public void setLinkImg(String linkImg) {
+        this.linkImg = linkImg;
+    }
+
     @Override
     public String toString() {
         return "Caso{" +
@@ -93,6 +103,7 @@ public class Caso implements Serializable, Parcelable {
                 ", nomeAnimal='" + nomeAnimal + '\'' +
                 ", especie='" + especie + '\'' +
                 ", valor=" + valor +
+                ", linkImg='" + linkImg + '\'' +
                 ", ong=" + ong +
                 '}';
     }
@@ -110,6 +121,7 @@ public class Caso implements Serializable, Parcelable {
         dest.writeString(especie);
         dest.writeString(descricao);
         dest.writeDouble(valor);
+        dest.writeString(linkImg);
         dest.writeParcelable(ong, flags);
     }
 
@@ -120,6 +132,7 @@ public class Caso implements Serializable, Parcelable {
         especie = in.readString();
         descricao = in.readString();
         valor = in.readDouble();
+        linkImg = in.readString();
         ong = in.readParcelable(Ong.class.getClassLoader());
     }
 
