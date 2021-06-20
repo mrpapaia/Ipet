@@ -5,11 +5,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
+
 import br.com.bdt.ipet.control.AuthController;
+import br.com.bdt.ipet.control.interfaces.IChanges;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.repository.interfaces.IRepository;
 
-public class CasoRepository implements IRepository<Caso> {
+public class CasoRepository implements IRepository<Caso,Object> {
 
     private final FirebaseFirestore db;
 
@@ -47,4 +50,11 @@ public class CasoRepository implements IRepository<Caso> {
     public Task<Void> update(String id, Caso caso) {
         return null;
     }
+
+    @Override
+    public Task<Void> updateDadosBancarios(String path, Object list) {
+        return null;
+    }
+
+
 }

@@ -13,6 +13,7 @@ import java.util.Objects;
 
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.api.ConsumerData.SendDataObject;
+import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.repository.OngRepository;
 import br.com.bdt.ipet.repository.StorageRepository;
@@ -73,11 +74,16 @@ public class CadastroController {
             });
         }
     }
+public void updateDadosBancario(Activity act,String email, DadosBancario dadosBancario){
+    IRepository<Ong, DadosBancario> ongRepository = new OngRepository(FirebaseFirestore.getInstance());
+    ongRepository.updateDadosBancarios(email,dadosBancario).
 
+            addOnCompleteListener(aVoid->{ act.onBackPressed();});
+}
     public void saveDadosOng(Activity act){
 
         ProgressDialog progressDialog = ProgressDialog.show(act, "Aguarde um momento", "Estamos salvando todos seus dados...");
-        IRepository<Ong> ongRepository = new OngRepository(FirebaseFirestore.getInstance());
+        IRepository<Ong, DadosBancario> ongRepository = new OngRepository(FirebaseFirestore.getInstance());
 
         ongRepository.save(cadastroSingleton.getOng())
             .addOnSuccessListener(aVoid -> {

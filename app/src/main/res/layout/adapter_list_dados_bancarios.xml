@@ -1,138 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
+
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="23dp"
+    android:layout_marginEnd="23dp"
+    app:cardBackgroundColor="#A3D1D0D0"
+    app:cardCornerRadius="15dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="23dp"
-        android:layout_marginEnd="23dp"
-        app:cardBackgroundColor="#A3D1D0D0"
-        app:cardCornerRadius="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="#A3D1D0D0"
+        android:backgroundTint="#A3D1D0D0">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/ivBank"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#A3D1D0D0"
-            android:backgroundTint="#A3D1D0D0">
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="36dp"
+            android:background="@drawable/bank_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/bank_icon"
+            tools:srcCompat="@drawable/bank_icon" />
 
-            <ImageView
-                android:id="@+id/ivBank"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="36dp"
-                android:layout_marginBottom="36dp"
-                android:background="@drawable/bank_icon"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bank_icon"
-                tools:srcCompat="@drawable/bank_icon" />
+        <TextView
+            android:id="@+id/tvNomeBanco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/caixa_economica_federal"
+            android:textColorLink="@color/fildTextColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvContaBanco"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvNomeBanco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/caixa_economica_federal"
-                android:textColorLink="@color/fildTextColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvContaBanco"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvContaBanco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/conta_exemple"
+            android:textColorLink="@color/fildTextColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvAgenciaContaBanco"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNomeBanco" />
 
-            <TextView
-                android:id="@+id/tvContaBanco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/conta_exemple"
-                android:textColorLink="@color/fildTextColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvAgenciaContaBanco"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvNomeBanco" />
+        <TextView
+            android:id="@+id/tvAgenciaContaBanco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/agencia_exemple"
+            android:textColorLink="@color/fildTextColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvcpforcnpj"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvContaBanco" />
 
-            <TextView
-                android:id="@+id/tvAgenciaContaBanco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/agencia_exemple"
-                android:textColorLink="@color/fildTextColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvcpforcnpj"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvContaBanco" />
+        <TextView
+            android:id="@+id/tvcpforcnpj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/cpf_cnpj_exemple"
+            android:textColorLink="@color/fildTextColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/tvpix"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvAgenciaContaBanco" />
 
-            <TextView
-                android:id="@+id/tvcpforcnpj"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/cpf_cnpj_exemple"
-                android:textColorLink="@color/fildTextColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvpix"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvAgenciaContaBanco" />
+        <TextView
+            android:id="@+id/tvpix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="9dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/chave_pix_exemple"
+            android:textColorLink="@color/fildTextColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvcpforcnpj" />
 
-            <TextView
-                android:id="@+id/tvpix"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="9dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/chave_pix_exemple"
-                android:textColorLink="@color/fildTextColor"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvcpforcnpj" />
-
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="7dp"
-                android:background="@drawable/ic__delete_outline"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/tvNomeBanco"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="7dp"
+            android:background="@drawable/ic__delete_outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/tvNomeBanco"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

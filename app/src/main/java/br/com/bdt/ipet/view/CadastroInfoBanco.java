@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,13 +39,18 @@ public class CadastroInfoBanco extends AppCompatActivity {
     private EditText etChavePix;
     private EditText etCNPJContaBanco;
     private CadastroSingleton cadastroSingleton;
+    private Button btConcluir;
+    private Button btPularEtapa;
+    private boolean isAdd;
+    private  String email;
+
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_info_banco);
-        cadastroController= new CadastroController();
+        cadastroController = new CadastroController();
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
         TextView title_extra = findViewById(R.id.toolbar_extra);
@@ -53,7 +59,14 @@ public class CadastroInfoBanco extends AppCompatActivity {
         etAgencia = findViewById(R.id.etAgencia);
         cbHablitapix = findViewById(R.id.cbHabilitaPix);
         etChavePix = findViewById(R.id.etChavePix);
-        etCNPJContaBanco=findViewById(R.id.etCNPJContaBanco);
+        etCNPJContaBanco = findViewById(R.id.etCNPJContaBanco);
+
+        isAdd = getIntent().getBooleanExtra("isAdd", false);
+        if (isAdd) {
+            email=getIntent().getStringExtra("email");
+            btPularEtapa = findViewById(R.id.btPularEtapa);
+            btPularEtapa.setText("Cancelar");
+        }
         title.setText("Dados Bancarios");
         title_extra.setText("");
         setSupportActionBar(myToolbar);
@@ -63,7 +76,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
         myToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
         myToolbar.setNavigationOnClickListener(v -> {
-            v.setBackgroundResource(R.color.colorPrimary);
+
             onBackPressed();
         });
         etChavePix.setVisibility(View.INVISIBLE);
@@ -72,7 +85,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
     }
 
     @SuppressWarnings("unchecked")
-    private void initAutoComplet(){
+    private void initAutoComplet() {
         BancoRepository bancoRepository = new BancoRepository(FirebaseFirestore.getInstance());
 
         bancoRepository.getAll().addOnCompleteListener(task -> {
@@ -85,7 +98,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
             List<Banco> bancos = new ArrayList<>();
 
             assert bancosMap != null;
-            for(Map<String, String> map : bancosMap){
+            for (Map<String, String> map : bancosMap) {
                 bancos.add(new Banco(map.get("label"), map.get("value")));
             }
 
@@ -96,15 +109,27 @@ public class CadastroInfoBanco extends AppCompatActivity {
         });
     }
 
-    public void hablitaPix(View v){
-        if(cbHablitapix.isChecked()){
+    public void hablitaPix(View v) {
+        if (cbHablitapix.isChecked()) {
             etChavePix.setVisibility(View.VISIBLE);
             return;
         }
         etChavePix.setVisibility(View.INVISIBLE);
     }
 
-    public void finalizarCadastro(View v){
+    public void finalizarCadastro(View v) {
+        if(isAdd){
+            DadosBancario dadosBancario= new DadosBancario(
+                    acBanco.getText().toString(),
+                    etConta.getText().toString(),
+                    etAgencia.getText().toString(),
+                    etChavePix.getText().toString(),
+                    etCNPJContaBanco.getText().toString()
+            );
+            cadastroController.updateDadosBancario(this,email,dadosBancario);
+            return ;
+
+        }
         List<DadosBancario> listDadosBancario = new ArrayList<>();
         listDadosBancario.add(
                 new DadosBancario(
@@ -115,11 +140,16 @@ public class CadastroInfoBanco extends AppCompatActivity {
                         etCNPJContaBanco.getText().toString()
                 )
         );
+
         cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
         cadastroController.saveDadosOng(this);
     }
 
-    public void end(View v){
+    public void end(View v) {
+        if(isAdd) {
+            onBackPressed();
+            return;
+        }
         cadastroController.saveDadosOng(this);
     }
 

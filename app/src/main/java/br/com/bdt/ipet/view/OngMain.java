@@ -67,7 +67,7 @@ public class OngMain extends AppCompatActivity {
         rvCasosOng.setHasFixedSize(true);
 
         casoController = new CasoController();
-        IRepository<Caso> casoRepository = new CasoRepository(FirebaseFirestore.getInstance());
+        IRepository<Caso,Object> casoRepository = new CasoRepository(FirebaseFirestore.getInstance());
 
         casoController.initDataRecyclerView(casos -> {
 

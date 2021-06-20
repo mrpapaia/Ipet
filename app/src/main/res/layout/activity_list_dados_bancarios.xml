@@ -23,6 +23,7 @@
         android:drawableLeft="@drawable/ic_add2"
 
         android:drawingCacheQuality="auto"
+        android:onClick="addDadosBancario"
         android:text="Adicionar dados bancarios"
         android:textAlignment="textStart"
         android:textColor="@color/textoButaoBranco"
