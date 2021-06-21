@@ -8,93 +8,107 @@
     android:orientation="vertical"
     android:background="@color/bgColor"
     tools:context=".view.CriarCasoActivity">
-
-    <include
-        layout="@layout/toolbar_default" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/crie_um_novo_caso"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbNormal" />
-
-    <EditText
-        android:id="@+id/etTituloCaso"
-        style="@style/fildTextStyleFrist"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
-        android:hint="@string/t_tulo_do_caso"
-        android:inputType="textCapSentences|textAutoCorrect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-    <EditText
-        android:id="@+id/etDescricaoCaso"
-        style="@style/fildTextStyle"
-        android:layout_height="170dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/style_edit"
-        android:ems="10"
-        android:gravity="start"
-        android:hint="@string/descri_o"
-        android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
-        android:maxLength="200"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etTituloCaso" />
-
-    <EditText
-        android:id="@+id/etNomeAnimalCaso"
-        style="@style/fildTextStyleFrist"
-        android:layout_marginTop="16dp"
-        android:hint="@string/nome_do_animal"
-        android:inputType="textCapSentences|textAutoCorrect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDescricaoCaso" />
-
-    <Spinner
-        android:id="@+id/spEspecieCaso"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/style_spinner"
-        android:elevation="4dp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNomeAnimalCaso" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/etValorCaso"
-        style="@style/fildTextStyleFrist"
-        android:layout_marginTop="16dp"
-        android:hint="@string/valor_em_reais_r"
-        android:inputType="textCapSentences|textAutoCorrect"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spEspecieCaso" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FAFAFA"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/bCriarCaso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/style_button"
-        android:text="@string/pr_xima_etapa"
-        android:onClick="criarUmCaso"
-        android:textAllCaps="false"
-        android:textColor="#fff"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etValorCaso" />
+            <include
+                layout="@layout/toolbar_default" />
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/crie_um_novo_caso"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tbNormal" />
+
+            <EditText
+                android:id="@+id/etTituloCaso"
+                style="@style/fildTextStyleFrist"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:hint="@string/t_tulo_do_caso"
+                android:inputType="textCapSentences|textAutoCorrect"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <EditText
+                android:id="@+id/etDescricaoCaso"
+                style="@style/fildTextStyle"
+                android:layout_height="170dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/style_edit"
+                android:ems="10"
+                android:gravity="start"
+                android:hint="@string/descri_o"
+                android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
+                android:maxLength="200"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etTituloCaso" />
+
+            <EditText
+                android:id="@+id/etNomeAnimalCaso"
+                style="@style/fildTextStyleFrist"
+                android:layout_marginTop="16dp"
+                android:hint="@string/nome_do_animal"
+                android:inputType="textCapSentences|textAutoCorrect"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etDescricaoCaso" />
+
+            <Spinner
+                android:id="@+id/spEspecieCaso"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/style_spinner"
+                android:elevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etNomeAnimalCaso" />
+
+            <EditText
+                android:id="@+id/etValorCaso"
+                style="@style/fildTextStyleFrist"
+                android:layout_marginTop="16dp"
+                android:hint="@string/valor_em_reais_r"
+                android:inputType="textCapSentences|textAutoCorrect"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spEspecieCaso" />
+
+            <Button
+                android:id="@+id/bCriarCaso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/style_button"
+                android:text="@string/pr_xima_etapa"
+                android:onClick="criarUmCaso"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etValorCaso" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

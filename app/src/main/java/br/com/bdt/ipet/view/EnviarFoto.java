@@ -63,16 +63,19 @@ public class EnviarFoto extends AppCompatActivity {
         cadastroSingleton = CadastroSingleton.getCadastroSingleton();
         casoSingleton = CasoSingleton.getCasoSingleton();
 
+        String nomeOng = "";
+        String endText = "";
+
         isCaso = getIntent().getBooleanExtra("isCaso", false);
 
         if(isCaso){
             btPularEtapaImg.setText("Cancelar");
+            nomeOng = casoSingleton.getCaso().getOng().getNome();
+            endText = "no seu caso ?";
+        }else{
+            nomeOng = cadastroSingleton.getOng().getNome();
+            endText = "em sua Ong ?";
         }
-
-        String nomeOng = casoSingleton.getCaso().getOng().getNome();
-        String endText = isCaso
-                ? "no seu caso ?"
-                : "em sua Ong ?";
 
         tvMsgImg.setText("Olá " + nomeOng + ", gostaria de inserir uma foto " + endText);
     }

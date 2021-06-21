@@ -3,7 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#FAFAFA"
     android:orientation="vertical"
     tools:context=".view.Filter">
@@ -14,29 +14,28 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/include">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/teste"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FAFAFA"
-            android:orientation="vertical"
-            tools:context=".view.Filter">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="74dp"
+                android:layout_marginTop="72dp"
                 android:text="@string/esp_cie"
                 android:textColor="#716F89"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.003"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,7 +90,7 @@
 
             <EditText
                 android:id="@+id/etValorMin"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
@@ -104,6 +103,8 @@
                 android:textAlignment="center"
                 android:textColorHint="#716F89"
                 android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/etValorMax"
+                app:layout_constraintHorizontal_bias="0.316"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -111,20 +112,21 @@
                 android:id="@+id/tvSeparacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:elevation="5dp"
                 android:text="@string/sep"
                 android:textSize="40sp"
+                app:layout_constraintEnd_toStartOf="@+id/etValorMax"
                 app:layout_constraintStart_toEndOf="@+id/etValorMin"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <EditText
                 android:id="@+id/etValorMax"
-                android:layout_width="150dp"
+                android:layout_width="0dp"
                 android:layout_height="42dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="33dp"
                 android:background="@drawable/style_edit"
                 android:elevation="5dp"
                 android:ems="10"
@@ -134,7 +136,8 @@
                 android:textAlignment="center"
                 android:textColorHint="#716F89"
                 android:textSize="20sp"
-                app:layout_constraintStart_toEndOf="@+id/tvSeparacao"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/etValorMin"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <TextView
@@ -172,6 +175,7 @@
                 android:completionThreshold="1"
                 android:drawableStart="@drawable/ic_location"
                 android:hint="@string/estado"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -184,6 +188,7 @@
                 android:completionThreshold="1"
                 android:drawableStart="@drawable/ic_location"
                 android:hint="@string/munic_pio"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/acUF" />
 
@@ -195,27 +200,23 @@
                 android:layout_marginTop="16dp"
                 android:completionThreshold="1"
                 android:hint="@string/nome_da_ong"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+
             <Button
                 android:id="@+id/bFiltrar"
-                android:layout_width="345dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="4dp"
-                android:background="@drawable/style_button"
+                style="@style/botaoVerdeStyle"
+                android:layout_marginBottom="8dp"
                 android:onClick="filtrar"
                 android:text="@string/filtrar"
                 android:textAllCaps="false"
-                android:textColor="#fff"
-                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.553"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/acOng"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@+id/acOng" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

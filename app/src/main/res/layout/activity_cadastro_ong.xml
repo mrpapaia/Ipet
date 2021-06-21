@@ -8,109 +8,125 @@
     android:background="@color/bgColor"
     tools:context=".view.CadastroOng">
 
-    <include
-            layout="@layout/toolbar_default" />
-
-
-    <EditText
-        android:id="@+id/etNome"
-        android:drawableStart="@drawable/ic_person"
-        android:hint="@string/nome_da_ong"
-        android:inputType="textCapSentences|textAutoCorrect"
-        style="@style/fildTextStyleFrist"
-        app:layout_constraintBottom_toTopOf="@+id/etEmail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbNormal" />
-
-
-    <EditText
-        android:id="@+id/etEmail"
-        style="@style/fildTextStyle"
-        android:background="@drawable/style_edit"
-        android:drawableStart="@drawable/ic_email"
-        android:hint="@string/e_mail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintBottom_toTopOf="@+id/etSenha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNome" />
-
-
-    <EditText
-        android:id="@+id/etSenha"
-        style="@style/fildTextStyle"
-        android:background="@drawable/style_edit"
-        android:drawableStart="@drawable/ic_lock"
-        android:hint="@string/senha"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/etWhatsapp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etEmail" />
-
-    <EditText
-        android:id="@+id/etWhatsapp"
-        style="@style/fildTextStyle"
-        android:drawableStart="@drawable/ic_phone"
-        android:hint="@string/whatsapp"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/etCNPJ"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSenha" />
-
-    <EditText
-        android:id="@+id/etCNPJ"
-        style="@style/fildTextStyle"
-        android:drawableStart="@drawable/ic_cnpjdoc"
-        android:hint="@string/cnpj"
-        android:inputType="phone"
-        app:layout_constraintBottom_toTopOf="@+id/acUF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etWhatsapp" />
-
-    <AutoCompleteTextView
-        android:id="@+id/acUF"
-        style="@style/fildTextStyle"
-        android:hint="@string/estado"
-        android:drawableStart="@drawable/ic_location"
-        android:completionThreshold="1"
-        app:layout_constraintBottom_toTopOf="@+id/acMunicipio"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etCNPJ" />
-
-    <AutoCompleteTextView
-        android:id="@+id/acMunicipio"
-        style="@style/fildTextStyle"
-        android:layout_marginBottom="79dp"
-        android:hint="@string/munic_pio"
-        android:drawableStart="@drawable/ic_location"
-        android:completionThreshold="1"
-        app:layout_constraintBottom_toTopOf="@+id/bFiltrar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/acUF" />
-
-    <Button
-        android:id="@+id/bFiltrar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="33dp"
-        android:background="@drawable/style_button"
-        android:onClick="cadastrar"
-        android:text="@string/cadastrar"
-        android:textAllCaps="false"
-        android:textColor="#fff"
-        android:textSize="18sp"
+        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/acMunicipio" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FAFAFA"
+            tools:context=".view.CadastroOng"
+            android:orientation="vertical">
 
+            <include
+                layout="@layout/toolbar_default"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/etNome"
+                style="@style/fildTextStyleFrist"
+                android:drawableStart="@drawable/ic_person"
+                android:hint="@string/nome_da_ong"
+                android:inputType="textCapSentences|textAutoCorrect"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tbNormal" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                style="@style/fildTextStyle"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/style_edit"
+                android:drawableStart="@drawable/ic_email"
+                android:hint="@string/e_mail"
+                android:inputType="textEmailAddress"
+                app:layout_constraintBottom_toTopOf="@+id/etSenha"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etNome" />
+
+            <EditText
+                android:id="@+id/etSenha"
+                style="@style/fildTextStyle"
+                android:background="@drawable/style_edit"
+                android:drawableStart="@drawable/ic_lock"
+                android:hint="@string/senha"
+                android:inputType="textPassword"
+                app:layout_constraintBottom_toTopOf="@+id/etWhatsapp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etEmail" />
+
+            <EditText
+                android:id="@+id/etWhatsapp"
+                style="@style/fildTextStyle"
+                android:drawableStart="@drawable/ic_phone"
+                android:hint="@string/whatsapp"
+                android:inputType="phone"
+                app:layout_constraintBottom_toTopOf="@+id/etCNPJ"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etSenha" />
+
+            <EditText
+                android:id="@+id/etCNPJ"
+                style="@style/fildTextStyle"
+                android:drawableStart="@drawable/ic_cnpjdoc"
+                android:hint="@string/cnpj"
+                android:inputType="phone"
+                app:layout_constraintBottom_toTopOf="@+id/acUF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etWhatsapp" />
+
+            <AutoCompleteTextView
+                android:id="@+id/acUF"
+                style="@style/fildTextStyle"
+                android:completionThreshold="1"
+                android:drawableStart="@drawable/ic_location"
+                android:hint="@string/estado"
+                app:layout_constraintBottom_toTopOf="@+id/acMunicipio"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etCNPJ" />
+
+            <AutoCompleteTextView
+                android:id="@+id/acMunicipio"
+                style="@style/fildTextStyle"
+                android:layout_marginBottom="79dp"
+                android:completionThreshold="1"
+                android:drawableStart="@drawable/ic_location"
+                android:hint="@string/munic_pio"
+                app:layout_constraintBottom_toTopOf="@+id/bFiltrar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/acUF" />
+
+            <Button
+                android:id="@+id/bFiltrar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginEnd="33dp"
+                android:background="@drawable/style_button"
+                android:onClick="cadastrar"
+                android:text="@string/cadastrar"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/acMunicipio" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

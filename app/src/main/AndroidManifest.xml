@@ -13,12 +13,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".view.ListDadosBancarios" />
         <activity android:name=".view.FimCadastro" />
-        <activity android:name=".view.CadastroInfoBanco" />
+        <activity android:name=".view.CadastroInfoBanco" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".view.EnviarFoto" />
-        <activity android:name=".view.CriarCasoActivity" />
+        <activity android:name=".view.CriarCasoActivity" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".view.DetalhesCasoActivity" />
         <activity android:name=".view.OngMain" />
-        <activity android:name=".view.CadastroOng" />
+        <activity android:name=".view.CadastroOng" android:windowSoftInputMode="adjustResize" />
         <activity android:name=".view.QueroAjudarOng" />
         <activity android:name=".view.OngLogin" />
         <activity android:name=".view.MainActivity" />

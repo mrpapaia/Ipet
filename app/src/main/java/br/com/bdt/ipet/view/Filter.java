@@ -9,7 +9,6 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -53,9 +52,6 @@ public class Filter extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
         casoSingleton = CasoSingleton.getCasoSingleton();
         ongSingleton = OngSingleton.getOngSingleton();
         Toolbar myToolbar = findViewById(R.id.tbNormal);
