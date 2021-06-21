@@ -88,7 +88,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
     private void initAutoComplet() {
         BancoRepository bancoRepository = new BancoRepository(FirebaseFirestore.getInstance());
 
-        bancoRepository.getAll().addOnCompleteListener(task -> {
+        bancoRepository.findAll().addOnCompleteListener(task -> {
 
             DocumentSnapshot documentSnapshot = task.getResult();
 

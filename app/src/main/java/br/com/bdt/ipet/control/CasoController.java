@@ -24,7 +24,7 @@ import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.repository.CasoRepository;
 import br.com.bdt.ipet.repository.OngRepository;
 import br.com.bdt.ipet.repository.StorageRepository;
-import br.com.bdt.ipet.repository.interfaces.IRepository;
+import br.com.bdt.ipet.repository.interfaces.IRepositoryCaso;
 import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.util.FiltroUtils;
@@ -35,12 +35,14 @@ public class CasoController {
     private final static String TAG = "CasoController.class";
 
     private final CasoSingleton casoSingleton;
+    private final IRepositoryCaso repositoryCaso;
     private final FirebaseFirestore db;
     private final String emailOng;
     private IChanges iChanges;
 
     public CasoController() {
         casoSingleton = CasoSingleton.getCasoSingleton();
+        repositoryCaso = new CasoRepository(FirebaseFirestore.getInstance());
         db = FirebaseFirestore.getInstance();
         AuthController authController = new AuthController();
         emailOng = authController.getCurrentEmail();
@@ -68,16 +70,12 @@ public class CasoController {
     }
 
     public void salvarDadosCaso(Activity act, ProgressDialog progressDialog){
-
-        IRepository<Caso, Object> casoRepository = new CasoRepository(FirebaseFirestore.getInstance());
-
-        casoRepository.save(casoSingleton.getCaso()).addOnCompleteListener(task -> {
+        repositoryCaso.save(casoSingleton.getCaso()).addOnCompleteListener(task -> {
             progressDialog.dismiss();
             Intent intent = new Intent(act, FimCadastro.class);
             intent.putExtra("isCaso", true);
             act.startActivity(intent);
         });
-
     }
 
     public void initDataRecyclerView(IRecycler irc){
@@ -86,7 +84,7 @@ public class CasoController {
     }
 
     public void listenerCasosAll(){
-        db.collectionGroup("casos").addSnapshotListener((value, error) -> {
+        repositoryCaso.findAll().addSnapshotListener((value, error) -> {
             if(value != null){
                 runActions(value.getDocumentChanges());
             }
@@ -94,12 +92,11 @@ public class CasoController {
     }
 
     public void listenerCasosOng(){
-        db.collection("ongs").document(emailOng).collection("casos")
-                .addSnapshotListener((value, error) -> {
-                    if(value != null){
-                        runActions(value.getDocumentChanges());
-                    }
-                });
+        repositoryCaso.findByOng(emailOng).addSnapshotListener((value, error) -> {
+            if(value != null){
+                runActions(value.getDocumentChanges());
+            }
+        });
     }
 
     public void runActions(List<DocumentChange> docs){

@@ -9,6 +9,8 @@ import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -45,12 +47,15 @@ public class Filter extends AppCompatActivity {
     private AutoCompleteTextView acOng;
     private OngSingleton ongSingleton;
 
-    @SuppressLint("SourceLockedOrientationActivity")
+    @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         casoSingleton = CasoSingleton.getCasoSingleton();
         ongSingleton = OngSingleton.getOngSingleton();
         Toolbar myToolbar = findViewById(R.id.tbNormal);
@@ -66,11 +71,8 @@ public class Filter extends AppCompatActivity {
 
         title.setText("Filtro");
         title_extra.setText("Limpar");
-        title_extra.setOnClickListener(v->{
-            casoSingleton.setDadosFiltro(null);
-            casoSingleton.getiFilter().onClearFilter();
-            GeralUtils.toast(getApplicationContext(), "Filtro(s) Removido(s).");
-        });
+        title_extra.setOnClickListener(this::limpar);
+
         initViews();
         initValues();
     }

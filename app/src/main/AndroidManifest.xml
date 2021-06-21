@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ListDadosBancarios"></activity>
+        <activity android:name=".view.ListDadosBancarios" />
         <activity android:name=".view.FimCadastro" />
         <activity android:name=".view.CadastroInfoBanco" />
         <activity android:name=".view.EnviarFoto" />
@@ -22,7 +22,7 @@
         <activity android:name=".view.QueroAjudarOng" />
         <activity android:name=".view.OngLogin" />
         <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.Filter" />
+        <activity android:name=".view.Filter" android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/AppThemeSplash">

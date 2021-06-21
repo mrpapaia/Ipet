@@ -36,7 +36,7 @@ public class FimCadastro extends AppCompatActivity {
                 clearCadastroSingleton();
             }
             Intent intent = new Intent(getBaseContext(), isCaso ? OngMain.class : MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
         }, 2000);

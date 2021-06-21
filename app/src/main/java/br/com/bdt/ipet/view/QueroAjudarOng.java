@@ -29,11 +29,10 @@ public class QueroAjudarOng extends AppCompatActivity {
 
     private RecyclerView rvQueroAjudar;
     private RvTodosCasosOngAdapter rvTodosCasosOngAdapter;
-    private TextView tvTotalCasos;
     private CasoController casoController;
     private CasoSingleton casoSingleton;
 
-    @SuppressLint("SourceLockedOrientationActivity")
+    @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +46,8 @@ public class QueroAjudarOng extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
         myToolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-
         title.setText("");
-
+        title_extra.setText("");
 
         rvQueroAjudar = findViewById(R.id.rvQueroAjudar);
         rvQueroAjudar.setLayoutManager(new LinearLayoutManager(this));
@@ -83,13 +81,13 @@ public class QueroAjudarOng extends AppCompatActivity {
             @Override
             public void onFilter(List<Caso> casosFiltrados) {
                 rvTodosCasosOngAdapter.setCasosOng(casosFiltrados);
-                title_extra.setText("Total de Casos: "+String.valueOf(casosFiltrados.size()));
+                title_extra.setText("Total de Casos: " + casosFiltrados.size());
             }
 
             @Override
             public void onClearFilter() {
                 rvTodosCasosOngAdapter.setCasosOng(casoSingleton.getCasos());
-                title_extra.setText("Total de Casos: "+casoSingleton.textSizeCasos());
+                title_extra.setText("Total de Casos: " + casoSingleton.textSizeCasos());
             }
         });
 

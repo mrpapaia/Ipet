@@ -13,8 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

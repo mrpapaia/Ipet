@@ -17,6 +17,7 @@
         style="@style/fildTextStyleFrist"
         android:hint="@string/texto_banco"
         android:inputType="textCapSentences|textAutoCorrect"
+        android:completionThreshold="1"
         app:layout_constraintBottom_toTopOf="@+id/etConta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.575"

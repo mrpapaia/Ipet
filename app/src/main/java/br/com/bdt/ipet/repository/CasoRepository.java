@@ -1,19 +1,18 @@
 package br.com.bdt.ipet.repository;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Query;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import br.com.bdt.ipet.control.AuthController;
 import br.com.bdt.ipet.data.model.Caso;
-import br.com.bdt.ipet.repository.interfaces.IRepository;
+import br.com.bdt.ipet.repository.interfaces.IRepositoryCaso;
 
-public class CasoRepository implements IRepository<Caso,Object> {
+public class CasoRepository implements IRepositoryCaso {
 
     private final FirebaseFirestore db;
     private final AuthController authController;
@@ -43,16 +42,6 @@ public class CasoRepository implements IRepository<Caso,Object> {
     }
 
     @Override
-    public Task<QuerySnapshot> findAll() {
-        return null;
-    }
-
-    @Override
-    public Task<DocumentSnapshot> findById(String id) {
-        return null;
-    }
-
-    @Override
     public Task<Void> delete(String id) {
         return db.collection("ongs")
                 .document(authController.getCurrentEmail())
@@ -62,25 +51,13 @@ public class CasoRepository implements IRepository<Caso,Object> {
     }
 
     @Override
-    public Task<Void> update(String id, Caso caso) {
-        return null;
+    public Query findAll() {
+        return db.collectionGroup("casos");
     }
 
     @Override
-    public Task<Void> updateDocAddFild(String path, Object list) {
-        return null;
+    public CollectionReference findByOng(String email) {
+        return db.collection("ongs").document(email).collection("casos");
     }
-
-    @Override
-    public Task<Void> updateDocRemoveFild(String path, Object list) {
-        return null;
-    }
-
-
-    @Override
-    public DocumentReference listennerDoc(String id) {
-        return null;
-    }
-
 
 }

@@ -21,9 +21,8 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.AuthController;
 import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.control.OngMainController;
-import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.repository.CasoRepository;
-import br.com.bdt.ipet.repository.interfaces.IRepository;
+import br.com.bdt.ipet.repository.interfaces.IRepositoryCaso;
 import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.RvCasoOngAdapter;
@@ -70,7 +69,7 @@ public class OngMain extends AppCompatActivity {
         rvCasosOng.setHasFixedSize(true);
 
         casoController = new CasoController();
-        IRepository<Caso,Object> casoRepository = new CasoRepository(FirebaseFirestore.getInstance());
+        IRepositoryCaso casoRepository = new CasoRepository(FirebaseFirestore.getInstance());
 
         casoController.initDataRecyclerView(casos -> {
 

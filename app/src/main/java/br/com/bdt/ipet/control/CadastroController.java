@@ -14,10 +14,9 @@ import java.util.Objects;
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.api.ConsumerData.SendDataObject;
 import br.com.bdt.ipet.data.model.DadosBancario;
-import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.repository.OngRepository;
 import br.com.bdt.ipet.repository.StorageRepository;
-import br.com.bdt.ipet.repository.interfaces.IRepository;
+import br.com.bdt.ipet.repository.interfaces.IRepositoryOng;
 import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 import br.com.bdt.ipet.view.CadastroInfoBanco;
@@ -30,7 +29,8 @@ public class CadastroController {
 
     private static final String TAG = "CadastroController";
     private final CadastroSingleton cadastroSingleton;
-   private IRepository<Ong, DadosBancario> ongRepository;
+    private final IRepositoryOng ongRepository;
+
     public CadastroController() {
         cadastroSingleton = CadastroSingleton.getCadastroSingleton();
         ongRepository = new OngRepository(FirebaseFirestore.getInstance());

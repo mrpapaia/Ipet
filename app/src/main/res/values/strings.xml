@@ -48,4 +48,7 @@
     <string name="nome_do_animal">Nome do animal</string>
     <string name="valor_em_reais_r">Valor em Reais (R$)</string>
     <string name="pr_xima_etapa">Próxima etapa</string>
+    <string name="esp_cie">Espécie</string>
+    <string name="faixa_de_valor">Faixa de valor</string>
+    <string name="sep">-</string>
 </resources>

@@ -43,13 +43,15 @@ public class GeralUtils {
             loadMunicipios(context, estado.getUf(), acMunicipio);
         });
 
-        acMunicipio.setOnFocusChangeListener((view, b) -> {
-            String textAcUf = acUf.getText().toString();
-            if(textAcUf.isEmpty()){
-                GeralUtils.toast(context, "Informe o Estado primeiro para carregar as cidades!");
-            }else{
-                String uf = findUfByNomeEstado(textAcUf, estadoSingleton.getEstados());
-                loadMunicipios(context, uf, acMunicipio);
+        acMunicipio.setOnFocusChangeListener((view, hasFocus) -> {
+            if(hasFocus) {
+                String textAcUf = acUf.getText().toString();
+                if (textAcUf.isEmpty()) {
+                    GeralUtils.toast(context, "Informe o Estado primeiro para carregar as cidades!");
+                } else {
+                    String uf = findUfByNomeEstado(textAcUf, estadoSingleton.getEstados());
+                    loadMunicipios(context, uf, acMunicipio);
+                }
             }
         });
 
