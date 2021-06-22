@@ -65,7 +65,7 @@
                 style="@style/fildTextStyle"
                 android:background="@drawable/style_edit"
 
-                android:hint="@string/cnpj"
+                android:hint="@string/cnpj_cpf"
                 android:inputType="number"
                 app:layout_constraintBottom_toTopOf="@+id/cbHabilitaPix"
                 app:layout_constraintEnd_toEndOf="parent"

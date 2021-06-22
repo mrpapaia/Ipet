@@ -21,21 +21,24 @@
 
     <TextView
         android:id="@+id/textView13"
+        style="@style/paragrafo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="11dp"
         android:layout_marginEnd="31dp"
+        android:layout_marginBottom="11dp"
         android:text="@string/textoParagrafo"
-        style="@style/paragrafo"
+        app:layout_constraintBottom_toTopOf="@+id/ivEnviar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMsgImg" />
 
     <ImageView
         android:id="@+id/ivEnviar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
         android:layout_marginStart="64dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="64dp"

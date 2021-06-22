@@ -29,6 +29,7 @@
     <string name="munic_pio">Município</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="cnpj">CNPJ</string>
+    <string name="cnpj_cpf">CNPJ/CPF</string>
     <string name="whatsapp">Whatsapp</string>
     <string name="senha">Senha</string>
     <string name="e_mail">E-mail</string>

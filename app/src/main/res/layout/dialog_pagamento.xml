@@ -10,16 +10,78 @@
         android:layout_width="match_parent"
         android:layout_height="720dp">
 
+
+        <ImageButton
+            android:id="@+id/imageButton5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/icon_copiar"
+            app:layout_constraintBottom_toTopOf="@+id/divider9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvChavePix"
+            app:layout_constraintTop_toBottomOf="@+id/divider8" />
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/icon_copiar"
+            app:layout_constraintBottom_toTopOf="@+id/divider11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvCNPJPagamento"
+            app:layout_constraintTop_toBottomOf="@+id/divider9" />
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/icon_copiar"
+            app:layout_constraintBottom_toTopOf="@+id/divider13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvAgenciaPagamento"
+            app:layout_constraintTop_toBottomOf="@+id/divider12" />
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/icon_copiar"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvContaPagamento"
+            app:layout_constraintTop_toBottomOf="@+id/divider13" />
+
         <TextView
             android:id="@+id/tvtext01"
-            android:layout_width="369dp"
-            android:layout_height="48dp"
+            android:layout_width="316dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
             android:text="Ficamos Felizes pela sua intenção de ajudar"
             android:textColor="#716F89"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/divider10"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,10 +89,9 @@
             android:id="@+id/divider10"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:background="#E5E7EC"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvtext01" />
 
@@ -39,63 +100,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
             android:text="Pagando"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/editTextNumberDecimal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/divider10" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="69dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="15dp"
             android:text="R$"
             android:textColor="#716F89"
             android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textView10"
+            app:layout_constraintEnd_toStartOf="@+id/editTextNumberDecimal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/divider10"
+            app:layout_constraintVertical_bias="0.73" />
 
         <EditText
             android:id="@+id/editTextNumberDecimal"
-            android:layout_width="159dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="56dp"
+            style="@style/fildTextStyle"
+            android:layout_width="142dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="10dp"
+            android:drawableEnd="@drawable/icon_pencil"
             android:ems="10"
             android:inputType="numberDecimal"
             android:textColor="#716F89"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivPencil"
+            app:layout_constraintBottom_toTopOf="@+id/tvNomeOngPagamento"
             app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/divider10"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <ImageView
-            android:id="@+id/ivPencil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.795"
-            app:layout_constraintStart_toEndOf="@+id/editTextNumberDecimal"
-            app:layout_constraintTop_toBottomOf="@+id/divider10"
-            app:srcCompat="@drawable/icon_pencil" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="9dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="10dp"
             android:text="para"
             android:textColor="#716F89"
             android:textSize="18sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider7"
+            app:layout_constraintEnd_toStartOf="@+id/tvNomeOngPagamento"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
@@ -103,12 +167,14 @@
             android:id="@+id/tvNomeOngPagamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Focinho de luz"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider7"
             app:layout_constraintStart_toEndOf="@+id/textView10"
             app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
 
@@ -116,7 +182,7 @@
             android:id="@+id/divider7"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             android:background="#E5E7EC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -127,26 +193,30 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:text="Tipo de Transferência"
             android:textColor="#716F89"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintBottom_toTopOf="@+id/spMetodoPagamento"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider7" />
-
+            app:layout_constraintTop_toBottomOf="@+id/divider7"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Spinner
             android:id="@+id/spMetodoPagamento"
             android:layout_width="301dp"
             android:layout_height="38dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/style_spinner"
+            android:elevation="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/divider8"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -154,10 +224,9 @@
             android:id="@+id/divider8"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
             android:background="#E5E7EC"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spMetodoPagamento" />
 
@@ -165,13 +234,17 @@
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="10dp"
             android:text="Chave Pix"
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="15sp"
+            android:autoSizeTextType="uniform"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider9"
             app:layout_constraintEnd_toStartOf="@+id/tvChavePix"
-            app:layout_constraintHorizontal_bias="0.123"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider8" />
 
@@ -179,183 +252,225 @@
             android:id="@+id/tvChavePix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="216dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="10dp"
             android:text="diogoss@gmai..."
             android:textColor="#716F89"
-            android:textSize="20sp"
-
+            android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/divider9"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/divider9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView19"
             app:layout_constraintTop_toBottomOf="@+id/divider8"
             app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/icon_copiar"
+            app:layout_constraintBottom_toTopOf="@+id/divider12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvInstituicaoPagamento"
+            app:layout_constraintTop_toBottomOf="@+id/divider11" />
 
         <View
             android:id="@+id/divider9"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="10dp"
             android:background="#E5E7EC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider8" />
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="10dp"
             android:text="CNPJ"
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider11"
+            app:layout_constraintEnd_toStartOf="@+id/tvCNPJPagamento"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/divider9" />
+            app:layout_constraintTop_toBottomOf="@+id/divider9" />
 
         <TextView
             android:id="@+id/tvCNPJPagamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="48dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="10dp"
             android:text="...343.535.--"
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider11"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.939"
             app:layout_constraintStart_toEndOf="@+id/textView14"
-            app:layout_constraintTop_toBottomOf="@+id/tvChavePix" />
+            app:layout_constraintTop_toBottomOf="@+id/divider9" />
 
         <View
             android:id="@+id/divider11"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="10dp"
             android:background="#E5E7EC"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider9" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCNPJPagamento" />
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="38dp"
+            android:layout_marginBottom="10dp"
             android:text="Instituição"
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider12"
+            app:layout_constraintEnd_toStartOf="@+id/tvInstituicaoPagamento"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
+            app:layout_constraintTop_toBottomOf="@+id/divider11" />
 
         <TextView
             android:id="@+id/tvInstituicaoPagamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="104dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="59dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="10dp"
             android:text="CAIXA ECONOMIC..."
             android:textColor="#716F89"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider12"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView15"
-            app:layout_constraintTop_toBottomOf="@+id/tvCNPJPagamento" />
+            app:layout_constraintTop_toBottomOf="@+id/divider11" />
 
         <View
             android:id="@+id/divider12"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="10dp"
             android:background="#E5E7EC"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider11" />
+            app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="37dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="113dp"
+            android:layout_marginBottom="10dp"
             android:text="Agência"
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/divider13"
+            app:layout_constraintEnd_toStartOf="@+id/tvAgenciaPagamento"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toBottomOf="@+id/divider12" />
 
         <TextView
             android:id="@+id/tvAgenciaPagamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="132dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="103dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="10dp"
             android:text="1827"
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/divider13"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView16"
-            app:layout_constraintTop_toBottomOf="@+id/tvInstituicaoPagamento" />
+            app:layout_constraintTop_toBottomOf="@+id/divider12" />
 
         <View
             android:id="@+id/divider13"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="10dp"
             android:background="#E5E7EC"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider12" />
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <TextView
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="90dp"
             android:text="Conta "
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toStartOf="@+id/tvContaPagamento"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            app:layout_constraintTop_toBottomOf="@+id/divider13"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/tvContaPagamento"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="148dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="65dp"
             android:text="27318-0"
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/button"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView17"
-            app:layout_constraintTop_toBottomOf="@+id/tvAgenciaPagamento" />
+            app:layout_constraintTop_toBottomOf="@+id/divider13"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="39dp"
-            android:layout_marginTop="57dp"
-            android:layout_marginEnd="39dp"
+            android:layout_width="170dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="147dp"
+            android:layout_marginTop="56dp"
+            android:layout_marginEnd="147dp"
             android:background="@drawable/style_button"
             android:text="Confirmar"
             android:textColor="#F8F5F5"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.528"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.876" />
+            app:layout_constraintTop_toBottomOf="@+id/divider13" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

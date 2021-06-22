@@ -57,9 +57,9 @@ public class MetodoPagamentoDialog extends DialogFragment {
             }
         };
 
-        btnMetodoUm.setOnClickListener(listenerMetodoUm);
+       btnMetodoUm.setOnClickListener(listenerMetodoUm);
 
-        ConstraintLayout btnMetodoDois = (ConstraintLayout) view.findViewById(R.id.ctMetodoDois);
+        /* ConstraintLayout btnMetodoDois = (ConstraintLayout) view.findViewById(R.id.ctMetodoDois);
         View.OnClickListener listenerMetodoDois = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +94,7 @@ public class MetodoPagamentoDialog extends DialogFragment {
                 dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             }
         };
-        btnMetodoQuatro.setOnClickListener(listenerMetodoQuatro);
+        btnMetodoQuatro.setOnClickListener(listenerMetodoQuatro);*/
 
         return builder.create();
     }
