@@ -1,80 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-
     android:background="#ffffff"
-
     android:elevation="5dp"
     app:cardCornerRadius="15dp"
     app:cardElevation="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_width="wrap_content"
+        android:layout_height="200dp">
 
         <TextView
             android:id="@+id/tvValorDoar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="27dp"
-            android:layout_marginTop="22dp"
-            android:layout_marginEnd="27dp"
-            android:layout_marginBottom="23dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="33dp"
+            android:layout_marginEnd="108dp"
+            android:layout_marginBottom="10dp"
             android:text="@string/valorDoacao"
             android:textColor="#716F89"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/ctCardValor"
+            app:layout_constraintBottom_toTopOf="@+id/etValorDoacao"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ctCardValor"
-            android:layout_width="409dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <EditText
+            android:id="@+id/etValorDoacao"
+            style="@style/fildTextStyleFrist"
+            android:layout_width="204dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="98dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="98dp"
+            android:layout_marginBottom="15dp"
+            android:drawableStart="@drawable/ic_cifrao"
+            android:hint="Valor"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toTopOf="@+id/bConfirmar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/tvValorDoar" />
 
-            <EditText
-                android:id="@+id/etValorDoacao"
-                style="@style/fildTextStyleFrist"
-                android:layout_width="299dp"
-                android:layout_height="46dp"
-                android:layout_marginTop="16dp"
-                android:drawableStart="@drawable/ic_cifrao"
-                android:hint="Valor"
-                android:inputType="textCapSentences|textAutoCorrect"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/bConfirmar"
+            android:layout_width="233dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="83dp"
+            android:background="@drawable/style_button"
+            android:onClick="cadastrar"
+            android:text="Confirmar"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etValorDoacao" />
 
-            <Button
-                android:id="@+id/bFiltrar"
-                android:layout_width="299dp"
-                android:layout_height="46dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/style_button"
-                android:onClick="cadastrar"
-                android:text="Confirmar"
-                android:textColor="#fff"
-                android:textSize="18dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/etValorDoacao"
-                app:layout_constraintVertical_bias="0.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

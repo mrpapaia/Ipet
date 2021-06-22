@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Ong;
@@ -18,12 +19,14 @@ public class MetodoPagamentoDialog extends DialogFragment {
 
     private Ong ong;
 
-    public static MetodoPagamentoDialog newInstance(Ong ong) {
+    public static MetodoPagamentoDialog newInstance(Ong ong, Double valor) {
         MetodoPagamentoDialog f = new MetodoPagamentoDialog();
 
 
         Bundle args = new Bundle();
         args.putParcelable("ong", (Parcelable) ong);
+        args.putDouble("valor", valor);
+        System.out.println("valor " + valor);
         f.setArguments(args);
         return f;
     }
@@ -32,30 +35,31 @@ public class MetodoPagamentoDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Ong ong = getArguments().getParcelable("ong");
+        Double valor = getArguments().getDouble("valor");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         System.out.println(ong);
+        System.out.println(valor);
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         View view = inflater.inflate(R.layout.dialog_metodo_pagamento, null);
 
         builder.setView(view);
 
+        // Dialogo do metodo do pagamento.
 
         ConstraintLayout btnMetodoUm = (ConstraintLayout) view.findViewById(R.id.ctMetodoUm);
-        View.OnClickListener listenerMetodoUm = new View.OnClickListener() {
+         View.OnClickListener listenerMetodoUm = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialog = PagamentoDialog.newInstance(ong);
+                DialogFragment dialog = PagamentoDialog.newInstance(ong, valor);
 
 
                 dialog.show(getActivity().getSupportFragmentManager(), "pagamento");
                 getActivity().getSupportFragmentManager().executePendingTransactions();
 
                 dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-
             }
-        };
+         };
 
        btnMetodoUm.setOnClickListener(listenerMetodoUm);
 

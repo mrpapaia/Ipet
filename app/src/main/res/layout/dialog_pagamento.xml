@@ -106,7 +106,7 @@
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/editTextNumberDecimal"
+            app:layout_constraintBottom_toTopOf="@+id/etValorPagar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider10" />
 
@@ -123,13 +123,13 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView10"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumberDecimal"
+            app:layout_constraintEnd_toStartOf="@+id/etValorPagar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/divider10"
             app:layout_constraintVertical_bias="0.73" />
 
         <EditText
-            android:id="@+id/editTextNumberDecimal"
+            android:id="@+id/etValorPagar"
             style="@style/fildTextStyle"
             android:layout_width="142dp"
             android:layout_height="45dp"
@@ -176,7 +176,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/divider7"
             app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumberDecimal" />
+            app:layout_constraintTop_toBottomOf="@+id/etValorPagar" />
 
         <View
             android:id="@+id/divider7"

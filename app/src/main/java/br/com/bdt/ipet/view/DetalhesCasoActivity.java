@@ -22,6 +22,7 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.view.dialog.MetodoPagamentoDialog;
+import br.com.bdt.ipet.view.dialog.ValorPagamentoDialog;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -65,8 +66,8 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         btn = (Button) findViewById(R.id.btDoar);
 
         View.OnClickListener listener = v -> {
-            DialogFragment dialog = MetodoPagamentoDialog.newInstance(ong);
-            dialog.show(getSupportFragmentManager(), "MetodoPagamento");
+            DialogFragment dialog = ValorPagamentoDialog.newInstance(ong);
+            dialog.show(getSupportFragmentManager(), "ValorPagamento");
             getSupportFragmentManager().executePendingTransactions();
             dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         };
