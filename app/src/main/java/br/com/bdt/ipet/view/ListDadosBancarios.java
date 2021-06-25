@@ -28,7 +28,7 @@ public class ListDadosBancarios extends AppCompatActivity {
     private OngSingleton ongSingleton;
     private RecyclerView rvDadosBancarios;
     private List<DadosBancario> dadosBancarioList;
-   private  OngMainController ongMainController;
+    private  OngMainController ongMainController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

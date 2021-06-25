@@ -9,15 +9,31 @@ import android.view.View;
 import android.widget.Button;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.CasoController;
+import br.com.bdt.ipet.data.model.Banco;
+import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.singleton.CasoSingleton;
+import br.com.bdt.ipet.singleton.OngSingleton;
+import br.com.bdt.ipet.util.RvDadosBancariosAdapter;
+import br.com.bdt.ipet.util.RvMetodoPagamentoAdapter;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MetodoPagamentoDialog extends DialogFragment {
 
     private Ong ong;
+    private RvMetodoPagamentoAdapter rvMetodoPagamentoAdapter;
+    private RecyclerView rvMetodoPagamento;
+    private List<DadosBancario> dadosBanco;
 
     public static MetodoPagamentoDialog newInstance(Ong ong, Double valor) {
         MetodoPagamentoDialog f = new MetodoPagamentoDialog();
@@ -43,15 +59,32 @@ public class MetodoPagamentoDialog extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_metodo_pagamento, null);
 
+        rvMetodoPagamento = view.findViewById(R.id.rvMetodoPagamento);
+        rvMetodoPagamento.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvMetodoPagamento.setItemAnimator(new DefaultItemAnimator());
+        rvMetodoPagamento.setHasFixedSize(true);
+
+        rvMetodoPagamentoAdapter = new RvMetodoPagamentoAdapter(getContext(), ong.getDadosBancarios(), index -> {
+            DialogFragment dialog = PagamentoDialog.newInstance(ong, valor, index);
+
+
+            dialog.show(getActivity().getSupportFragmentManager(), "pagamento");
+            getActivity().getSupportFragmentManager().executePendingTransactions();
+
+            dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        });
+
+        rvMetodoPagamento.setAdapter(rvMetodoPagamentoAdapter);
+
         builder.setView(view);
 
-        // Dialogo do metodo do pagamento.
+       /* // Dialogo do metodo do pagamento.
 
         ConstraintLayout btnMetodoUm = (ConstraintLayout) view.findViewById(R.id.ctMetodoUm);
          View.OnClickListener listenerMetodoUm = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialog = PagamentoDialog.newInstance(ong, valor);
+                DialogFragment dialog = PagamentoDialog.newInstance(ong, valor, index);
 
 
                 dialog.show(getActivity().getSupportFragmentManager(), "pagamento");
@@ -61,44 +94,7 @@ public class MetodoPagamentoDialog extends DialogFragment {
             }
          };
 
-       btnMetodoUm.setOnClickListener(listenerMetodoUm);
-
-        /* ConstraintLayout btnMetodoDois = (ConstraintLayout) view.findViewById(R.id.ctMetodoDois);
-        View.OnClickListener listenerMetodoDois = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dialog = PagamentoDialog.newInstance(ong);
-                dialog.show(getActivity().getSupportFragmentManager(), "pagamento");
-                getActivity().getSupportFragmentManager().executePendingTransactions();
-                dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
-            }
-        };
-        btnMetodoDois.setOnClickListener(listenerMetodoDois);
-
-        ConstraintLayout btnMetodoTres = (ConstraintLayout) view.findViewById(R.id.ctMetodoTres);
-        View.OnClickListener listenerMetodoTres = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dialog = PagamentoDialog.newInstance(ong);
-                dialog.show(getActivity().getSupportFragmentManager(), "pagamento");
-                getActivity().getSupportFragmentManager().executePendingTransactions();
-                dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            }
-        };
-        btnMetodoTres.setOnClickListener(listenerMetodoTres);
-
-        ConstraintLayout btnMetodoQuatro = (ConstraintLayout) view.findViewById(R.id.ctMetodoQuatro);
-        View.OnClickListener listenerMetodoQuatro = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment dialog = PagamentoDialog.newInstance(ong);
-                dialog.show(getActivity().getSupportFragmentManager(), "pagamento");
-                getActivity().getSupportFragmentManager().executePendingTransactions();
-                dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            }
-        };
-        btnMetodoQuatro.setOnClickListener(listenerMetodoQuatro);*/
+       btnMetodoUm.setOnClickListener(listenerMetodoUm);*/
 
         return builder.create();
     }
