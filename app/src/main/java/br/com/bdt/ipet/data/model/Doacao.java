@@ -3,7 +3,10 @@ package br.com.bdt.ipet.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.firestore.DocumentReference;
+
 import java.io.Serializable;
+import java.lang.annotation.Documented;
 import java.util.Date;
 
 public class Doacao implements Serializable, Parcelable {
@@ -11,7 +14,7 @@ public class Doacao implements Serializable, Parcelable {
     private String tipo;
     private Double valor;
     private Date data;
-
+    private DocumentReference id;
     public Doacao() {
     }
 
@@ -20,6 +23,14 @@ public class Doacao implements Serializable, Parcelable {
         this.tipo = tipo;
         this.valor = valor;
         this.data = data;
+    }
+
+    public DocumentReference getId() {
+        return id;
+    }
+
+    public void setId(DocumentReference id) {
+        this.id = id;
     }
 
     protected Doacao(Parcel in) {

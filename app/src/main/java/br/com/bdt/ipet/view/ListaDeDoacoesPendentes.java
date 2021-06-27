@@ -65,8 +65,8 @@ public class ListaDeDoacoesPendentes extends AppCompatActivity {
         tvNomeCasoDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getTitulo());
         tvNomeAnimalDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getNomeAnimal());
         tvMetaDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getValor().toString());
-        tvArrecadadoDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getValor().toString());
-        rvDoacoesPendentesAdapter = new RvDoacoesPendentesAdapter(getApplicationContext(),casoSingleton.getCasos().get(position).getDoacaoList(),null);
+        tvArrecadadoDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getArrecadado().toString());
+        rvDoacoesPendentesAdapter = new RvDoacoesPendentesAdapter(getApplicationContext(),casoSingleton.getCasos().get(position).getDoacaoList(),doacaoController,null);
         rvDoacaoPendenter.setAdapter(rvDoacoesPendentesAdapter);
 
     }

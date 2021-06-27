@@ -216,10 +216,10 @@ public class CasoController {
     }
 
     public Task<Void> updateValor(String campo, Double valor,int position){
-        if(campo.equals("valor")){
+     /*   if(campo.equals("valor")){
             return  repositoryCaso.update(campo, casoSingleton.getCasos().get(position).getCaso().getValor()-valor,casoSingleton.getCasos().get(position).getCaso().getId());
 
-        }
+        }*/
         return repositoryCaso.update(campo, casoSingleton.getCasos().get(position).getCaso().getArrecadado()+valor,casoSingleton.getCasos().get(position).getCaso().getId());
     }
 }
