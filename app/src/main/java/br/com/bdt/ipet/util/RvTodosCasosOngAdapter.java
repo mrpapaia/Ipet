@@ -30,7 +30,7 @@ public class RvTodosCasosOngAdapter extends RecyclerView.Adapter<RvTodosCasosOng
     public RvTodosCasosOngAdapter(Context context, List<CasoComDoacao> casosOng,
                                   RvTodosCasosOngAdapter.CasoOnClickListener onClickListener) {
         this.context = context;
-        this.casosOng = casosOng != null ? casosOng : new ArrayList<CasoComDoacao>();
+        this.casosOng = casosOng != null ? casosOng : new ArrayList<>();
         this.onClickListener = onClickListener;
     }
 
@@ -86,12 +86,8 @@ public class RvTodosCasosOngAdapter extends RecyclerView.Adapter<RvTodosCasosOng
             holder.tvValor.setText(String.valueOf(caso.getValor()));
             holder.tvAnimalData.setText(caso.getNomeAnimal() + " (" + caso.getEspecie() + ")");
 
-            holder.tvMaisDetalhes.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onClickListener.onClickDetails(p);
-                }
-            });
+            holder.tvMaisDetalhes.setOnClickListener(v -> onClickListener.onClickDetails(p));
+
         } else {
             holder.tvsubtitulo2.setText(
                     casosOng.size() == 0

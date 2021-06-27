@@ -38,16 +38,8 @@ public class Caso implements Serializable, Parcelable {
         descricao = in.readString();
         nomeAnimal = in.readString();
         especie = in.readString();
-        if (in.readByte() == 0) {
-            valor = null;
-        } else {
-            valor = in.readDouble();
-        }
-        if (in.readByte() == 0) {
-            arrecadado = null;
-        } else {
-            arrecadado = in.readDouble();
-        }
+        valor = in.readDouble();
+        arrecadado = in.readDouble();
         linkImg = in.readString();
         ong = in.readParcelable(Ong.class.getClassLoader());
     }
@@ -202,18 +194,8 @@ public class Caso implements Serializable, Parcelable {
         dest.writeString(descricao);
         dest.writeString(nomeAnimal);
         dest.writeString(especie);
-        if (valor == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(valor);
-        }
-        if (arrecadado == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(arrecadado);
-        }
+        dest.writeDouble(valor);
+        dest.writeDouble(arrecadado);
         dest.writeString(linkImg);
         dest.writeParcelable(ong, flags);
     }

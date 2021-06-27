@@ -21,7 +21,6 @@ import android.widget.TextView;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
-import br.com.bdt.ipet.view.dialog.MetodoPagamentoDialog;
 import br.com.bdt.ipet.view.dialog.ValorPagamentoDialog;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,7 +40,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
     ImageView ivLogoAnimal, ivIconAnimal;
     TextView tvLocalizacao;
     Button btn;
-    private Ong ong;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,17 +55,16 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         tvLocalizacao = findViewById(R.id.tvLocalizacao);
 
         setarInformacoes();
-
-
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onStart() {
         super.onStart();
         btn = (Button) findViewById(R.id.btDoar);
 
         View.OnClickListener listener = v -> {
-            DialogFragment dialog = ValorPagamentoDialog.newInstance(ong);
+            DialogFragment dialog = ValorPagamentoDialog.newInstance(caso.getOng());
             dialog.show(getSupportFragmentManager(), "ValorPagamento");
             getSupportFragmentManager().executePendingTransactions();
             dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -77,7 +75,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
 
     public void setarInformacoes() {
 
-     ong = caso.getOng(); //Pega a ong do caso
+        Ong ong = caso.getOng(); //Pega a ong do caso
 
         setImgAndColorAnimal(); //Seta logo e icone do animal do caso e muda cor dos botões
 

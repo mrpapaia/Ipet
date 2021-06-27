@@ -62,7 +62,7 @@ public class QueroAjudarOng extends AppCompatActivity {
 
             rvTodosCasosOngAdapter = new RvTodosCasosOngAdapter(getApplicationContext(), casos, position -> {
                 Intent intent = new Intent(getApplicationContext(), DetalhesCasoActivity.class);
-                intent.putExtra("casoOng", (Parcelable) casos.get(position));
+                intent.putExtra("casoOng", (Parcelable) casos.get(position).getCaso());
                 startActivity(intent);
             });
 

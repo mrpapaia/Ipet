@@ -44,7 +44,7 @@ public class RvMetodoPagamentoAdapter extends RecyclerView.Adapter<RvMetodoPagam
         DadosBancario dadosbanco = dadosBancarios.get(position);
 
         holder.tvNomedoBanco.setText(dadosbanco.getBanco());
-        System.out.println("valor pix" + dadosbanco.getChavePix());
+
         if (dadosbanco.getChavePix().equals("") ) {
             holder.logoPix.setVisibility(View.INVISIBLE);
         }

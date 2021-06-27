@@ -52,4 +52,5 @@
     <string name="esp_cie">Espécie</string>
     <string name="faixa_de_valor">Faixa de valor</string>
     <string name="sep">-</string>
+    <string name="confirmar">Confirmar</string>
 </resources>
