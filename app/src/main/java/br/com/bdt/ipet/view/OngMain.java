@@ -34,10 +34,11 @@ import com.squareup.picasso.Picasso;
 public class OngMain extends AppCompatActivity {
 
     private FloatingActionButton btCriarCaso;
-    private TextView tvNomeDaOng;
+
     private RecyclerView rvCasosOng;
     private RvCasoOngAdapter rvCasoOngAdapter;
     private DrawerLayout dLayout;
+    private TextView tvNomeDaOng;
     private TextView tvNomeHeader;
     private ImageView ivUser;
     private OngSingleton ongSingleton;
@@ -140,7 +141,10 @@ public class OngMain extends AppCompatActivity {
     }
 
     public void initConfirmarDoacao(){
-
+        Intent it = new Intent(getApplicationContext(), ListaCasosComDoacaoPendente.class);
+        it.putExtra("frag",5);
+        startActivity(it);
+        dLayout.closeDrawers();
     }
 
     public void initSair(){

@@ -77,6 +77,123 @@
         <item name="android:textSize">19sp</item>
         <item name="android:fontWeight" tools:targetApi="o">700</item>
     </style>
+
+    <style name="textFilter" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+    <style name="textStaticDefault" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+        <item name="android:layout_marginStart">13dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">700</item>
+    </style>
+    <style name="textStaticDefaultCardDadosDoacao" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+        <item name="android:layout_marginStart">13dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">700</item>
+    </style>
+    <style name="textDynamicCardDadosDoacao" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+        <item name="android:layout_marginStart">13dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+    <style name="textDynamicDefault" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+        <item name="android:layout_marginStart">13dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+    <style name="textStaticDefaultStart" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">700</item>
+    </style>
+    <style name="textStaticDefaultEnd" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">700</item>
+    </style>
+    <style name="textDynamicDefaultUp" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+    <style name="textDynamicDefaultDown" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+        <item name="android:layout_marginStart">0dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+    <style name="textVerMais" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">13dp</item>
+        <item name="android:layout_marginEnd">13dp</item>
+
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+
+    <style name="textAviso" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/avisoColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_marginTop">48dp</item>
+        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:layout_marginStart">130dp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+    <style name="imgButtonFilter" parent="@android:style/TextAppearance.Small">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_marginStart">7dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@drawable/filter_image_button_style</item>
+    </style>
     <style name="titleStyle" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/revalia</item>
         <item name="android:color">@color/tileColor</item>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="17dp"
+    android:layout_marginEnd="17dp"
+    android:backgroundTint="#FAFAFA">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/style_layout"
+        android:elevation="5dp">
+
+
+        <TextView
+            android:id="@+id/tvBancoStatic"
+            style="@style/textStaticDefaultCardDadosDoacao"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BANCO:"
+            app:layout_constraintBottom_toTopOf="@+id/textView29"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView29"
+            style="@style/textStaticDefaultCardDadosDoacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Transferência:"
+            app:layout_constraintBottom_toTopOf="@+id/textView30"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBancoStatic" />
+
+        <TextView
+            android:id="@+id/textView30"
+            style="@style/textStaticDefaultCardDadosDoacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valor:"
+            app:layout_constraintBottom_toTopOf="@+id/textView31"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+        <TextView
+            android:id="@+id/textView31"
+            style="@style/textStaticDefaultCardDadosDoacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView30" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/style_button"
+            android:fontFamily="@font/roboto_black"
+            android:text="Confirmar"
+            android:textColor="#ffffff"
+
+            android:textColorHint="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDataDyanamic" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/style_button_orange"
+            android:fontFamily="@font/roboto_black"
+            android:text="Não recebido"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button3"
+            app:layout_constraintTop_toBottomOf="@+id/tvDataDyanamic" />
+
+        <TextView
+            android:id="@+id/tvBancoDynamic"
+            style="@style/textDynamicCardDadosDoacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/tvBancoStatic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTipoTransDyanamic"
+            style="@style/textDynamicCardDadosDoacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/tvValorDyanamic"
+            app:layout_constraintStart_toEndOf="@+id/textView29"
+            app:layout_constraintTop_toBottomOf="@+id/tvBancoDynamic" />
+
+        <TextView
+            android:id="@+id/tvValorDyanamic"
+            style="@style/textDynamicCardDadosDoacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/tvDataDyanamic"
+            app:layout_constraintStart_toEndOf="@+id/textView30"
+            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+        <TextView
+            android:id="@+id/tvDataDyanamic"
+            style="@style/textDynamicCardDadosDoacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginBottom="9dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toTopOf="@+id/button3"
+            app:layout_constraintStart_toEndOf="@+id/textView31"
+            app:layout_constraintTop_toBottomOf="@+id/tvValorDyanamic" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

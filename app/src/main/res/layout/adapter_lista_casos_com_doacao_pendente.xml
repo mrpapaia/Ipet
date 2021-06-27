@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="17dp"
+    android:layout_marginEnd="17dp"
+    android:backgroundTint="#FAFAFA">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/style_layout"
+        android:elevation="5dp">
+
+
+        <TextView
+            android:id="@+id/tvCasoTitleStatic"
+            style="@style/textStaticDefault"
+
+            android:layout_width="wrap_content"
+
+
+            android:layout_height="wrap_content"
+            android:text="CASO:"
+            app:layout_constraintBottom_toTopOf="@+id/textView18"
+            app:layout_constraintEnd_toStartOf="@+id/tvNomeCaso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvNomeCaso"
+            style="@style/textDynamicDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cadela Atroplada"
+            app:layout_constraintBottom_toTopOf="@+id/tvNomeAnimalCaso"
+            app:layout_constraintStart_toEndOf="@+id/tvCasoTitleStatic"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/textStaticDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text="ANIMAL:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvNomeAnimalCaso"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCasoTitleStatic" />
+
+        <TextView
+            android:id="@+id/tvNomeAnimalCaso"
+            style="@style/textDynamicDefault"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:text="Toto (Cachorro)"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/tvNomeCaso" />
+
+        <TextView
+            android:id="@+id/tvVerMais"
+            style="@style/textVerMais"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_arrow_down_green"
+
+            android:text="Ver Mais"
+            app:drawableEndCompat="@drawable/ic_arrow_down_green"
+            app:layout_constraintBottom_toTopOf="@+id/tvAviso"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvAviso"
+            style="@style/textAviso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+
+            android:text="Há 3 doações pendentes!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvVerMais" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

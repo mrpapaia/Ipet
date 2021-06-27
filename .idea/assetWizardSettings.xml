@@ -318,7 +318,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/attach_money/baseline_attach_money_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_downward/baseline_arrow_downward_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -329,7 +329,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="3cb7bc" />
-                            <entry key="outputName" value="ic_cifrao" />
+                            <entry key="outputName" value="ic_arrow_down_green" />
                             <entry key="sourceFile" value="C:\Users\thiag\C:\Users\Seeker\Google Drive\Arqs\Desktop\location.svg" />
                           </map>
                         </option>

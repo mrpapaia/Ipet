@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ListaCasosComDoacaoPendente">
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_main"
+        app:layout_constraintBottom_toTopOf="@+id/tvFilter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFilter"
+        style="@style/textFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="25dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        style="@style/imgButtonFilter"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvCasosComDoacaoPendente"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilter"
+        app:srcCompat="@drawable/icon_dog" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        style="@style/imgButtonFilter"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvCasosComDoacaoPendente"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton7"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilter"
+        app:srcCompat="@drawable/icon_cat" />
+
+    <ImageButton
+        android:id="@+id/imageButton7"
+        style="@style/imgButtonFilter"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvCasosComDoacaoPendente"
+        app:layout_constraintEnd_toStartOf="@+id/imageButton8"
+        app:layout_constraintStart_toEndOf="@+id/imageButton6"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilter"
+        app:srcCompat="@drawable/icon_bunny" />
+
+    <ImageButton
+        android:id="@+id/imageButton8"
+        style="@style/imgButtonFilter"
+        android:layout_marginBottom="3dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvCasosComDoacaoPendente"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButton7"
+        app:layout_constraintTop_toBottomOf="@+id/tvFilter"
+        app:srcCompat="@android:drawable/sym_call_outgoing" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCasosComDoacaoPendente"
+        android:layout_width="409dp"
+        android:layout_height="534dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+</androidx.constraintlayout.widget.ConstraintLayout>
