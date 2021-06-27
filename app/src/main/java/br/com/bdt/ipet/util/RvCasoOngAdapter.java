@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.data.model.CasoComDoacao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,14 @@ import java.util.List;
 public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.CasoViewHolder> {
 
     private final Context context;
-    private List<Caso> casosOng;
+    private List<CasoComDoacao> casosOng;
     private final CasoOnClickListener onClickListener;
 
     public interface CasoOnClickListener {
         void onClickTrash(int position, TextView tv);
     }
 
-    public RvCasoOngAdapter(Context context, List<Caso> casosOng, CasoOnClickListener onClickListener) {
+    public RvCasoOngAdapter(Context context, List<CasoComDoacao> casosOng, CasoOnClickListener onClickListener) {
         this.context = context;
         this.casosOng = casosOng != null ? casosOng : new ArrayList<>();
         this.onClickListener = onClickListener;
@@ -49,7 +50,7 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
     @Override
     public void onBindViewHolder(final CasoViewHolder holder, final int position) {
 
-        Caso caso = casosOng.get(position);
+        Caso caso = casosOng.get(position).getCaso();
 
         holder.tvTitulo.setText(caso.getTitulo());
         holder.tvDescricao.setText(caso.getDescricao());

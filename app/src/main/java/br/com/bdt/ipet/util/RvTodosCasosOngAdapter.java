@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.data.model.Ong;
 
 import java.util.ArrayList;
@@ -19,21 +20,21 @@ import java.util.List;
 public class RvTodosCasosOngAdapter extends RecyclerView.Adapter<RvTodosCasosOngAdapter.CasoViewHolder> {
 
     private final Context context;
-    private List<Caso> casosOng;
+    private List<CasoComDoacao> casosOng;
     private final RvTodosCasosOngAdapter.CasoOnClickListener onClickListener;
 
     public interface CasoOnClickListener {
         void onClickDetails(int position);
     }
 
-    public RvTodosCasosOngAdapter(Context context, List<Caso> casosOng,
+    public RvTodosCasosOngAdapter(Context context, List<CasoComDoacao> casosOng,
                                   RvTodosCasosOngAdapter.CasoOnClickListener onClickListener) {
         this.context = context;
-        this.casosOng = casosOng != null ? casosOng : new ArrayList<Caso>();
+        this.casosOng = casosOng != null ? casosOng : new ArrayList<CasoComDoacao>();
         this.onClickListener = onClickListener;
     }
 
-    public void setCasosOng(List<Caso> casosOng) {
+    public void setCasosOng(List<CasoComDoacao> casosOng) {
         this.casosOng = casosOng;
         notifyDataSetChanged();
     }
@@ -73,7 +74,7 @@ public class RvTodosCasosOngAdapter extends RecyclerView.Adapter<RvTodosCasosOng
             //Subtrai 1 posição pois a primeira é apenas outro layout com avisos
             final int p = position - 1;
 
-            Caso caso = casosOng.get(p);
+            Caso caso = casosOng.get(p).getCaso();
             if(caso == null) return; //Evitando bugs
 
             Ong ong = caso.getOng();

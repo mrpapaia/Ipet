@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 import br.com.bdt.ipet.control.interfaces.IChanges;
 import br.com.bdt.ipet.control.interfaces.IRecycler;
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.data.model.DadosFiltro;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.repository.CasoRepository;
@@ -129,7 +131,9 @@ public class CasoController {
                     document.getString("nomeAnimal"),
                     document.getString("especie"),
                     document.getDouble("valor"),
+                    document.getDouble("arrecadado"),
                     document.getString("linkImg"),
+
                     Objects.requireNonNull(task.getResult()).toObject(Ong.class)
                 )
         ));
@@ -154,7 +158,8 @@ public class CasoController {
     }
 
     public void adicionarCaso(Caso caso){
-        casoSingleton.getCasos().add(caso);
+
+        casoSingleton.getCasos().add(new CasoComDoacao(caso));
         iChanges.onChange();
     }
 
@@ -165,7 +170,7 @@ public class CasoController {
 
     public void modificarCaso(int index, QueryDocumentSnapshot document){
 
-        Caso caso = casoSingleton.getCasos().get(index);
+        Caso caso = casoSingleton.getCasos().get(index).getCaso();
 
         caso.setId(document.getString("id"));
         caso.setTitulo(document.getString("titulo"));
@@ -179,10 +184,10 @@ public class CasoController {
 
     public int getPosiCaso(String id){
 
-        List<Caso> casos = casoSingleton.getCasos();
+        List<CasoComDoacao> casos = casoSingleton.getCasos();
 
         for(int i=0; i<casos.size(); i++){
-            if(casos.get(i).getId().equals(id)){
+            if(casos.get(i).getCaso().getId().equals(id)){
                 return i;
             }
         }
@@ -194,20 +199,27 @@ public class CasoController {
         this.iChanges = iChanges;
     }
 
-    public List<Caso> casosFiltrados(){
+    public List<CasoComDoacao> casosFiltrados(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             return casoSingleton.getCasos().stream().filter(this::isfiltrado).collect(Collectors.toList());
         }
         return null;
     }
 
-    public boolean isfiltrado(Caso caso){
+    public boolean isfiltrado(CasoComDoacao caso){
         DadosFiltro dadosFiltro = casoSingleton.getDadosFiltro();
-        return FiltroUtils.filterEspecie(caso.getEspecie(), dadosFiltro.getEspecies()) &&
-                FiltroUtils.filterValor(caso.getValor(), dadosFiltro.getMinValue(), dadosFiltro.getMaxValue()) &&
-                FiltroUtils.filterText(caso.getOng().getUf(), dadosFiltro.getUf()) &&
-                FiltroUtils.filterText(caso.getOng().getCidade(), dadosFiltro.getCidade()) &&
-                FiltroUtils.filterText(caso.getOng().getEmail(), dadosFiltro.getEmailOng());
+        return FiltroUtils.filterEspecie(caso.getCaso().getEspecie(), dadosFiltro.getEspecies()) &&
+                FiltroUtils.filterValor(caso.getCaso().getValor(), dadosFiltro.getMinValue(), dadosFiltro.getMaxValue()) &&
+                FiltroUtils.filterText(caso.getCaso().getOng().getUf(), dadosFiltro.getUf()) &&
+                FiltroUtils.filterText(caso.getCaso().getOng().getCidade(), dadosFiltro.getCidade()) &&
+                FiltroUtils.filterText(caso.getCaso().getOng().getEmail(), dadosFiltro.getEmailOng());
     }
 
+    public Task<Void> updateValor(String campo, Double valor,int position){
+        if(campo.equals("valor")){
+            return  repositoryCaso.update(campo, casoSingleton.getCasos().get(position).getCaso().getValor()-valor,casoSingleton.getCasos().get(position).getCaso().getId());
+
+        }
+        return repositoryCaso.update(campo, casoSingleton.getCasos().get(position).getCaso().getArrecadado()+valor,casoSingleton.getCasos().get(position).getCaso().getId());
+    }
 }

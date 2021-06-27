@@ -76,7 +76,7 @@ public class OngMain extends AppCompatActivity {
 
             rvCasoOngAdapter = new RvCasoOngAdapter(getApplicationContext(), casos, (position, tv) -> {
                 tv.setEnabled(false);
-                casoRepository.delete(casos.get(position).getId()).addOnSuccessListener(aVoid -> {
+                casoRepository.delete(casos.get(position).getCaso().getId()).addOnSuccessListener(aVoid -> {
                     GeralUtils.toast(getApplicationContext(), "Caso apagado");
                     tv.setEnabled(true);
                 }).addOnFailureListener(e -> {

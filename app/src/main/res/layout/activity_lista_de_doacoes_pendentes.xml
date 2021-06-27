@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="CASO:"
             app:layout_constraintBottom_toTopOf="@+id/textView22"
-            app:layout_constraintEnd_toStartOf="@+id/textView23"
+            app:layout_constraintEnd_toStartOf="@+id/tvNomeCasoDynamic"
             app:layout_constraintStart_toStartOf="@+id/containerDados"
             app:layout_constraintTop_toBottomOf="@+id/containerDados" />
 
@@ -43,7 +43,7 @@
             android:layout_height="24dp"
             android:text="ANIMAL:"
             app:layout_constraintBottom_toTopOf="@+id/containerDados"
-            app:layout_constraintEnd_toStartOf="@+id/textView24"
+            app:layout_constraintEnd_toStartOf="@+id/tvNomeAnimalDynamic"
             app:layout_constraintStart_toStartOf="@+id/containerDados"
             app:layout_constraintTop_toBottomOf="@+id/tvStaticCaso" />
 
@@ -55,12 +55,12 @@
             android:layout_height="wrap_content"
             android:text="META:"
             app:layout_constraintBottom_toTopOf="@+id/textView26"
-            app:layout_constraintEnd_toStartOf="@+id/textView28"
-            app:layout_constraintStart_toEndOf="@+id/textView23"
+            app:layout_constraintEnd_toStartOf="@+id/tvMetaDynamic"
+            app:layout_constraintStart_toEndOf="@+id/tvNomeCasoDynamic"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView27"
+            android:id="@+id/tvArrecadadoDynamic"
             style="@style/textDynamicDefaultDown"
 
             android:layout_width="wrap_content"
@@ -69,33 +69,33 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView26"
-            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+            app:layout_constraintTop_toBottomOf="@+id/tvMetaDynamic" />
 
         <TextView
-            android:id="@+id/textView28"
+            android:id="@+id/tvMetaDynamic"
             style="@style/textDynamicDefaultUp"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="100 "
-            app:layout_constraintBottom_toTopOf="@+id/textView27"
+            app:layout_constraintBottom_toTopOf="@+id/tvArrecadadoDynamic"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView25"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView23"
+            android:id="@+id/tvNomeCasoDynamic"
             style="@style/textDynamicDefaultUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadela Atroplada"
-            app:layout_constraintBottom_toTopOf="@+id/textView24"
+            app:layout_constraintBottom_toTopOf="@+id/tvNomeAnimalDynamic"
             app:layout_constraintEnd_toStartOf="@+id/textView25"
             app:layout_constraintStart_toEndOf="@+id/tvStaticCaso"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView24"
+            android:id="@+id/tvNomeAnimalDynamic"
             style="@style/textDynamicDefaultDown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/textView26"
             app:layout_constraintStart_toEndOf="@+id/textView22"
-            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNomeCasoDynamic" />
 
         <TextView
             android:id="@+id/textView26"
@@ -114,15 +114,15 @@
 
             android:text="Arrecadado:"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView27"
-            app:layout_constraintStart_toEndOf="@+id/textView24"
+            app:layout_constraintEnd_toStartOf="@+id/tvArrecadadoDynamic"
+            app:layout_constraintStart_toEndOf="@+id/tvNomeAnimalDynamic"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView2"
+        android:id="@+id/rvDoacoesPendentes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

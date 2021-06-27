@@ -108,11 +108,15 @@ public class CriarCasoActivity extends AppCompatActivity {
             etValorCaso.setError("Insira um valor válido");
             return;
         }
-
+        String arrecadadoString = etValorCaso.getText().toString();
+        if(!isValidInput(valorString, "double")){
+            etValorCaso.setError("Insira um valor válido");
+            return;
+        }
         Double valor = Double.parseDouble(valorString);
-
+        Double arrecadado = Double.parseDouble(arrecadadoString);
         CasoSingleton casoSingleton = CasoSingleton.getCasoSingleton();
-        casoSingleton.setCaso(new Caso(id, titulo, descricao, nomeAnimal, especie, valor, "", ong));
+        casoSingleton.setCaso(new Caso(id, titulo, descricao, nomeAnimal, especie, valor,arrecadado, "", ong));
 
         Intent intent = new Intent(getApplicationContext(), EnviarFoto.class);
         intent.putExtra("isCaso", true);

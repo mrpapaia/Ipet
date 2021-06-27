@@ -2,9 +2,11 @@ package br.com.bdt.ipet.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,83 +15,81 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.data.model.Doacao;
 import br.com.bdt.ipet.data.model.Ong;
 
 public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter< RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder> {
 
     private final Context context;
-    private List<Caso> casosOng;
+    private List<Doacao> doacaoList;
     private final RvDoacoesPendentesAdapter.DoacaoOnClickListener onClickListener;
 
     public interface DoacaoOnClickListener {
         void onClickDetails(int position);
     }
 
-    public RvDoacoesPendentesAdapter(Context context, List<Caso> casosOng,
+    public RvDoacoesPendentesAdapter(Context context, List<Doacao> doacaoList,
                                      RvDoacoesPendentesAdapter.DoacaoOnClickListener onClickListener) {
         this.context = context;
-        this.casosOng = casosOng != null ? casosOng : new ArrayList<Caso>();
+        this.doacaoList = doacaoList != null ? doacaoList : new ArrayList<Doacao>();
         this.onClickListener = onClickListener;
     }
 
-    public void setCasosOng(List<Caso> casosOng) {
-        this.casosOng = casosOng;
-        notifyDataSetChanged();
-    }
+
 
     @Override
     public  RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view;
-        RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder casoViewHolder = null;
 
-
-
-
-        return casoViewHolder;
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_lista_de_doacoes_pendentes,
+                viewGroup, false);
+        return new RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder(view);
     }
 
 
 
     @Override
     public int getItemCount() {
-        return casosOng != null ? casosOng.size() + 1 : 0;
+        return doacaoList != null ? doacaoList.size()  : 0;
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final  RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder holder, int position) {
 
-        if(position != 0) {
+        CasoController casoController =new CasoController();
 
             //Subtrai 1 posição pois a primeira é apenas outro layout com avisos
-            final int p = position - 1;
 
-            Caso caso = casosOng.get(p);
-            if(caso == null) return; //Evitando bugs
 
-            Ong ong = caso.getOng();
-            if(ong == null) return; //Evitando bugs
 
-            holder.tvOng.setText(caso.getOng().getNome());
-            holder.tvTitulo.setText(caso.getTitulo());
-            holder.tvDescricao.setText(caso.getDescricao());
-            holder.tvValor.setText(String.valueOf(caso.getValor()));
-            holder.tvAnimalData.setText(caso.getNomeAnimal() + " (" + caso.getEspecie() + ")");
+            Doacao doacao = doacaoList.get(position);
+            if(doacao == null) return; //Evitando bugs
 
-            holder.tvMaisDetalhes.setOnClickListener(new View.OnClickListener() {
+
+
+            holder.tvBancoDynamic.setText(doacao.getBanco());
+            holder.tvDataDyanamic.setText(doacao.getData().toString());
+            holder.tvTipoTransDyanamic.setText(doacao.getTipo());
+            holder.tvValorDyanamic.setText(doacao.getValor().toString());
+
+
+          holder.btConfirmarDoacao.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickListener.onClickDetails(p);
+                    Log.d("valtenis","clicou");
+                  casoController.updateValor("valor",doacao.getValor(),position);
+                    casoController.updateValor("arrecadado",doacao.getValor(),position);
                 }
             });
-        } else {
-            holder.tvsubtitulo2.setText(
-                    casosOng.size() == 0
-                            ? "Não foi encontrado nenhum caso."
-                            : "Escolha um dos casos abaixo e salve o dia."
-            );
-        }
+        holder.btNaoRecebido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     //Overriden so that I can display custom rows in the recyclerview
@@ -102,26 +102,23 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter< RvDoacoesPe
 
     public static class DoacaoPendenteViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvOng;
-        TextView tvTitulo;
-        TextView tvDescricao;
-        TextView tvValor;
-        TextView tvAnimalData;
-        TextView tvMaisDetalhes;
-        TextView tvsubtitulo2;
 
-        public DoacaoPendenteViewHolder(View view, int viewType) {
+        TextView tvBancoDynamic;
+        TextView tvTipoTransDyanamic;
+        TextView tvValorDyanamic;
+        TextView tvDataDyanamic;
+        Button btNaoRecebido;
+        Button btConfirmarDoacao;
+        public DoacaoPendenteViewHolder(View view) {
             super(view);
-            if(viewType != 0) {
-                tvOng = view.findViewById(R.id.tvOngData);
-                tvTitulo = view.findViewById(R.id.tvTitleData);
-                tvDescricao = view.findViewById(R.id.tvDescricaoData);
-                tvValor = view.findViewById(R.id.tvValorData);
-                tvAnimalData = view.findViewById(R.id.tvAnimalData);
-                tvMaisDetalhes = view.findViewById(R.id.tvMaisDetalhes);
-            }else{
-                tvsubtitulo2 = view.findViewById(R.id.tvsubtitulo2);
-            }
+
+                tvBancoDynamic = view.findViewById(R.id.tvBancoDynamic);
+                tvTipoTransDyanamic = view.findViewById(R.id.tvTipoTransDyanamic);
+                tvValorDyanamic = view.findViewById(R.id.tvValorDyanamic);
+                tvDataDyanamic = view.findViewById(R.id.tvDataDyanamic);
+             btNaoRecebido = view.findViewById(R.id.btNaoRecebido);
+             btConfirmarDoacao= view.findViewById(R.id.btConfirmarDoacao);
+
         }
     }
 

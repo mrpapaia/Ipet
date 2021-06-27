@@ -1,5 +1,6 @@
 package br.com.bdt.ipet.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -11,12 +12,19 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +32,7 @@ import java.util.Objects;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.AuthController;
+import br.com.bdt.ipet.control.DoacaoController;
 import br.com.bdt.ipet.control.OngMainController;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.singleton.CasoSingleton;
@@ -41,6 +50,7 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
     private TextView tvNomeDaOng;
     private TextView tvNomeHeader;
     private ImageView ivUser;
+    private DoacaoController doacaoController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +61,7 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
         title.setText("Dados Bancarios");
 
         setSupportActionBar(myToolbar);
-
-
-
+        doacaoController=new DoacaoController();
         casoSingleton = CasoSingleton.getCasoSingleton();
         ongMainController = new OngMainController();
 
@@ -64,8 +72,19 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
 
 
         ongMainController.listenner();
-        rvCasosComDoacaoPendenteAdapter = new RvCasosComDoacaoPendenteAdapter(getApplicationContext(),casoSingleton.getCasos(),null);
+        rvCasosComDoacaoPendenteAdapter = new RvCasosComDoacaoPendenteAdapter(getApplicationContext(),casoSingleton.getCasos(),position -> {
+
+           doacaoController.getAllByCaso(casoSingleton.getCasos().get(position)).addOnCompleteListener(command -> {
+              Log.d("Valtenis",casoSingleton.getCasos().get(position).getDoacaoList().toString());
+               Intent it = new  Intent(getApplicationContext(), ListaDeDoacoesPendentes.class);
+               it.putExtra("position",position);
+               startActivity(it);
+           });
+
+        });
         rvCasosComDoacaoPendenter.setAdapter(rvCasosComDoacaoPendenteAdapter);
+
+
         //setNavigationDrawer();
     }
 

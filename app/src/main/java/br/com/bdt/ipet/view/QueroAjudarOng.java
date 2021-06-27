@@ -21,6 +21,7 @@ import java.util.Objects;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.util.RvTodosCasosOngAdapter;
 import br.com.bdt.ipet.util.interfaces.IFilter;
@@ -79,7 +80,7 @@ public class QueroAjudarOng extends AppCompatActivity {
 
         casoSingleton.setiFilter(new IFilter() {
             @Override
-            public void onFilter(List<Caso> casosFiltrados) {
+            public void onFilter(List<CasoComDoacao> casosFiltrados) {
                 rvTodosCasosOngAdapter.setCasosOng(casosFiltrados);
                 title_extra.setText("Total de Casos: " + casosFiltrados.size());
             }

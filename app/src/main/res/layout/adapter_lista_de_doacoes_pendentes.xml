@@ -62,7 +62,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView30" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btConfirmarDoacao"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -76,12 +76,12 @@
 
             android:textColorHint="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/button4"
+            app:layout_constraintEnd_toStartOf="@+id/btNaoRecebido"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDataDyanamic" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btNaoRecebido"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="13dp"
@@ -94,7 +94,7 @@
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button3"
+            app:layout_constraintStart_toEndOf="@+id/btConfirmarDoacao"
             app:layout_constraintTop_toBottomOf="@+id/tvDataDyanamic" />
 
         <TextView
@@ -136,7 +136,7 @@
             android:layout_marginStart="19dp"
             android:layout_marginBottom="9dp"
             android:text="TextView"
-            app:layout_constraintBottom_toTopOf="@+id/button3"
+            app:layout_constraintBottom_toTopOf="@+id/btConfirmarDoacao"
             app:layout_constraintStart_toEndOf="@+id/textView31"
             app:layout_constraintTop_toBottomOf="@+id/tvValorDyanamic" />
     </androidx.constraintlayout.widget.ConstraintLayout>

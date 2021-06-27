@@ -49,7 +49,13 @@ public class CasoRepository implements IRepositoryCaso {
                 .document(id)
                 .delete();
     }
-
+    @Override
+    public Task<Void> update(String campo,Double valor,String id) {
+        return db.collection("ongs")
+                .document(authController.getCurrentEmail()).collection("casos")
+                .document(id)
+                .update(campo,valor);
+    }
     @Override
     public Query findAll() {
         return db.collectionGroup("casos");
