@@ -1,5 +1,6 @@
 package br.com.bdt.ipet.control;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -9,16 +10,21 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.data.model.Doacao;
 import br.com.bdt.ipet.repository.DoacoesRepository;
+import br.com.bdt.ipet.repository.StorageRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepositoryDoacao;
+import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CasoSingleton;
+import br.com.bdt.ipet.view.FimCadastro;
 
 public class DoacaoController {
     private IRepositoryDoacao repository;

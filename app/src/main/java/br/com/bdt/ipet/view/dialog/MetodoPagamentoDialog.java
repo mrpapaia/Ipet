@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.util.RvMetodoPagamentoAdapter;
 
@@ -18,10 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MetodoPagamentoDialog extends DialogFragment {
 
-    public static MetodoPagamentoDialog newInstance(Ong ong, Double valor) {
+    public static MetodoPagamentoDialog newInstance(Caso caso, Double valor) {
         MetodoPagamentoDialog f = new MetodoPagamentoDialog();
         Bundle args = new Bundle();
-        args.putParcelable("ong", ong);
+        args.putParcelable("caso", caso);
         args.putDouble("valor", valor);
         f.setArguments(args);
         return f;
@@ -32,7 +33,7 @@ public class MetodoPagamentoDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        Ong ong = getArguments().getParcelable("ong");
+        Caso caso = getArguments().getParcelable("caso");
         Double valor = getArguments().getDouble("valor");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -44,8 +45,8 @@ public class MetodoPagamentoDialog extends DialogFragment {
         rvMetodoPagamento.setItemAnimator(new DefaultItemAnimator());
         rvMetodoPagamento.setHasFixedSize(true);
 
-        RvMetodoPagamentoAdapter rvMetodoPagamentoAdapter = new RvMetodoPagamentoAdapter(getContext(), ong.getDadosBancarios(), index -> {
-            DialogFragment dialog = PagamentoDialog.newInstance(ong, valor, index);
+        RvMetodoPagamentoAdapter rvMetodoPagamentoAdapter = new RvMetodoPagamentoAdapter(getContext(), caso.getOng().getDadosBancarios(), index -> {
+            DialogFragment dialog = PagamentoDialog.newInstance(caso, valor, index);
             dialog.show(getActivity().getSupportFragmentManager(), "pagamento");
             getActivity().getSupportFragmentManager().executePendingTransactions();
             dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);

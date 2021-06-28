@@ -64,7 +64,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         btn = (Button) findViewById(R.id.btDoar);
 
         View.OnClickListener listener = v -> {
-            DialogFragment dialog = ValorPagamentoDialog.newInstance(caso.getOng());
+            DialogFragment dialog = ValorPagamentoDialog.newInstance(caso);
             dialog.show(getSupportFragmentManager(), "ValorPagamento");
             getSupportFragmentManager().executePendingTransactions();
             dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);

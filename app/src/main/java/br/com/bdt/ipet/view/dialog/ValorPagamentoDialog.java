@@ -11,14 +11,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
 
 public class ValorPagamentoDialog extends DialogFragment {
 
-    public static ValorPagamentoDialog newInstance(Ong ong) {
+    public static ValorPagamentoDialog newInstance(Caso caso) {
         ValorPagamentoDialog f = new ValorPagamentoDialog();
         Bundle args = new Bundle();
-        args.putParcelable("ong", ong);
+        args.putParcelable("caso", caso);
         f.setArguments(args);
         return f;
     }
@@ -27,7 +28,7 @@ public class ValorPagamentoDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        Ong ong = getArguments().getParcelable("ong");
+        Caso caso = getArguments().getParcelable("caso");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
@@ -43,7 +44,7 @@ public class ValorPagamentoDialog extends DialogFragment {
             Double valor = Double.parseDouble(
                     ((EditText)view.findViewById(R.id.etValorDoacao)).getText().toString());
 
-            DialogFragment dialog = MetodoPagamentoDialog.newInstance(ong, valor);
+            DialogFragment dialog = MetodoPagamentoDialog.newInstance(caso, valor);
 
             dialog.show(getActivity().getSupportFragmentManager(), "metodoPagamento");
             getActivity().getSupportFragmentManager().executePendingTransactions();

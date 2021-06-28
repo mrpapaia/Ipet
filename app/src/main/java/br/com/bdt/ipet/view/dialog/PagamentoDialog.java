@@ -14,8 +14,18 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,17 +33,24 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.DoacaoController;
+import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Doacao;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.repository.DoacoesRepository;
+import br.com.bdt.ipet.repository.interfaces.IRepositoryDoacao;
+import br.com.bdt.ipet.singleton.CadastroSingleton;
+import br.com.bdt.ipet.singleton.CasoSingleton;
+import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 
 public class PagamentoDialog extends DialogFragment {
 
-    public static PagamentoDialog newInstance(Ong ong, Double valor, int index) {
+    public static PagamentoDialog newInstance(Caso caso, Double valor, int index) {
         PagamentoDialog f = new PagamentoDialog();
         Bundle args = new Bundle();
-        args.putParcelable("ong", ong);
+        args.putParcelable("caso", caso);
         args.putDouble("valor", valor);
         args.putInt("indexBanco", index);
         f.setArguments(args);
@@ -44,7 +61,7 @@ public class PagamentoDialog extends DialogFragment {
     @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Ong ong = getArguments().getParcelable("ong");
+        Caso caso = getArguments().getParcelable("caso");
         double valor = getArguments().getDouble("valor");
         int index = getArguments().getInt("indexBanco");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -52,7 +69,7 @@ public class PagamentoDialog extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_pagamento, null);
 
-        DadosBancario dadosBancario = ong.getDadosBancarios().get(index);
+        DadosBancario dadosBancario = caso.getOng().getDadosBancarios().get(index);
 
         EditText et = view.findViewById(R.id.etValorPagar);
         et.setText(Double.toString(valor));
@@ -63,7 +80,7 @@ public class PagamentoDialog extends DialogFragment {
             et.setFocusableInTouchMode(true);
         });
 
-        setTextTv(R.id.tvNomeOngPagamento,ong.getNome(), view);
+        setTextTv(R.id.tvNomeOngPagamento,caso.getOng().getNome(), view);
         setTextTv(R.id.tvChavePix, dadosBancario.getChavePix(), view);
         setTextTv(R.id.tvCNPJPagamento, dadosBancario.getCpfCNPJ(), view);
         setTextTv(R.id.tvInstituicaoPagamento, dadosBancario.getBanco(), view);
@@ -121,6 +138,15 @@ public class PagamentoDialog extends DialogFragment {
             System.out.println(doacao.toString());
 
             //Lógica para salvar doacao de um caso aqui
+
+            IRepositoryDoacao iRepositoryDoacao = new DoacoesRepository(FirebaseFirestore.getInstance());
+
+            iRepositoryDoacao.save(caso, doacao).addOnSuccessListener(unused -> System.out.println("Deu certo")).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(Exception e) {
+                    System.out.println("Deu Errado" + e.getMessage());
+                }
+            });
 
             //Abrir tela de obrigado aqui?
 
