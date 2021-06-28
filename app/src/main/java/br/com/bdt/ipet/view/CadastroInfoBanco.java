@@ -14,19 +14,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CadastroController;
 import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.data.model.DadosBancario;
-import br.com.bdt.ipet.repository.BancoRepository;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 
 public class CadastroInfoBanco extends AppCompatActivity {
@@ -39,12 +34,11 @@ public class CadastroInfoBanco extends AppCompatActivity {
     private EditText etChavePix;
     private EditText etCNPJContaBanco;
     private CadastroSingleton cadastroSingleton;
-    private Button btConcluir;
-    private Button btPularEtapa;
     private boolean isAdd;
     private  String email;
 
 
+    @SuppressWarnings("ConstantConditions")
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +58,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
         isAdd = getIntent().getBooleanExtra("isAdd", false);
         if (isAdd) {
             email=getIntent().getStringExtra("email");
-            btPularEtapa = findViewById(R.id.btPularEtapa);
+            Button btPularEtapa = findViewById(R.id.btPularEtapa);
             btPularEtapa.setText("Cancelar");
         }
         title.setText("Dados Bancarios");
@@ -84,29 +78,16 @@ public class CadastroInfoBanco extends AppCompatActivity {
         initAutoComplet();
     }
 
-    @SuppressWarnings("unchecked")
     private void initAutoComplet() {
-        BancoRepository bancoRepository = new BancoRepository(FirebaseFirestore.getInstance());
 
-        bancoRepository.findAll().addOnCompleteListener(task -> {
-
-            DocumentSnapshot documentSnapshot = task.getResult();
-
-            assert documentSnapshot != null;
-            List<Map<String, String>> bancosMap = (List<Map<String, String>>) documentSnapshot.get("bancos");
-
-            List<Banco> bancos = new ArrayList<>();
-
-            assert bancosMap != null;
-            for (Map<String, String> map : bancosMap) {
-                bancos.add(new Banco(map.get("label"), map.get("value")));
-            }
+        cadastroController.buscarBancos().addOnCompleteListener(task -> {
 
             ArrayAdapter<Banco> adapterBancos = new ArrayAdapter<>(CadastroInfoBanco.this,
-                    android.R.layout.simple_dropdown_item_1line, bancos);
+                    android.R.layout.simple_dropdown_item_1line, cadastroSingleton.getBancos());
             acBanco.setAdapter(adapterBancos);
 
         });
+
     }
 
     public void hablitaPix(View v) {

@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,36 +13,18 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import br.com.bdt.ipet.R;
-import br.com.bdt.ipet.control.DoacaoController;
+import br.com.bdt.ipet.control.PagamentoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Doacao;
-import br.com.bdt.ipet.data.model.Ong;
-import br.com.bdt.ipet.repository.DoacoesRepository;
-import br.com.bdt.ipet.repository.interfaces.IRepositoryDoacao;
-import br.com.bdt.ipet.singleton.CadastroSingleton;
-import br.com.bdt.ipet.singleton.CasoSingleton;
-import br.com.bdt.ipet.singleton.OngSingleton;
-import br.com.bdt.ipet.util.GeralUtils;
 
 public class PagamentoDialog extends DialogFragment {
 
@@ -137,16 +118,8 @@ public class PagamentoDialog extends DialogFragment {
             Doacao doacao = new Doacao(bancoDoacao, metodoDoacao, valorDoacao, dataDoacao);
             System.out.println(doacao.toString());
 
-            //Lógica para salvar doacao de um caso aqui
-
-            IRepositoryDoacao iRepositoryDoacao = new DoacoesRepository(FirebaseFirestore.getInstance());
-
-            iRepositoryDoacao.save(caso, doacao).addOnSuccessListener(unused -> System.out.println("Deu certo")).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(Exception e) {
-                    System.out.println("Deu Errado" + e.getMessage());
-                }
-            });
+            PagamentoController pagamentoController = new PagamentoController();
+            pagamentoController.saveDoacao(caso, doacao);
 
             //Abrir tela de obrigado aqui?
 

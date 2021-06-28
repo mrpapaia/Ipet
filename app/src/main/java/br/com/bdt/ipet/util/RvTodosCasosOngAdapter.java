@@ -85,7 +85,6 @@ public class RvTodosCasosOngAdapter extends RecyclerView.Adapter<RvTodosCasosOng
             holder.tvDescricao.setText(caso.getDescricao());
             holder.tvValor.setText(String.valueOf(caso.getValor()));
             holder.tvAnimalData.setText(caso.getNomeAnimal() + " (" + caso.getEspecie() + ")");
-
             holder.tvMaisDetalhes.setOnClickListener(v -> onClickListener.onClickDetails(p));
 
         } else {

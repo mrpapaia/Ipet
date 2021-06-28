@@ -32,6 +32,7 @@ public class CasoRepository implements IRepositoryCaso {
         docCaso.put("nomeAnimal", caso.getNomeAnimal());
         docCaso.put("especie", caso.getEspecie());
         docCaso.put("valor", caso.getValor());
+        docCaso.put("arrecadado", caso.getArrecadado());
         docCaso.put("linkImg", caso.getLinkImg());
 
         return db.collection("ongs")

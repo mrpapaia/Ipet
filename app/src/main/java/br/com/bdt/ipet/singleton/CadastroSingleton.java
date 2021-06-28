@@ -2,6 +2,9 @@ package br.com.bdt.ipet.singleton;
 
 import android.net.Uri;
 
+import java.util.List;
+
+import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.data.model.Ong;
 
 public class CadastroSingleton {
@@ -10,6 +13,7 @@ public class CadastroSingleton {
     private Ong ong;
     private String senha;
     private Uri uri;
+    private List<Banco> bancos;
 
     private CadastroSingleton() {
     }
@@ -43,5 +47,13 @@ public class CadastroSingleton {
 
     public void setUri(Uri uri) {
         this.uri = uri;
+    }
+
+    public List<Banco> getBancos() {
+        return bancos;
+    }
+
+    public void setBancos(List<Banco> bancos) {
+        this.bancos = bancos;
     }
 }

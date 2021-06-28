@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -21,7 +22,9 @@ import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.data.model.Ong;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -64,14 +67,14 @@ public class CriarCasoActivity extends AppCompatActivity {
         etNomeAnimalCaso = findViewById(R.id.etNomeAnimalCaso);
         etValorCaso = findViewById(R.id.etValorCaso);
         spEspecieCaso = findViewById(R.id.spEspecieCaso);
-        Button bCriarCaso = findViewById(R.id.bCriarCaso);
 
-        GeralUtils.setDataSpinner(
-                spEspecieCaso,  //spinner
-                getApplicationContext(),   //contexto
-                "Espécie",     //hint do spinner
-                Arrays.asList("Cachorro", "Gato", "Coelho") //conteudo do spinner
-        );
+        List<String> especies = new ArrayList<>();
+
+        especies.add("Cachorro");
+        especies.add("Gato");
+        especies.add("Coelho");
+
+        spEspecieCaso.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, especies));
     }
 
     public void criarUmCaso(View view){
@@ -108,15 +111,11 @@ public class CriarCasoActivity extends AppCompatActivity {
             etValorCaso.setError("Insira um valor válido");
             return;
         }
-        String arrecadadoString = etValorCaso.getText().toString();
-        if(!isValidInput(valorString, "double")){
-            etValorCaso.setError("Insira um valor válido");
-            return;
-        }
+
         Double valor = Double.parseDouble(valorString);
-        Double arrecadado = Double.parseDouble(arrecadadoString);
+
         CasoSingleton casoSingleton = CasoSingleton.getCasoSingleton();
-        casoSingleton.setCaso(new Caso(id, titulo, descricao, nomeAnimal, especie, valor,arrecadado, "", ong));
+        casoSingleton.setCaso(new Caso(id, titulo, descricao, nomeAnimal, especie, valor, 0.0, "", ong));
 
         Intent intent = new Intent(getApplicationContext(), EnviarFoto.class);
         intent.putExtra("isCaso", true);

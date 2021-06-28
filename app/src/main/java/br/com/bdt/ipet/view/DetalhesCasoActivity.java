@@ -1,15 +1,12 @@
 package br.com.bdt.ipet.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.GradientDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -18,28 +15,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.DetalhesCasoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.view.dialog.ValorPagamentoDialog;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 public class DetalhesCasoActivity extends AppCompatActivity {
 
-    Caso caso;
-    Button btEmail, btWhatsapp;
-    ImageView ivLogoAnimal, ivIconAnimal;
-    TextView tvLocalizacao;
-    Button btn;
+    private Caso caso;
+    private Button btEmail, btWhatsapp;
+    private ImageView ivLogoAnimal, ivIconAnimal;
+    private TextView tvLocalizacao;
+    private DetalhesCasoController detalhesCasoController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +44,8 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         ivIconAnimal = findViewById(R.id.ivIconAnimal);
         tvLocalizacao = findViewById(R.id.tvLocalizacao);
 
+        detalhesCasoController = new DetalhesCasoController();
+
         setarInformacoes();
     }
 
@@ -61,7 +53,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        btn = (Button) findViewById(R.id.btDoar);
+        Button btn = (Button) findViewById(R.id.btDoar);
 
         View.OnClickListener listener = v -> {
             DialogFragment dialog = ValorPagamentoDialog.newInstance(caso);
@@ -97,6 +89,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         setTextTv(R.id.tvTitleData, caso.getTitulo()); //Nome caso
         setTextTv(R.id.tvValorData, String.valueOf(caso.getValor())); //Valor caso
         setTextTv(R.id.tvDescricaoData, caso.getDescricao()); //Descrição caso
+        setTextTv(R.id.tvValorArrecadado, String.valueOf(caso.getArrecadado()));
 
         //Lógica para pegar o height atual e dar um espaçamento no bottom, alterando seu height
         ConstraintLayout main3 = findViewById(R.id.main3);
@@ -145,6 +138,8 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         ivLogoAnimal.setBackgroundResource(logo);
         ivIconAnimal.setBackgroundResource(icon);
 
+        Picasso.get().load(caso.getLinkImg()).into(ivLogoAnimal);
+
         //seta tamanho no icone do animal
         int size = sizeIcon();
         ivIconAnimal.getLayoutParams().width = size;
@@ -157,100 +152,30 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         btEmail.setBackground(gd);
         btWhatsapp.setBackground(gd);
 
+        Button btDoar = findViewById(R.id.btDoar);
+        btDoar.setBackground(gd);
+
         //Ajustando a largura dos botões
         btEmail.getLayoutParams().width = sizeButton();
         btWhatsapp.getLayoutParams().width = sizeButton();
     }
 
-    /*
-     * Recebe id de um TextView e uma string, instanciando um TextView e setando o texto.
-     * */
     public void setTextTv(int idTextView, String text) {
         TextView tv = findViewById(idTextView);
         tv.setText(text);
     }
-
-    /*
-     * Primeiramente é necessário fazer o carregamento das conexões que estão no bd,
-     * após isso é incrementado o contador qtd para atualizar o número de conexões feitas.
-     * */
-    public void setConexoes() {
-        FirebaseFirestore.getInstance()
-                .collection("conexoes")
-                .document("counter")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            Integer qtd = document.get("quantidade", Integer.class);
-                            qtd++;
-                            Map<String, Object> qtdConexoes = new HashMap<>();
-                            qtdConexoes.put("quantidade", qtd);
-                            FirebaseFirestore.getInstance()
-                                    .collection("conexoes")
-                                    .document("counter")
-                                    .set(qtdConexoes);
-                        }
-                    }
-                });
-    }
-
 
     public void voltar(View view) {
         onBackPressed();
     }
 
     public void email(View view) {
-
-        String msg = getMsgParaOng();
-        String destinatario = caso.getOng().getEmail();
-
-        Intent EnviarEmail = new Intent(Intent.ACTION_SEND);
-        EnviarEmail.putExtra(Intent.EXTRA_EMAIL, new String[]{destinatario});
-        EnviarEmail.putExtra(Intent.EXTRA_SUBJECT, "Quero ajudar um caso");
-        EnviarEmail.putExtra(Intent.EXTRA_TEXT, msg);
-        EnviarEmail.setType("text/plain");
-        startActivity(Intent.createChooser(EnviarEmail, "Escolha o cliente de e-mail"));
-
-        setConexoes();
+        Intent intent = detalhesCasoController.sendEmail(caso);
+        startActivity(Intent.createChooser(intent, "Escolha o cliente de e-mail"));
     }
 
     public void whatsapp(View view) {
-
-        String msg = getMsgParaOng();
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=55" +
-                caso.getOng().getWhatsapp() +
-                "&text=" +
-                msg));
-
+        Intent intent = detalhesCasoController.sendWhatsapp(caso);
         startActivity(intent);
-        setConexoes();
     }
-
-    @SuppressLint("DefaultLocale")
-    public String getMsgParaOng() {
-        return getMsgHoras() + " " + caso.getOng().getNome() + ", Gostaria de ajudar no caso " +
-                caso.getTitulo() + ", com o valor de " + String.format("R$ %.2f", caso.getValor());
-    }
-
-
-    public String getMsgHoras() {
-
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat dateFormat_hora = new SimpleDateFormat("HH");
-        int horas = Integer.parseInt(dateFormat_hora.format(new Date()));
-
-        if (horas >= 0 && horas < 12) {
-            return "Bom Dia";
-        } else if (horas < 18) {
-            return "Boa tarde";
-        } else {
-            return "Boa Noite";
-        }
-    }
-
 }

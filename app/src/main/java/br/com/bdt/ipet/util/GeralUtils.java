@@ -77,12 +77,6 @@ public class GeralUtils {
         acUf.setAdapter(adapterUF);
     }
 
-    public static void setDataSpinner(Spinner spinner, Context context, String title, List<String> dados) {
-        spinner.setAdapter(new NothingSelectedSpinnerAdapter(new ArrayAdapter<>(context,
-                R.layout.spinner_row, dados), title, R.layout.spinner_row, context)
-        );
-    }
-
     public static boolean isValidInput(String str, String type){
 
         switch (type){

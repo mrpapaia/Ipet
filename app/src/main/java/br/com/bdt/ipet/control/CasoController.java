@@ -122,19 +122,17 @@ public class CasoController {
         final String email = emailOng != null ? emailOng : document.getReference().getPath().split("/")[1];
 
         OngRepository ongRepository = new OngRepository(db);
-
         ongRepository.findById(email).addOnCompleteListener(task -> adicionarCaso(
                 new Caso(
-                    document.getString("id"),
-                    document.getString("titulo"),
-                    document.getString("descricao"),
-                    document.getString("nomeAnimal"),
-                    document.getString("especie"),
-                    document.getDouble("valor"),
-                    document.getDouble("arrecadado"),
-                    document.getString("linkImg"),
-
-                    Objects.requireNonNull(task.getResult()).toObject(Ong.class)
+                        document.getString("id"),
+                        document.getString("titulo"),
+                        document.getString("descricao"),
+                        document.getString("nomeAnimal"),
+                        document.getString("especie"),
+                        document.getDouble("valor"),
+                        document.getDouble("arrecadado"),
+                        document.getString("linkImg"),
+                        Objects.requireNonNull(task.getResult()).toObject(Ong.class)
                 )
         ));
     }
@@ -158,7 +156,6 @@ public class CasoController {
     }
 
     public void adicionarCaso(Caso caso){
-
         casoSingleton.getCasos().add(new CasoComDoacao(caso));
         iChanges.onChange();
     }
@@ -197,22 +194,6 @@ public class CasoController {
 
     public void setiChanges(IChanges iChanges) {
         this.iChanges = iChanges;
-    }
-
-    public List<CasoComDoacao> casosFiltrados(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            return casoSingleton.getCasos().stream().filter(this::isfiltrado).collect(Collectors.toList());
-        }
-        return null;
-    }
-
-    public boolean isfiltrado(CasoComDoacao caso){
-        DadosFiltro dadosFiltro = casoSingleton.getDadosFiltro();
-        return FiltroUtils.filterEspecie(caso.getCaso().getEspecie(), dadosFiltro.getEspecies()) &&
-                FiltroUtils.filterValor(caso.getCaso().getValor(), dadosFiltro.getMinValue(), dadosFiltro.getMaxValue()) &&
-                FiltroUtils.filterText(caso.getCaso().getOng().getUf(), dadosFiltro.getUf()) &&
-                FiltroUtils.filterText(caso.getCaso().getOng().getCidade(), dadosFiltro.getCidade()) &&
-                FiltroUtils.filterText(caso.getCaso().getOng().getEmail(), dadosFiltro.getEmailOng());
     }
 
     public Task<Void> updateValor(String campo, Double valor,int position){

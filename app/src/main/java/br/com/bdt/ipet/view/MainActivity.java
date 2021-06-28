@@ -54,34 +54,34 @@ public class MainActivity extends AppCompatActivity {
      * setará na textview de conexões desta tela.
      * */
     public void getQtdConexoes(){
-        FirebaseFirestore.getInstance()
-                .collection("conexoes")
-                .document("counter")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            Integer qtd = document.get("quantidade", Integer.class);
-
-                            if (document.exists()) { //Se exisitir, le o valor e seta no textview
-                                setTextQtdConexoes(qtd);
-                            } else { //Caso não exista, irá criar com valor 0
-
-                                HashMap<String, Integer> dataQuantidade = new HashMap<>();
-                                dataQuantidade.put("quantidade", 0);
-
-                                FirebaseFirestore.getInstance()
-                                        .collection("conexoes")
-                                        .document("counter")
-                                        .set(dataQuantidade);
-
-                                setTextQtdConexoes(0);
-                            }
-                        }
-                    }
-                });
+//        FirebaseFirestore.getInstance()
+//                .collection("conexoes")
+//                .document("counter")
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            Integer qtd = document.get("quantidade", Integer.class);
+//
+//                            if (document.exists()) { //Se exisitir, le o valor e seta no textview
+//                                setTextQtdConexoes(qtd);
+//                            } else { //Caso não exista, irá criar com valor 0
+//
+//                                HashMap<String, Integer> dataQuantidade = new HashMap<>();
+//                                dataQuantidade.put("quantidade", 0);
+//
+//                                FirebaseFirestore.getInstance()
+//                                        .collection("conexoes")
+//                                        .document("counter")
+//                                        .set(dataQuantidade);
+//
+//                                setTextQtdConexoes(0);
+//                            }
+//                        }
+//                    }
+//                });
     }
 
     /*

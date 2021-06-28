@@ -35,6 +35,7 @@ public class CadastroOng extends AppCompatActivity {
     private AutoCompleteTextView acMunicipio;
     private CadastroSingleton cadastroSingleton;
 
+    @SuppressWarnings("ConstantConditions")
     @SuppressLint({"ClickableViewAccessibility", "SetTextI18n", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +61,6 @@ public class CadastroOng extends AppCompatActivity {
         acMunicipio = findViewById(R.id.acMunicipio);
         GeralUtils.initAutoCompletUfCity(getApplicationContext(), acUf, acMunicipio);
         cadastroSingleton = CadastroSingleton.getCadastroSingleton();
-
-
-
-
 
         etNome = findViewById(R.id.etNome);
         etEmail = findViewById(R.id.etEmail);
@@ -150,6 +147,5 @@ public class CadastroOng extends AppCompatActivity {
 
     public void voltar(View view) {
         onBackPressed();
-
     }
 }

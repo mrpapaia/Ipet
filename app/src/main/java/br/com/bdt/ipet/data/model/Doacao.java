@@ -15,6 +15,7 @@ public class Doacao implements Serializable, Parcelable {
     private Double valor;
     private Date data;
     private DocumentReference id;
+
     public Doacao() {
     }
 

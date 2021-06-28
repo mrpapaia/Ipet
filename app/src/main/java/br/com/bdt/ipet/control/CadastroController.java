@@ -5,15 +5,23 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.api.ConsumerData.SendDataObject;
+import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.data.model.DadosBancario;
+import br.com.bdt.ipet.repository.BancoRepository;
 import br.com.bdt.ipet.repository.OngRepository;
 import br.com.bdt.ipet.repository.StorageRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepositoryOng;
@@ -105,6 +113,26 @@ public class CadastroController {
                     act.startActivity(intent);
                     act.finish();
                 }).addOnFailureListener(aVoid -> Log.d(TAG, "Falha save ONG"));
+    }
+
+    public Task<DocumentSnapshot> buscarBancos(){
+
+        BancoRepository bancoRepository = new BancoRepository(FirebaseFirestore.getInstance());
+
+        return bancoRepository.findAll().addOnSuccessListener(task -> {
+
+            @SuppressWarnings("unchecked")
+            List<Map<String, String>> bancosMap = (List<Map<String, String>>) task.get("bancos");
+
+            List<Banco> bancos = new ArrayList<>();
+
+            assert bancosMap != null;
+            for (Map<String, String> map : bancosMap) {
+                bancos.add(new Banco(map.get("label"), map.get("value")));
+            }
+
+            cadastroSingleton.setBancos(bancos);
+        });
     }
 
 }
