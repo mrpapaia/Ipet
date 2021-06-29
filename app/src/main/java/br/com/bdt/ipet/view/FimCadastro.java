@@ -39,7 +39,7 @@ public class FimCadastro extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
             finish();
-        }, 2000);
+        }, 3000);
     }
 
     public void clearCasoSingleton(){

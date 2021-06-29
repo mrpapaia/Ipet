@@ -11,8 +11,9 @@
         android:roundIcon="@mipmap/icon_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ListaDeDoacoesPendentes"></activity>
-        <activity android:name=".view.ListaCasosComDoacaoPendente"></activity>
+        <activity android:name=".view.dialog.FimPagamento"></activity>
+        <activity android:name=".view.ListaDeDoacoesPendentes" />
+        <activity android:name=".view.ListaCasosComDoacaoPendente" />
         <activity android:name=".view.ListDadosBancarios" />
         <activity android:name=".view.FimCadastro" />
         <activity

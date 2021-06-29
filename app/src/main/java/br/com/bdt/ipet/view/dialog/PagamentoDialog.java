@@ -121,7 +121,12 @@ public class PagamentoDialog extends DialogFragment {
             PagamentoController pagamentoController = new PagamentoController();
             pagamentoController.saveDoacao(caso, doacao);
 
-            //Abrir tela de obrigado aqui?
+            DialogFragment dialog = new FimPagamento();
+
+            dialog.show(getActivity().getSupportFragmentManager(), "fimPagamento");
+            getActivity().getSupportFragmentManager().executePendingTransactions();
+
+            dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
             this.dismiss();
         });
