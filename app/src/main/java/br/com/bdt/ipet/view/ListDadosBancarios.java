@@ -33,6 +33,7 @@ public class ListDadosBancarios extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_dados_bancarios);
+
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
         TextView title_extra = findViewById(R.id.toolbar_extra);

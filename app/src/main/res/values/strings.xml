@@ -53,4 +53,5 @@
     <string name="faixa_de_valor">Faixa de valor</string>
     <string name="sep">-</string>
     <string name="confirmar">Confirmar</string>
+    <string name="filtro_por_esp_cie">Filtro por espécie</string>
 </resources>

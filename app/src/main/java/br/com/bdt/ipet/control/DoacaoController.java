@@ -37,14 +37,13 @@ public class DoacaoController {
         });
     }
 
-    public Task<QuerySnapshot> getQtdPendente(CasoComDoacao caso ) {
+    public Task<QuerySnapshot> getQtdPendente(CasoComDoacao caso) {
 
-          return   repository.getQtdPendente("/ongs/"+ FirebaseAuth.getInstance().getCurrentUser().getEmail() +"/casos/"+caso.getCaso().getId()).addOnSuccessListener(
+          return  repository.getQtdPendente("/ongs/"+ FirebaseAuth.getInstance().getCurrentUser().getEmail() +"/casos/"+caso.getCaso().getId()).addOnSuccessListener(
                     queryDocumentSnapshots -> {
                         casoSingleton.getCasos().get(casoSingleton.getCasos().indexOf(caso)).setQtdDoacaoPendente(queryDocumentSnapshots.getDocuments().size());
 
                     });
-
 
     }
     public Task<Void> delete(DocumentReference docRef){

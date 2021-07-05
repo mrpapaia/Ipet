@@ -8,7 +8,6 @@
     tools:context=".view.ListDadosBancarios">
 
     <include
-
         layout="@layout/toolbar_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

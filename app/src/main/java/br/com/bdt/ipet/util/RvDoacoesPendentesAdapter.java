@@ -9,13 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,35 +19,35 @@ import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.control.DoacaoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Doacao;
-import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.singleton.CasoSingleton;
 
 public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder> {
+
+    public interface UpdateDetails {
+        void onConfirm(double newValue);
+    }
+
     private DoacaoController doacaoController;
     private final Context context;
     private List<Doacao> doacaoList;
-    private final RvDoacoesPendentesAdapter.DoacaoOnClickListener onClickListener;
+    private int indexCaso;
+    private UpdateDetails updateDetails;
 
-    public interface DoacaoOnClickListener {
-        void onClickDetails(int position);
-    }
-
-    public RvDoacoesPendentesAdapter(Context context, List<Doacao> doacaoList,DoacaoController doacaoController,
-                                     RvDoacoesPendentesAdapter.DoacaoOnClickListener onClickListener) {
+    public RvDoacoesPendentesAdapter(Context context, List<Doacao> doacaoList,DoacaoController doacaoController, int indexCaso, UpdateDetails updateDetails) {
         this.context = context;
-        this.doacaoList = doacaoList != null ? doacaoList : new ArrayList<Doacao>();
-        this.onClickListener = onClickListener;
+        this.doacaoList = doacaoList != null ? doacaoList : new ArrayList<>();
         this.doacaoController=doacaoController;
+        this.indexCaso = indexCaso;
+        this.updateDetails = updateDetails;
     }
-
 
     @Override
     public RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.adapter_lista_de_doacoes_pendentes,
-                viewGroup, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.adapter_lista_de_doacoes_pendentes, viewGroup, false);
+
         return new RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder(view);
     }
-
 
     @Override
     public int getItemCount() {
@@ -66,58 +60,42 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
 
         CasoController casoController = new CasoController();
         Doacao doacao = doacaoList.get(position);
+
         if (doacao == null) return; //Evitando bugs
+
         holder.tvBancoDynamic.setText(doacao.getBanco());
         holder.tvDataDyanamic.setText(doacao.getData().toString());
         holder.tvTipoTransDyanamic.setText(doacao.getTipo());
         holder.tvValorDyanamic.setText(doacao.getValor().toString());
 
+        holder.btConfirmarDoacao.setOnClickListener(v -> {
 
-        holder.btConfirmarDoacao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            Caso caso = CasoSingleton.getCasoSingleton().getCasos().get(indexCaso).getCaso();
+            double newValue = caso.getArrecadado() + doacao.getValor();
 
-                Log.d("valtenis", "clicou");
-                casoController.updateValor("arrecadado", doacao.getValor(), position).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull @NotNull Task<Void> task) {
-                       doacaoController.delete(doacao.getId()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                           @Override
-                           public void onComplete(@NonNull @NotNull Task<Void> task) {
-                               doacaoList.remove(position);
-                               notifyItemRemoved(position);
-                           }
-                       });
-                    }
-                });
-
-            }
-        });
-        holder.btNaoRecebido.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                doacaoController.delete(doacao.getId()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull @NotNull Task<Void> task) {
-                        doacaoList.remove(position);
-                        notifyItemRemoved(position);
-                    }
-                });
-            }
+            Log.d("valtenis", "clicou");
+            casoController.updateValor("arrecadado", newValue, caso.getId())
+                    .addOnCompleteListener(task -> {
+                        doacaoController.delete(doacao.getId())
+                                        .addOnCompleteListener(task1 -> {
+                                            doacaoList.remove(position);
+                                            notifyItemRemoved(position);
+                                            updateDetails.onConfirm(newValue);
+                                        });
+                            }
+                    );
         });
 
-    }
+        holder.btNaoRecebido.setOnClickListener(v -> doacaoController.delete(doacao.getId())
+                .addOnCompleteListener(task -> {
+                    doacaoList.remove(position);
+                    notifyItemRemoved(position);
+                })
+        );
 
-    //Overriden so that I can display custom rows in the recyclerview
-    @Override
-    public int getItemViewType(int position) {
-        int viewType = 1; //Default is 1
-        if (position == 0) viewType = 0; //if zero, it will be a header view
-        return viewType;
     }
 
     public static class DoacaoPendenteViewHolder extends RecyclerView.ViewHolder {
-
 
         TextView tvBancoDynamic;
         TextView tvTipoTransDyanamic;
@@ -128,14 +106,12 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
 
         public DoacaoPendenteViewHolder(View view) {
             super(view);
-
             tvBancoDynamic = view.findViewById(R.id.tvBancoDynamic);
             tvTipoTransDyanamic = view.findViewById(R.id.tvTipoTransDyanamic);
             tvValorDyanamic = view.findViewById(R.id.tvValorDyanamic);
             tvDataDyanamic = view.findViewById(R.id.tvDataDyanamic);
             btNaoRecebido = view.findViewById(R.id.btNaoRecebido);
             btConfirmarDoacao = view.findViewById(R.id.btConfirmarDoacao);
-
         }
     }
 
