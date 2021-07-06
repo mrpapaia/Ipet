@@ -20,7 +20,6 @@ import java.util.Objects;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CasoController;
-import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.util.RvTodosCasosOngAdapter;

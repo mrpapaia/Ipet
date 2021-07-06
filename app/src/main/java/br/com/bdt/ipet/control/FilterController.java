@@ -2,9 +2,7 @@ package br.com.bdt.ipet.control;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 
@@ -25,7 +23,6 @@ import br.com.bdt.ipet.repository.OngRepository;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.FiltroUtils;
-import br.com.bdt.ipet.util.interfaces.IFilter;
 
 public class FilterController {
 
@@ -93,7 +90,6 @@ public class FilterController {
 
     public void activeFilter(){
         List<CasoComDoacao> casos = casosFiltrados();
-        System.out.println("Size casos: " + casos.size());
         casoSingleton.getiFilter().onFilter(casos);
     }
 

@@ -8,7 +8,6 @@ import android.view.View;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
-import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.util.RvMetodoPagamentoAdapter;
 
 import androidx.appcompat.app.AlertDialog;

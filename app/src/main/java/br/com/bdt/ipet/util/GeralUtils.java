@@ -11,12 +11,10 @@ import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.List;
 
-import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.model.Estado;
 import br.com.bdt.ipet.singleton.EstadoSingleton;

@@ -2,7 +2,6 @@ package br.com.bdt.ipet.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,12 @@ import org.jetbrains.annotations.NotNull;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.control.DoacaoController;
 import br.com.bdt.ipet.data.model.Caso;
-import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.data.model.Doacao;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 

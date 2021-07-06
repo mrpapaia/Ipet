@@ -8,7 +8,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import br.com.bdt.ipet.control.interfaces.IChanges;
 import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.data.model.Doacao;
 import br.com.bdt.ipet.repository.DoacaoRepository;
@@ -16,16 +18,19 @@ import br.com.bdt.ipet.repository.interfaces.IRepositoryDoacao;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 
 public class DoacaoController {
+
     private IRepositoryDoacao repository;
     private CasoSingleton casoSingleton;
+    private String emailOng;
 
     public DoacaoController() {
         this.repository = new DoacaoRepository(FirebaseFirestore.getInstance());
         this.casoSingleton = CasoSingleton.getCasoSingleton();
+        this.emailOng = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
     }
 
-    public Task<QuerySnapshot> getAllByCaso(CasoComDoacao caso ) {
-        return repository.findAll("/ongs/"+ FirebaseAuth.getInstance().getCurrentUser().getEmail() +"/casos/"+caso.getCaso().getId()).addOnSuccessListener(queryDocumentSnapshots -> {
+    public Task<QuerySnapshot> getAllByCaso(CasoComDoacao caso) {
+        return repository.findAll("/ongs/"+ emailOng +"/casos/" + caso.getCaso().getId()).addOnSuccessListener(queryDocumentSnapshots -> {
          List<Doacao> listDoacao= new ArrayList<>();
          Doacao doacao;
           for (int i=0;i< queryDocumentSnapshots.getDocuments().size();i++){
@@ -46,10 +51,15 @@ public class DoacaoController {
                     });
 
     }
+
     public Task<Void> delete(DocumentReference docRef){
         return repository.delete(docRef).addOnSuccessListener(unused -> {
 
         });
+    }
+
+    public void initListenerDoacoes(String idCaso, IChanges iChanges){
+        repository.getCollectionDoacoes(emailOng, idCaso).addSnapshotListener((value, error) -> iChanges.onChange());
     }
 
 }

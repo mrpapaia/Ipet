@@ -2,22 +2,13 @@ package br.com.bdt.ipet.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,14 +19,13 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.DoacaoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.CasoComDoacao;
-import br.com.bdt.ipet.data.model.Doacao;
 
 public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCasosComDoacaoPendenteAdapter.CasosDoacaoPendenteViewHolder> {
 
     private final Context context;
-    private List<CasoComDoacao> casosOng;
+    private final List<CasoComDoacao> casosOng;
     private final RvCasosComDoacaoPendenteAdapter.CasoOnClickListener onClickListener;
-    private DoacaoController doacaoController;
+    private final DoacaoController doacaoController;
 
     public interface CasoOnClickListener {
         void onClickDetails(int position);
@@ -48,13 +38,8 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
         this.doacaoController = new DoacaoController();
     }
 
-    public void setCasosOng(List<CasoComDoacao> casosOng) {
-        this.casosOng = casosOng;
-        notifyDataSetChanged();
-    }
-
     @Override
-    public RvCasosComDoacaoPendenteAdapter.CasosDoacaoPendenteViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int viewType) {
+    public RvCasosComDoacaoPendenteAdapter.@NotNull CasosDoacaoPendenteViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int viewType) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.adapter_lista_casos_com_doacao_pendente, viewGroup, false);
 
@@ -63,12 +48,12 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
 
     @Override
     public int getItemCount() {
-        return casosOng != null ? casosOng.size() : 0;
+        return casosOng.size();
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(final CasosDoacaoPendenteViewHolder holder, int position) {
+    public void onBindViewHolder(final @NotNull CasosDoacaoPendenteViewHolder holder, int position) {
 
         if (getItemCount() != 0) {
 
@@ -77,25 +62,39 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
 
             holder.tvNomeCaso.setText(caso.getTitulo());
             holder.tvNomeAnimalCaso.setText(caso.getNomeAnimal());
-            refreshQtdPendentes(holder.tvAviso, casoComDoacao);
+            doacaoController.initListenerDoacoes(caso.getId(), () -> refreshQtdPendentes(holder.tvAviso, casoComDoacao, holder.itemView));
             holder.clCasoComDoacaoPendente.setOnClickListener(v -> {
                 if(casosOng.get(position).getQtdDoacaoPendente() != 0) {
                     onClickListener.onClickDetails(position);
                 }
             });
 
-            FirebaseFirestore.getInstance().collection("/ongs/"+caso.getOng().getEmail()+"/casos/"+caso.getId()+"/doacoes").addSnapshotListener((value, error) -> {
-                refreshQtdPendentes(holder.tvAviso, casoComDoacao);
-            });
-
         }
     }
 
     @SuppressLint("SetTextI18n")
-    public void refreshQtdPendentes(TextView tv, CasoComDoacao casoComDoacao){
+    public void refreshQtdPendentes(TextView tv, CasoComDoacao casoComDoacao, View itemView){
         doacaoController.getQtdPendente(casoComDoacao).addOnCompleteListener(task -> {
-            tv.setText("Há " + casoComDoacao.getQtdDoacaoPendente() + " doações pendentes!");
+            int qtdDoacoesPendentes = casoComDoacao.getQtdDoacaoPendente();
+            if(qtdDoacoesPendentes != 0){
+                tv.setText("Há " + qtdDoacoesPendentes + " doações pendentes!");
+                if(itemView.getVisibility() == View.GONE){
+                    showItemView(itemView);
+                }
+            }else{
+                hideItemView(itemView);
+            }
         });
+    }
+
+    public void hideItemView(View itemView){
+        itemView.setVisibility(View.GONE);
+        itemView.getLayoutParams().height = 0;
+    }
+
+    public void showItemView(View itemView){
+        itemView.setVisibility(View.VISIBLE);
+        itemView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
     }
 
     public static class CasosDoacaoPendenteViewHolder extends RecyclerView.ViewHolder {

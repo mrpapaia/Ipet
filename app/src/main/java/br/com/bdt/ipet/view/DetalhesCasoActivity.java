@@ -138,7 +138,9 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         ivLogoAnimal.setBackgroundResource(logo);
         ivIconAnimal.setBackgroundResource(icon);
 
-        Picasso.get().load(caso.getLinkImg()).into(ivLogoAnimal);
+        if(!caso.getLinkImg().equals("")){
+            Picasso.get().load(caso.getLinkImg()).into(ivLogoAnimal);
+        }
 
         //seta tamanho no icone do animal
         int size = sizeIcon();

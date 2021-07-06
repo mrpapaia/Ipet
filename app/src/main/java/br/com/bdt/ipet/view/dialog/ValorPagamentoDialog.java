@@ -12,7 +12,6 @@ import androidx.fragment.app.DialogFragment;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
-import br.com.bdt.ipet.data.model.Ong;
 
 public class ValorPagamentoDialog extends DialogFragment {
 

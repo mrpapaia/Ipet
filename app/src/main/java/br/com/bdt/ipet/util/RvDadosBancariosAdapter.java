@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.bdt.ipet.R;
-import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 
 public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancariosAdapter.DadosBancariosViewHolder> {

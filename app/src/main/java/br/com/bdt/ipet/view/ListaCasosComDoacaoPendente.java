@@ -57,7 +57,7 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
         rvCasosComDoacaoPendenter.setHasFixedSize(true);
 
         ongMainController.listenner();
-        rvCasosComDoacaoPendenteAdapter = new RvCasosComDoacaoPendenteAdapter(getApplicationContext(),casoSingleton.getCasos(),position -> {
+        rvCasosComDoacaoPendenteAdapter = new RvCasosComDoacaoPendenteAdapter(getApplicationContext(), casoSingleton.getCasos(),position -> {
 
            doacaoController.getAllByCaso(casoSingleton.getCasos().get(position)).addOnCompleteListener(command -> {
               Log.d("Valtenis",casoSingleton.getCasos().get(position).getDoacaoList().toString());

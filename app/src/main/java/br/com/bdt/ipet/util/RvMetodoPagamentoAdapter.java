@@ -9,11 +9,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.bdt.ipet.R;
-import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.data.model.DadosBancario;
 
 public class RvMetodoPagamentoAdapter extends RecyclerView.Adapter<RvMetodoPagamentoAdapter.MetodoPagamentoViewHolder> {

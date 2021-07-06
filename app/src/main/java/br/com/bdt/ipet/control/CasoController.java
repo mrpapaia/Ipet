@@ -3,7 +3,6 @@ package br.com.bdt.ipet.control;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
 
 import com.google.android.gms.tasks.Task;
@@ -15,13 +14,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import br.com.bdt.ipet.control.interfaces.IChanges;
 import br.com.bdt.ipet.control.interfaces.IRecycler;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.CasoComDoacao;
-import br.com.bdt.ipet.data.model.DadosFiltro;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.repository.CasoRepository;
 import br.com.bdt.ipet.repository.OngRepository;
@@ -29,7 +26,6 @@ import br.com.bdt.ipet.repository.StorageRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepositoryCaso;
 import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CasoSingleton;
-import br.com.bdt.ipet.util.FiltroUtils;
 import br.com.bdt.ipet.view.FimCadastro;
 
 public class CasoController {
@@ -156,7 +152,8 @@ public class CasoController {
     }
 
     public void adicionarCaso(Caso caso){
-        casoSingleton.getCasos().add(new CasoComDoacao(caso));
+        CasoComDoacao casoComDoacao = new CasoComDoacao(caso);
+        casoSingleton.getCasos().add(casoComDoacao);
         iChanges.onChange();
     }
 
