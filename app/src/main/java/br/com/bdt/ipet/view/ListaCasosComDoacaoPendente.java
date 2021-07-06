@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
     private  OngMainController ongMainController;
     private DoacaoController doacaoController;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
         myToolbar.setNavigationOnClickListener(v -> onBackPressed());
         Objects.requireNonNull(myToolbar.getNavigationIcon()).setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
 
-        doacaoController=new DoacaoController();
+        doacaoController = new DoacaoController();
         casoSingleton = CasoSingleton.getCasoSingleton();
         ongMainController = new OngMainController();
 
@@ -68,4 +70,5 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
 
         rvCasosComDoacaoPendenter.setAdapter(rvCasosComDoacaoPendenteAdapter);
     }
+
 }

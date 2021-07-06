@@ -11,13 +11,19 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.control.DoacaoController;
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.data.model.Doacao;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 
@@ -56,7 +62,7 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(final RvDoacoesPendentesAdapter.DoacaoPendenteViewHolder holder, int position) {
+    public void onBindViewHolder(final RvDoacoesPendentesAdapter.@NotNull DoacaoPendenteViewHolder holder, int position) {
 
         CasoController casoController = new CasoController();
         Doacao doacao = doacaoList.get(position);
@@ -64,7 +70,12 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
         if (doacao == null) return; //Evitando bugs
 
         holder.tvBancoDynamic.setText(doacao.getBanco());
-        holder.tvDataDyanamic.setText(doacao.getData().toString());
+
+        @SuppressLint("SimpleDateFormat")
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
+        holder.tvDataDyanamic.setText(sdf.format(doacao.getData()));
+
         holder.tvTipoTransDyanamic.setText(doacao.getTipo());
         holder.tvValorDyanamic.setText(doacao.getValor().toString());
 
@@ -73,13 +84,13 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
             Caso caso = CasoSingleton.getCasoSingleton().getCasos().get(indexCaso).getCaso();
             double newValue = caso.getArrecadado() + doacao.getValor();
 
-            Log.d("valtenis", "clicou");
             casoController.updateValor("arrecadado", newValue, caso.getId())
                     .addOnCompleteListener(task -> {
                         doacaoController.delete(doacao.getId())
                                         .addOnCompleteListener(task1 -> {
-                                            doacaoList.remove(position);
-                                            notifyItemRemoved(position);
+                                            int idx = getIndexByIdDoacao(doacao.getId().getId());
+                                            doacaoList.remove(idx);
+                                            notifyItemRemoved(idx);
                                             updateDetails.onConfirm(newValue);
                                         });
                             }
@@ -93,6 +104,17 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
                 })
         );
 
+    }
+
+    public int getIndexByIdDoacao(String id){
+
+        for(int i=0; i<doacaoList.size(); i++){
+            if(doacaoList.get(i).getId().getId().equals(id)){
+                return i;
+            }
+        }
+
+        return -1;
     }
 
     public static class DoacaoPendenteViewHolder extends RecyclerView.ViewHolder {

@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="17dp"
     android:layout_marginEnd="17dp"
+    android:layout_marginTop="4dp"
     android:backgroundTint="#FAFAFA">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,21 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginBottom="10dp"
+        android:layout_margin="7dp"
         android:background="@drawable/style_layout"
         android:elevation="5dp">
-
 
         <TextView
             android:id="@+id/tvCasoTitleStatic"
             style="@style/textStaticDefault"
-
             android:layout_width="wrap_content"
-
-
             android:layout_height="wrap_content"
             android:text="CASO:"
             app:layout_constraintBottom_toTopOf="@+id/textView18"
@@ -75,8 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_arrow_down_green"
-
-            android:text="Ver Mais"
+            android:text="@string/ver_mais"
             app:drawableEndCompat="@drawable/ic_arrow_down_green"
             app:layout_constraintBottom_toTopOf="@+id/tvAviso"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,8 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-
-            android:text="Há 3 doações pendentes!"
+            android:text="@string/h_0_doa_es_pendentes"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -175,6 +175,8 @@ public class CasoController {
         caso.setNomeAnimal(document.getString("nomeAnimal"));
         caso.setEspecie(document.getString("especie"));
         caso.setValor(document.getDouble("valor"));
+        caso.setLinkImg(document.getString("linkImg"));
+        caso.setArrecadado(document.getDouble("arrecadado"));
 
         iChanges.onChange();
     }
