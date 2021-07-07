@@ -26,23 +26,27 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
     private final List<CasoComDoacao> casosOng;
     private final RvCasosComDoacaoPendenteAdapter.CasoOnClickListener onClickListener;
     private final DoacaoController doacaoController;
+    private final CountCasoListener countCasoListener;
 
     public interface CasoOnClickListener {
         void onClickDetails(int position);
     }
 
-    public RvCasosComDoacaoPendenteAdapter(Context context, List<CasoComDoacao> casosOng, RvCasosComDoacaoPendenteAdapter.CasoOnClickListener onClickListener) {
+    public interface CountCasoListener {
+        void onUpdateCount(int qtdCasos);
+    }
+
+    public RvCasosComDoacaoPendenteAdapter(Context context, List<CasoComDoacao> casosOng, CasoOnClickListener onClickListener, CountCasoListener countCasoListener) {
         this.context = context;
         this.casosOng = casosOng != null ? casosOng : new ArrayList<>();
         this.onClickListener = onClickListener;
+        this.countCasoListener = countCasoListener;
         this.doacaoController = new DoacaoController();
     }
 
     @Override
     public RvCasosComDoacaoPendenteAdapter.@NotNull CasosDoacaoPendenteViewHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int viewType) {
-
         View view = LayoutInflater.from(context).inflate(R.layout.adapter_lista_casos_com_doacao_pendente, viewGroup, false);
-
         return new RvCasosComDoacaoPendenteAdapter.CasosDoacaoPendenteViewHolder(view);
     }
 
@@ -62,7 +66,7 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
 
             holder.tvNomeCaso.setText(caso.getTitulo());
             holder.tvNomeAnimalCaso.setText(caso.getNomeAnimal());
-            doacaoController.initListenerDoacoes(caso.getId(), () -> refreshQtdPendentes(holder.tvAviso, casoComDoacao, holder.itemView));
+            doacaoController.initListenerDoacoes(caso.getId(), () -> refreshQtdPendentes(holder, casoComDoacao));
             holder.clCasoComDoacaoPendente.setOnClickListener(v -> {
                 if(casosOng.get(position).getQtdDoacaoPendente() != 0) {
                     onClickListener.onClickDetails(position);
@@ -70,31 +74,33 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
             });
 
         }
+
     }
 
     @SuppressLint("SetTextI18n")
-    public void refreshQtdPendentes(TextView tv, CasoComDoacao casoComDoacao, View itemView){
+    public void refreshQtdPendentes(CasosDoacaoPendenteViewHolder holder, CasoComDoacao casoComDoacao){
         doacaoController.getQtdPendente(casoComDoacao).addOnCompleteListener(task -> {
             int qtdDoacoesPendentes = casoComDoacao.getQtdDoacaoPendente();
             if(qtdDoacoesPendentes != 0){
-                tv.setText("Há " + qtdDoacoesPendentes + " doações pendentes!");
-                if(itemView.getVisibility() == View.GONE){
-                    showItemView(itemView);
-                }
+                holder.tvAviso.setText("Há " + qtdDoacoesPendentes + " doações pendentes!");
+                holder.show();
             }else{
-                hideItemView(itemView);
+                holder.hide();
             }
+            countCasoListener.onUpdateCount(getQtdCasosComDoacoes());
         });
     }
 
-    public void hideItemView(View itemView){
-        itemView.setVisibility(View.GONE);
-        itemView.getLayoutParams().height = 0;
-    }
+    public int getQtdCasosComDoacoes(){
+        int cont = 0;
 
-    public void showItemView(View itemView){
-        itemView.setVisibility(View.VISIBLE);
-        itemView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        for(CasoComDoacao c : casosOng){
+            if(c.getQtdDoacaoPendente() != 0){
+                cont++;
+            }
+        }
+
+        return cont;
     }
 
     public static class CasosDoacaoPendenteViewHolder extends RecyclerView.ViewHolder {
@@ -110,6 +116,25 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
             tvNomeAnimalCaso = view.findViewById(R.id.tvNomeAnimalCaso);
             tvAviso = view.findViewById(R.id.tvAviso);
             clCasoComDoacaoPendente = view.findViewById(R.id.clCasoComDoacaoPendente);
+            hide();
+        }
+
+        public void hide(){
+            if(isVisible()) {
+                this.itemView.setVisibility(View.GONE);
+                this.itemView.getLayoutParams().height = 0;
+            }
+        }
+
+        public void show(){
+            if(!isVisible()) {
+                this.itemView.setVisibility(View.VISIBLE);
+                this.itemView.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            }
+        }
+
+        public boolean isVisible(){
+            return this.itemView.getVisibility() == View.VISIBLE;
         }
     }
 

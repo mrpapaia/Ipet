@@ -14,6 +14,47 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvMsgOlaOng"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/roboto_black"
+        android:text="Olá, OngTal"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbNormal" />
+
+    <TextView
+        android:id="@+id/tvQtdCasosPendentes"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+
+        android:fontFamily="@font/roboto"
+        android:text="No momento há 0 casos pendentes!"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMsgOlaOng" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCasosComDoacaoPendente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvQtdCasosPendentes" />
+
+
+
+    <!--<TextView
         android:id="@+id/tvFilter"
         style="@style/textFilter"
         android:layout_width="wrap_content"
@@ -62,15 +103,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButton7"
         app:layout_constraintTop_toBottomOf="@+id/tvFilter"
-        app:srcCompat="@android:drawable/sym_call_outgoing" />
+        app:srcCompat="@android:drawable/sym_call_outgoing" />-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCasosComDoacaoPendente"
-        android:layout_width="409dp"
-        android:layout_height="534dp"
-        android:layout_marginTop="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

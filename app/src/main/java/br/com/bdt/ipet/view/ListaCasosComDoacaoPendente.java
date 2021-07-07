@@ -19,6 +19,7 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.DoacaoController;
 import br.com.bdt.ipet.control.OngMainController;
 import br.com.bdt.ipet.singleton.CasoSingleton;
+import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.RvCasosComDoacaoPendenteAdapter;
 
 public class ListaCasosComDoacaoPendente extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
     private RvCasosComDoacaoPendenteAdapter rvCasosComDoacaoPendenteAdapter;
     private CasoSingleton casoSingleton;
     private RecyclerView rvCasosComDoacaoPendenter;
-    private  OngMainController ongMainController;
+    private OngMainController ongMainController;
     private DoacaoController doacaoController;
 
     @SuppressLint("SetTextI18n")
@@ -57,15 +58,22 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
         rvCasosComDoacaoPendenter.setHasFixedSize(true);
 
         ongMainController.listenner();
-        rvCasosComDoacaoPendenteAdapter = new RvCasosComDoacaoPendenteAdapter(getApplicationContext(), casoSingleton.getCasos(),position -> {
 
-           doacaoController.getAllByCaso(casoSingleton.getCasos().get(position)).addOnCompleteListener(command -> {
-              Log.d("Valtenis",casoSingleton.getCasos().get(position).getDoacaoList().toString());
-               Intent it = new  Intent(getApplicationContext(), ListaDeDoacoesPendentes.class);
-               it.putExtra("position",position);
-               startActivity(it);
-           });
+        TextView tvQtdCasosPendentes = findViewById(R.id.tvQtdCasosPendentes);
+        TextView tvMsgOlaOng = findViewById(R.id.tvMsgOlaOng);
+        tvMsgOlaOng.setText("Olá, " + OngSingleton.getOngSingleton().getOng().getNome());
 
+        rvCasosComDoacaoPendenteAdapter = new RvCasosComDoacaoPendenteAdapter(getApplicationContext(), casoSingleton.getCasos(), position -> {
+
+            doacaoController.getAllByCaso(casoSingleton.getCasos().get(position)).addOnCompleteListener(command -> {
+                Log.d("Valtenis", casoSingleton.getCasos().get(position).getDoacaoList().toString());
+                Intent it = new Intent(getApplicationContext(), ListaDeDoacoesPendentes.class);
+                it.putExtra("position", position);
+                startActivity(it);
+            });
+
+        }, qtdCasos -> {
+            tvQtdCasosPendentes.setText("No momento há " + qtdCasos + " caso(s) pendente(s)!");
         });
 
         rvCasosComDoacaoPendenter.setAdapter(rvCasosComDoacaoPendenteAdapter);

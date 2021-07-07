@@ -16,12 +16,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.DetalhesCasoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.view.dialog.ValorPagamentoDialog;
+import jp.wasabeef.picasso.transformations.MaskTransformation;
 
 public class DetalhesCasoActivity extends AppCompatActivity {
 
@@ -92,7 +94,7 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         setTextTv(R.id.tvValorArrecadado, String.valueOf(caso.getArrecadado()));
 
         //Lógica para pegar o height atual e dar um espaçamento no bottom, alterando seu height
-        ConstraintLayout main3 = findViewById(R.id.main3);
+        ConstraintLayout main3 = findViewById(R.id.main);
         int wrapSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         main3.measure(wrapSpec, wrapSpec);
         main3.getLayoutParams().height = main3.getMeasuredHeight() + 80;
@@ -135,11 +137,22 @@ public class DetalhesCasoActivity extends AppCompatActivity {
         }
 
         //altera as imagens da logo e icon
-        ivLogoAnimal.setBackgroundResource(logo);
         ivIconAnimal.setBackgroundResource(icon);
+        ivLogoAnimal.setBackgroundResource(logo);
 
         if(!caso.getLinkImg().equals("")){
-            Picasso.get().load(caso.getLinkImg()).into(ivLogoAnimal);
+            Transformation transformation = new MaskTransformation(getApplicationContext(), R.drawable.style_card_image);
+            Picasso.get().load(caso.getLinkImg()).fit().transform(transformation).into(ivLogoAnimal,  new com.squareup.picasso.Callback() {
+                @Override
+                public void onSuccess() {
+                    ivLogoAnimal.setBackgroundResource(android.R.color.transparent);
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+            });
         }
 
         //seta tamanho no icone do animal

@@ -146,5 +146,6 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:protolite-well-known-types:18.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-android:1.28.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.android.volley:volley:1.2.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: jp.wasabeef:picasso-transformations:2.4.0@aar" level="project" />
   </component>
 </module>
