@@ -37,28 +37,28 @@
                 android:layout_marginTop="15dp">
 
                 <TextView
-                    android:id="@+id/trashTv"
+                    android:id="@+id/tvtTitleInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="21dp"
-                    android:drawableRight="@drawable/ic_trash"
+                    android:text="Caso"
+                    android:textColor="#716F89"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvOptionsCaso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:drawableRight="@drawable/ic_popup"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <TextView
-                android:id="@+id/tvtTitleInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginLeft="15dp"
-                android:text="Caso"
-                android:layout_marginTop="7dp"
-                android:textColor="#716F89"
-                android:textSize="24sp"
-                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTitleData"

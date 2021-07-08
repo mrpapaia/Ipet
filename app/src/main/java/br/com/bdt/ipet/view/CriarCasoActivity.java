@@ -10,15 +10,18 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.util.GeralUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +39,7 @@ public class CriarCasoActivity extends AppCompatActivity {
     private EditText etNomeAnimalCaso;
     private EditText etValorCaso;
     private Spinner spEspecieCaso;
+    private Caso casoEdit;
 
     @SuppressLint({"SourceLockedOrientationActivity", "SetTextI18n"})
     @Override
@@ -44,10 +48,12 @@ public class CriarCasoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_criar_caso);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        casoEdit = getIntent().getParcelableExtra("casoEdit");
+
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
         TextView title_extra = findViewById(R.id.toolbar_extra);
-        title.setText("Criar caso");
+        title.setText(casoEdit != null ? "Editar Caso" : "Criar caso");
         title_extra.setText("");
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
@@ -72,60 +78,94 @@ public class CriarCasoActivity extends AppCompatActivity {
         especies.add("Coelho");
 
         spEspecieCaso.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, especies));
+
+        if(casoEdit != null){
+
+            Button bCriarCaso = findViewById(R.id.bCriarCaso);
+            bCriarCaso.setText("Salvar alterações");
+
+            TextView tvMsgCriarCaso = findViewById(R.id.tvMsgCriarCaso);
+            tvMsgCriarCaso.setText("Edite um caso");
+
+            etTituloCaso.setText(casoEdit.getTitulo());
+            etDescricaoCaso.setText(casoEdit.getDescricao());
+            etNomeAnimalCaso.setText(casoEdit.getNomeAnimal());
+            spEspecieCaso.setSelection(especies.indexOf(casoEdit.getEspecie()));
+            etValorCaso.setText(String.valueOf(casoEdit.getValor()));
+        }
+
     }
 
-    public void criarUmCaso(View view){
-
-        String id = UUID.randomUUID().toString();
+    public Caso obterDadosCaso(){
 
         String titulo = etTituloCaso.getText().toString();
         if(!isValidInput(titulo, "text")){
             etTituloCaso.setError("Insira o título do caso");
-            return;
+            return null;
         }
 
         String descricao = etDescricaoCaso.getText().toString();
         if(!isValidInput(descricao, "text")){
             etDescricaoCaso.setError("Insira a descrição do caso");
-            return;
+            return null;
         }
 
         String nomeAnimal = etNomeAnimalCaso.getText().toString();
         if(!isValidInput(nomeAnimal, "text")){
             etNomeAnimalCaso.setError("Insira o nome do animal");
-            return;
+            return null;
         }
 
-        String especie = getDataOfSp(R.id.spEspecieCaso);
+        String especie = GeralUtils.getDataOfSp(this, R.id.spEspecieCaso);
         if(!isValidInput(especie, "text")){
             ((TextView) spEspecieCaso.getSelectedView()).setError("");
             toast(getApplicationContext(), "Informe a espécie do animal");
-            return;
+            return null;
         }
 
         String valorString = etValorCaso.getText().toString();
         if(!isValidInput(valorString, "double")){
             etValorCaso.setError("Insira um valor válido");
-            return;
+            return null;
         }
 
         Double valor = Double.parseDouble(valorString);
 
-        CasoSingleton casoSingleton = CasoSingleton.getCasoSingleton();
-        casoSingleton.setCaso(new Caso(id, titulo, descricao, nomeAnimal, especie, valor, 0.0, "", ong));
+        Caso caso = new Caso(titulo, descricao, nomeAnimal, especie, valor);
 
-        Intent intent = new Intent(getApplicationContext(), EnviarFoto.class);
-        intent.putExtra("isCaso", true);
-        startActivity(intent);
+        if(casoEdit == null){
+            caso.setId(UUID.randomUUID().toString());
+            caso.setArrecadado(0.0);
+            caso.setLinkImg("");
+            caso.setOng(ong);
+        }else{
+            caso.setId(casoEdit.getId());
+            caso.setArrecadado(casoEdit.getArrecadado());
+            caso.setLinkImg(casoEdit.getLinkImg());
+        }
+
+        return caso;
+    }
+
+    public void criarUmCaso(View view){
+
+        Caso caso = obterDadosCaso();
+
+        if(casoEdit != null){
+            new CasoController().alterarCaso(caso).addOnCompleteListener(task -> {
+                GeralUtils.toast(this, "Caso Atualizado com Sucesso");
+                onBackPressed();
+            });
+        }else{
+            CasoSingleton.getCasoSingleton().setCaso(caso);
+            Intent intent = new Intent(getApplicationContext(), EnviarFoto.class);
+            intent.putExtra("isCaso", true);
+            startActivity(intent);
+        }
+
     }
 
     public void voltar(View view){
         onBackPressed();
-    }
-
-    private String getDataOfSp(int idSpinner){
-        Spinner sp = findViewById(idSpinner);
-        Object selected = sp.getSelectedItem();
-        return selected == null ? "" : selected.toString();
     }
 }

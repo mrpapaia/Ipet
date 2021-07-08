@@ -318,7 +318,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_back/baseline_arrow_back_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/toc/baseline_toc_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -328,9 +328,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_baseline_arrow_back_24" />
-                            <entry key="sourceFile" value="C:\Users\thiag\C:\Users\Seeker\Google Drive\Arqs\Desktop\location.svg" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_popup" />
+                            <entry key="sourceFile" value="C:\Users\Seeker\Desktop\popup.svg" />
                           </map>
                         </option>
                       </PersistentState>

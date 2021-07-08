@@ -26,6 +26,7 @@ import br.com.bdt.ipet.repository.StorageRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepositoryCaso;
 import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CasoSingleton;
+import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.view.FimCadastro;
 
 public class CasoController {
@@ -74,6 +75,14 @@ public class CasoController {
             intent.putExtra("isCaso", true);
             act.startActivity(intent);
         });
+    }
+
+    public Task<Void> apagarCaso(String id){
+        return repositoryCaso.delete(id);
+    }
+
+    public Task<Void> alterarCaso(Caso caso){
+        return repositoryCaso.update(caso);
     }
 
     public void initDataRecyclerView(IRecycler irc){
@@ -196,6 +205,6 @@ public class CasoController {
     }
 
     public Task<Void> updateValor(String campo, Double valor, String casoId){
-        return repositoryCaso.update(campo, valor, casoId);
+        return repositoryCaso.updateField(campo, valor, casoId);
     }
 }

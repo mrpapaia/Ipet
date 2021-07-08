@@ -56,4 +56,6 @@
     <string name="filtro_por_esp_cie">Filtro por espécie</string>
     <string name="h_0_doa_es_pendentes">Há 0 doações pendentes!</string>
     <string name="ver_mais">Ver Mais</string>
+    <string name="editar">Editar</string>
+    <string name="apagar">Apagar</string>
 </resources>

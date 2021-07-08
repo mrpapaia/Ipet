@@ -10,6 +10,7 @@ public interface IRepositoryCaso {
     Task<Void> save(Caso caso);
     Task<Void> delete(String id);
     Query findAll();
-    Task<Void> update(String campo,Double valor,String id);
+    Task<Void> update(Caso caso);
+    Task<Void> updateField(String campo,Double valor,String id);
     CollectionReference findByOng(String email);
 }

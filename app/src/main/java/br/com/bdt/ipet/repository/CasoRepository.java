@@ -11,6 +11,7 @@ import java.util.Map;
 import br.com.bdt.ipet.control.AuthController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.repository.interfaces.IRepositoryCaso;
+import br.com.bdt.ipet.util.GeralUtils;
 
 public class CasoRepository implements IRepositoryCaso {
 
@@ -25,15 +26,7 @@ public class CasoRepository implements IRepositoryCaso {
     @Override
     public Task<Void> save(Caso caso) {
 
-        Map<String, Object> docCaso = new HashMap<>();
-        docCaso.put("id", caso.getId());
-        docCaso.put("titulo", caso.getTitulo());
-        docCaso.put("descricao", caso.getDescricao());
-        docCaso.put("nomeAnimal", caso.getNomeAnimal());
-        docCaso.put("especie", caso.getEspecie());
-        docCaso.put("valor", caso.getValor());
-        docCaso.put("arrecadado", caso.getArrecadado());
-        docCaso.put("linkImg", caso.getLinkImg());
+        Map<String, Object> docCaso = GeralUtils.CasoToMap(caso);
 
         return db.collection("ongs")
                 .document(authController.getCurrentEmail())
@@ -50,16 +43,30 @@ public class CasoRepository implements IRepositoryCaso {
                 .document(id)
                 .delete();
     }
+
     @Override
-    public Task<Void> update(String campo,Double valor,String id) {
+    public Task<Void> updateField(String campo, Double valor, String id) {
         return db.collection("ongs")
                 .document(authController.getCurrentEmail()).collection("casos")
                 .document(id)
                 .update(campo,valor);
     }
+
     @Override
     public Query findAll() {
         return db.collectionGroup("casos");
+    }
+
+    @Override
+    public Task<Void> update(Caso caso) {
+
+        Map<String, Object> casoEditado = GeralUtils.CasoToMap(caso);
+
+        return db.collection("ongs")
+                .document(authController.getCurrentEmail())
+                .collection("casos")
+                .document(caso.getId())
+                .update(casoEditado);
     }
 
     @Override

@@ -62,7 +62,6 @@ public class OngMain extends AppCompatActivity {
         tvNomeDaOng.setText("");
 
         btCriarCaso = findViewById(R.id.btAddCase);
-        btCriarCaso.setEnabled(false); //desativa até que os dados da ong sejam carregados
 
         rvCasosOng = findViewById(R.id.rvCasosOng);
         rvCasosOng.setLayoutManager(new LinearLayoutManager(this));
@@ -70,15 +69,12 @@ public class OngMain extends AppCompatActivity {
         rvCasosOng.setHasFixedSize(true);
 
         casoController = new CasoController();
-        IRepositoryCaso casoRepository = new CasoRepository(FirebaseFirestore.getInstance());
 
         casoController.initDataRecyclerView(casos -> {
 
-            rvCasoOngAdapter = new RvCasoOngAdapter(getApplicationContext(), casos, (position, tv) -> {
-                tv.setEnabled(false);
-                casoRepository.delete(casos.get(position).getCaso().getId()).addOnSuccessListener(aVoid -> {
+            rvCasoOngAdapter = new RvCasoOngAdapter(OngMain.this, casos, (position) -> {
+                casoController.apagarCaso(casos.get(position).getCaso().getId()).addOnSuccessListener(aVoid -> {
                     GeralUtils.toast(getApplicationContext(), "Caso apagado");
-                    tv.setEnabled(true);
                 }).addOnFailureListener(e -> {
                     GeralUtils.toast(getApplicationContext(), "Erro ao apagar, tente novamente mais tarde");
                 });

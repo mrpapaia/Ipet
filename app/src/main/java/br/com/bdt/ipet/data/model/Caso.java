@@ -32,6 +32,14 @@ public class Caso implements Serializable, Parcelable {
         this.ong = ong;
     }
 
+    public Caso(String titulo, String descricao, String nomeAnimal, String especie, Double valor){
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.nomeAnimal = nomeAnimal;
+        this.especie = especie;
+        this.valor = valor;
+    }
+
     protected Caso(Parcel in) {
         id = in.readString();
         titulo = in.readString();

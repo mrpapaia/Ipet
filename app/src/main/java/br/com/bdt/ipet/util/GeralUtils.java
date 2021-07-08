@@ -11,17 +11,43 @@ import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import br.com.bdt.ipet.data.api.ConsumerData;
+import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Estado;
 import br.com.bdt.ipet.singleton.EstadoSingleton;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
 
 public class GeralUtils {
+
+    public static Map<String, Object> CasoToMap(Caso caso){
+
+        Map<String, Object> docCaso = new HashMap<>();
+
+        docCaso.put("id", caso.getId());
+        docCaso.put("titulo", caso.getTitulo());
+        docCaso.put("descricao", caso.getDescricao());
+        docCaso.put("nomeAnimal", caso.getNomeAnimal());
+        docCaso.put("especie", caso.getEspecie());
+        docCaso.put("valor", caso.getValor());
+        docCaso.put("arrecadado", caso.getArrecadado());
+        docCaso.put("linkImg", caso.getLinkImg());
+
+        return docCaso;
+    }
+
+    public static String getDataOfSp(Activity act, int idSpinner){
+        Spinner sp = act.findViewById(idSpinner);
+        Object selected = sp.getSelectedItem();
+        return selected == null ? "" : selected.toString();
+    }
 
     public static void initAutoCompletUfCity(Context context, AutoCompleteTextView acUf, AutoCompleteTextView acMunicipio){
 

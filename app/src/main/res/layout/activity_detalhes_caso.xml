@@ -31,6 +31,7 @@
                 android:background="@drawable/style_detalhes_caso"
                 android:elevation="5dp"
                 android:paddingBottom="16dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
