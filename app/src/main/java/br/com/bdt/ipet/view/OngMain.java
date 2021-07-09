@@ -92,9 +92,7 @@ public class OngMain extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void getDadosOng(){
-        if(ongSingleton.getOng().getImgPerfil()==null){
-            //Lógica para ONG sem foto
-        } else {
+        if(ongSingleton.getOng().getImgPerfil()!=null){
             Picasso.get().load(ongSingleton.getOng().getImgPerfil()).into(ivUser);
         }
         tvNomeDaOng.setText("Bem-vinda, " + ongSingleton.getOng().getNome());

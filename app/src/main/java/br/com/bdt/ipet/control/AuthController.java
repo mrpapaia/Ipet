@@ -4,6 +4,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import br.com.bdt.ipet.repository.OngRepository;
 
 public class AuthController {
 
@@ -39,5 +43,9 @@ public class AuthController {
 
     public void logout(){
         mAuth.signOut();
+    }
+
+    public Task<DocumentSnapshot> verifyUser(String email){
+        return new OngRepository(FirebaseFirestore.getInstance()).findById(email);
     }
 }

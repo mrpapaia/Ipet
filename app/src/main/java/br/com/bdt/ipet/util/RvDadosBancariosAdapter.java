@@ -57,13 +57,13 @@ public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancari
         holder.tvAgenciaContaBanco.setText("Agencia: "+dadosBancario.getAgencia());
         holder.tvContaBanco.setText("Conta: "+dadosBancario.getConta());
         holder.tvcpforcnpj.setText("CPF/CNPJ: "+dadosBancario.getCpfCNPJ());
-        if(dadosBancario.getChavePix()!=null){
+        if(dadosBancario.getChavePix() != null){
             holder.tvpix.setText("PIX: "+dadosBancario.getChavePix());
         }else{
             holder.tvpix.setText("");
         }
 
-        holder.btTrash.setOnClickListener(v -> onClickListener.onClickTrash(position, holder.btTrash));
+        holder.btTrash.setOnClickListener(v -> onClickListener.onClickTrash(dadosBancarios.indexOf(dadosBancario), holder.btTrash));
     }
 
     public static class DadosBancariosViewHolder extends RecyclerView.ViewHolder {

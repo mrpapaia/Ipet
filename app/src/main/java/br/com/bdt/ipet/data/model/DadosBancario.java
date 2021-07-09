@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class DadosBancario implements Serializable, Parcelable {
     private String banco;
@@ -96,5 +97,22 @@ public class DadosBancario implements Serializable, Parcelable {
 
     public void setCpfCNPJ(String cpfCNPJ) {
         this.cpfCNPJ = cpfCNPJ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DadosBancario)) return false;
+        DadosBancario that = (DadosBancario) o;
+        return getBanco().equals(that.getBanco()) &&
+                getConta().equals(that.getConta()) &&
+                getAgencia().equals(that.getAgencia()) &&
+                getChavePix().equals(that.getChavePix()) &&
+                getCpfCNPJ().equals(that.getCpfCNPJ());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBanco(), getConta(), getAgencia(), getChavePix(), getCpfCNPJ());
     }
 }

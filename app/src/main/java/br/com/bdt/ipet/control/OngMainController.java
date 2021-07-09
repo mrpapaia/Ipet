@@ -44,7 +44,7 @@ public class OngMainController {
         String email = authController.getCurrentEmail();
         ongRepository.listennerDoc(email).addSnapshotListener((documentSnapshot, error) -> {
             ongSingleton.setOng(documentSnapshot.toObject(Ong.class));
-            Log.d("SaidaListenner", documentSnapshot.toString());
+            //Log.d("SaidaListenner", documentSnapshot.toString());
         });
     }
 

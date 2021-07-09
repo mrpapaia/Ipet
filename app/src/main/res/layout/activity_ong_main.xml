@@ -6,15 +6,15 @@
     android:id="@+id/drawer_layout"
     android:layout_height="match_parent"
     android:background="#FAFAFA"
-
     tools:context=".view.OngMain">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include
-        layout="@layout/toolbar_main"
-        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#FAFAFA"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <include layout="@layout/toolbar_main" />
 
     <TextView
         android:id="@+id/tvNomeDaOng"
@@ -59,20 +59,19 @@
             app:layout_constraintTop_toTopOf="@+id/rvCasosOng"
             app:layout_constraintVertical_bias="0.967" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-
         android:layout_gravity="start"
         android:background="@color/bgColor"
         android:fitsSystemWindows="true"
-
-
-    app:headerLayout="@layout/drawer_header"
+        app:headerLayout="@layout/drawer_header"
         app:itemTextColor="@color/colorPrimary"
         app:menu="@menu/nav_items" />
+
 </androidx.drawerlayout.widget.DrawerLayout>

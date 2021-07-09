@@ -82,7 +82,7 @@ public class ListDadosBancarios extends AppCompatActivity {
         if (requestCode == 1) {
 
             if(resultCode == RESULT_OK) {
-                Log.d("SaidaListenner2",OngSingleton.getOngSingleton().getOng().getDadosBancarios().toString());
+                //Log.d("SaidaListenner2",OngSingleton.getOngSingleton().getOng().getDadosBancarios().toString());
                 dadosBancarioList.clear();
                 dadosBancarioList.addAll(ongSingleton.getOng().getDadosBancarios());
                 rvDadosBancariosAdapter.notifyDataSetChanged();

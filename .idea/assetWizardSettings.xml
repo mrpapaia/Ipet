@@ -318,7 +318,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/menu/baseline_menu_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialiconsoutlined/mood/outline_mood_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -329,7 +329,7 @@
                         <option name="values">
                           <map>
                             <entry key="color" value="3cb7bc" />
-                            <entry key="outputName" value="ic_menu_hamburguer" />
+                            <entry key="outputName" value="ic_outline_mood_24" />
                             <entry key="sourceFile" value="C:\Users\Seeker\Desktop\popup.svg" />
                           </map>
                         </option>

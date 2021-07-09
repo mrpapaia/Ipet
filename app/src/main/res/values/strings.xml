@@ -13,7 +13,7 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="texto_toolbar">texto</string>
-    <string name="textoParagrafo">Ao utilizar uma foto, você poderá aumentar as chances de receber ajuda em uma doação.</string>
+    <string name="textoParagrafo">Ao utilizar uma foto, você poderá aumentar as chances de receber doações em um caso.</string>
     <string name="texto_banco">Banco</string>
     <string name="texto_num_conta">Conta</string>
     <string name="texto_num_agencia">Agencia</string>

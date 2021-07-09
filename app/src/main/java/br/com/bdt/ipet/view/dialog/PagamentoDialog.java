@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
@@ -28,6 +29,7 @@ import br.com.bdt.ipet.control.PagamentoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Doacao;
+import br.com.bdt.ipet.util.GeralUtils;
 
 public class PagamentoDialog extends DialogFragment {
 
@@ -75,30 +77,11 @@ public class PagamentoDialog extends DialogFragment {
         ImageButton ibCopyConta = view.findViewById(R.id.ibCopyConta);
         ImageButton ibCopyAgencia = view.findViewById(R.id.ibCopyAgencia);
         ImageButton ibNomeBanco = view.findViewById(R.id.ibNomeBanco);
-        ibCopyCNPJ.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                copyToClipBoard( dadosBancario.getCpfCNPJ());
-            }
-        });
-        ibCopyConta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                copyToClipBoard( dadosBancario.getConta());
-            }
-        });
-        ibCopyAgencia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                copyToClipBoard( dadosBancario.getConta());
-            }
-        });
-        ibNomeBanco.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                copyToClipBoard( dadosBancario.getBanco());
-            }
-        });
+
+        ibCopyCNPJ.setOnClickListener(v -> copyToClipBoard("CNPJ", dadosBancario.getCpfCNPJ()));
+        ibCopyConta.setOnClickListener(v -> copyToClipBoard("Conta", dadosBancario.getConta()));
+        ibCopyAgencia.setOnClickListener(v -> copyToClipBoard("Agência", dadosBancario.getConta()));
+        ibNomeBanco.setOnClickListener(v -> copyToClipBoard("Banco", dadosBancario.getBanco()));
 
         Spinner spMetodoPagamento = view.findViewById(R.id.spMetodoPagamento);
 
@@ -125,12 +108,7 @@ public class PagamentoDialog extends DialogFragment {
                 String meioPagamento = meiosPagamento.get(position);
                 boolean isPix = meioPagamento.equals("Pix");
                 int isVisible = isPix ? View.VISIBLE : View.INVISIBLE;
-                copyPix.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        copyToClipBoard(tvChavePix.getText().toString());
-                    }
-                });
+                copyPix.setOnClickListener(v -> copyToClipBoard("Pix", tvChavePix.getText().toString()));
                 dividerPix.setVisibility(isVisible);
                 tvPix.setVisibility(isVisible);
                 tvChavePix.setVisibility(isVisible);
@@ -142,6 +120,11 @@ public class PagamentoDialog extends DialogFragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        if(!dadosBancario.getChavePix().equals("")){
+            spMetodoPagamento.setSelection(1);
+            spMetodoPagamento.getOnItemSelectedListener().onItemSelected(null, null, 1, -1);
+        }
 
         Button btConfirmar = view.findViewById(R.id.btConfirmar);
 
@@ -178,9 +161,10 @@ public class PagamentoDialog extends DialogFragment {
         tv.setText(text);
     }
 
-    private  void copyToClipBoard(String str){
+    private void copyToClipBoard(String campo, String str){
         ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         ClipData clip = ClipData.newPlainText("label", str);
-        clipboard.setPrimaryClip( clip);
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(getActivity(), "Campo " + campo + " copiado com sucesso!", Toast.LENGTH_SHORT).show();
     }
 }

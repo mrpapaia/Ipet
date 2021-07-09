@@ -69,7 +69,7 @@ public class EnviarFoto extends AppCompatActivity {
         isCaso = getIntent().getBooleanExtra("isCaso", false);
 
         if(isCaso){
-            btPularEtapaImg.setText("Cancelar");
+            btPularEtapaImg.setText("Pular etapa e concluir");
             nomeOng = casoSingleton.getCaso().getOng().getNome();
             endText = "no seu caso ?";
         }else{

@@ -10,14 +10,14 @@ import android.os.Looper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.AuthController;
-import br.com.bdt.ipet.repository.OngRepository;
 import br.com.bdt.ipet.util.GeralUtils;
 
 public class SplashActivity extends AppCompatActivity {
+
+    private AuthController authController;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -26,9 +26,12 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         GeralUtils.setFullscreen(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        authController = new AuthController();
+
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
 
-            FirebaseUser ongUser = new AuthController().getCurrentUser();
+            FirebaseUser ongUser = authController.getCurrentUser();
 
             if(ongUser != null) {
                 verificarOng(ongUser);
@@ -40,16 +43,13 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void verificarOng(FirebaseUser ongUser){
-
-        new OngRepository(FirebaseFirestore.getInstance())
-                .findById(ongUser.getEmail())
-                .addOnSuccessListener(docOng -> {
-                    if(docOng.exists()){
-                        initOngMain();
-                    }else{
-                        ongUser.delete().addOnCompleteListener(task -> initMain());
-                    }
-                });
+        authController.verifyUser(ongUser.getEmail()).addOnSuccessListener(docOng -> {
+            if(docOng.exists()){
+                initOngMain();
+            }else{
+                ongUser.delete().addOnCompleteListener(task -> initMain());
+            }
+        });
     }
 
     public void initMain(){
