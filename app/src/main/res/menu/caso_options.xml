@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <item
         android:id="@+id/menuItemEditar"
-        android:title="@string/editar" />
+        android:title="@string/editar"
+        style="@style/MyTabStyle"/>
 
     <item
         android:id="@+id/menuItemApagar"
-        android:title="@string/apagar" />
+        android:title="@string/apagar"
+        style="@style/MyTabStyle"/>
 
 </menu>

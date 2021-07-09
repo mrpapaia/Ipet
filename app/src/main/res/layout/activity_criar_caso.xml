@@ -40,7 +40,7 @@
             <EditText
                 android:id="@+id/etTituloCaso"
                 style="@style/fildTextStyleFrist"
-                android:layout_marginStart="32dp"
+
                 android:layout_marginTop="24dp"
                 android:hint="@string/t_tulo_do_caso"
                 android:inputType="textCapSentences|textAutoCorrect"
@@ -64,7 +64,7 @@
 
             <EditText
                 android:id="@+id/etNomeAnimalCaso"
-                style="@style/fildTextStyleFrist"
+                style="@style/fildTextStyle"
                 android:layout_marginTop="16dp"
                 android:hint="@string/nome_do_animal"
                 android:inputType="textCapSentences|textAutoCorrect"
@@ -75,9 +75,9 @@
                 android:id="@+id/spEspecieCaso"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/style_spinner"
                 android:elevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
 
             <EditText
                 android:id="@+id/etValorCaso"
-                style="@style/fildTextStyleFrist"
+                style="@style/fildTextStyle"
                 android:layout_marginTop="16dp"
                 android:hint="@string/valor_em_reais_r"
                 android:inputType="textCapSentences|textAutoCorrect"
@@ -97,9 +97,9 @@
                 android:id="@+id/bCriarCaso"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/style_button"
                 android:text="@string/pr_xima_etapa"
                 android:onClick="criarUmCaso"

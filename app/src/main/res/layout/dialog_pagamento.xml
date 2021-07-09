@@ -26,7 +26,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider8" />
 
         <ImageButton
-            android:id="@+id/imageButton4"
+            android:id="@+id/ibCopyCNPJ"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="19dp"
@@ -40,7 +40,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider9" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/ibCopyAgencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -54,7 +54,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider12" />
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/ibCopyConta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -234,7 +234,6 @@
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="60dp"
             android:layout_marginBottom="10dp"
@@ -268,6 +267,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
+            android:id="@+id/ibNomeBanco"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -294,7 +294,6 @@
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="90dp"
             android:layout_marginBottom="10dp"
@@ -339,7 +338,6 @@
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
@@ -466,16 +464,16 @@
             android:layout_width="170dp"
             android:layout_height="47dp"
             android:layout_marginStart="147dp"
-            android:layout_marginTop="56dp"
             android:layout_marginEnd="147dp"
+            android:layout_marginBottom="50dp"
             android:background="@drawable/style_button"
             android:text="@string/confirmar"
             android:textColor="#F8F5F5"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.528"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider13" />
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -54,7 +54,9 @@ public class ListDadosBancarios extends AppCompatActivity {
         rvDadosBancarios.setItemAnimator(new DefaultItemAnimator());
         rvDadosBancarios.setHasFixedSize(true);
         dadosBancarioList=new ArrayList<>();
-        dadosBancarioList.addAll(ongSingleton.getOng().getDadosBancarios());
+        if(ongSingleton.getOng().getDadosBancarios()!=null){
+            dadosBancarioList.addAll(ongSingleton.getOng().getDadosBancarios());
+        }
 
         ongMainController.listenner();
         rvDadosBancariosAdapter = new RvDadosBancariosAdapter(getApplicationContext(), dadosBancarioList, (position, btTrash) -> {

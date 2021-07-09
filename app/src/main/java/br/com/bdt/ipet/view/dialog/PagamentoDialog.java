@@ -2,6 +2,9 @@ package br.com.bdt.ipet.view.dialog;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +60,7 @@ public class PagamentoDialog extends DialogFragment {
 
         et.setFocusable(false);
         et.setOnClickListener(view1 -> {
-            System.out.println("sdklfjn");
+
             et.setFocusableInTouchMode(true);
         });
 
@@ -67,6 +70,35 @@ public class PagamentoDialog extends DialogFragment {
         setTextTv(R.id.tvInstituicaoPagamento, dadosBancario.getBanco(), view);
         setTextTv(R.id.tvAgenciaPagamento, dadosBancario.getAgencia(), view);
         setTextTv(R.id.tvContaPagamento, dadosBancario.getConta(), view);
+
+        ImageButton ibCopyCNPJ = view.findViewById(R.id.ibCopyCNPJ);
+        ImageButton ibCopyConta = view.findViewById(R.id.ibCopyConta);
+        ImageButton ibCopyAgencia = view.findViewById(R.id.ibCopyAgencia);
+        ImageButton ibNomeBanco = view.findViewById(R.id.ibNomeBanco);
+        ibCopyCNPJ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                copyToClipBoard( dadosBancario.getCpfCNPJ());
+            }
+        });
+        ibCopyConta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                copyToClipBoard( dadosBancario.getConta());
+            }
+        });
+        ibCopyAgencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                copyToClipBoard( dadosBancario.getConta());
+            }
+        });
+        ibNomeBanco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                copyToClipBoard( dadosBancario.getBanco());
+            }
+        });
 
         Spinner spMetodoPagamento = view.findViewById(R.id.spMetodoPagamento);
 
@@ -93,7 +125,12 @@ public class PagamentoDialog extends DialogFragment {
                 String meioPagamento = meiosPagamento.get(position);
                 boolean isPix = meioPagamento.equals("Pix");
                 int isVisible = isPix ? View.VISIBLE : View.INVISIBLE;
-
+                copyPix.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        copyToClipBoard(tvChavePix.getText().toString());
+                    }
+                });
                 dividerPix.setVisibility(isVisible);
                 tvPix.setVisibility(isVisible);
                 tvChavePix.setVisibility(isVisible);
@@ -139,5 +176,11 @@ public class PagamentoDialog extends DialogFragment {
     private void setTextTv(int idTextView, String text,View view) {
         TextView tv = view.findViewById(idTextView);
         tv.setText(text);
+    }
+
+    private  void copyToClipBoard(String str){
+        ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText("label", str);
+        clipboard.setPrimaryClip( clip);
     }
 }
