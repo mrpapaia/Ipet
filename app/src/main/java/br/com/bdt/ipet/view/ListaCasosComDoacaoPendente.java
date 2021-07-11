@@ -40,6 +40,7 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
         TextView title = findViewById(R.id.toolbar_title);
         TextView title_extra = findViewById(R.id.toolbar_extra);
         title.setText("Confirmar Doações");
+        title.setTextSize(22);
         title_extra.setText("");
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

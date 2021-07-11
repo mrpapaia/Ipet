@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="17dp"
+    android:layout_marginTop="8dp"
     android:layout_marginEnd="17dp"
-    android:layout_marginTop="4dp"
-    android:backgroundTint="#FAFAFA">
+    android:backgroundTint="#FAFAFA"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/clCasoComDoacaoPendente"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="7dp"
-        android:background="@drawable/style_layout"
         android:elevation="5dp">
 
         <TextView

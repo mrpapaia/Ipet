@@ -3,6 +3,7 @@ package br.com.bdt.ipet.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +44,7 @@ public class ListaDeDoacoesPendentes extends AppCompatActivity {
         TextView title = findViewById(R.id.toolbar_title);
         TextView title_extra = findViewById(R.id.toolbar_extra);
         title.setText("Confirmar Doações");
+        title.setTextSize(22);
         title_extra.setText("");
         setSupportActionBar(myToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);

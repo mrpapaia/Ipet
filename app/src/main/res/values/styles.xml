@@ -207,7 +207,7 @@
     <style name="titleStyle" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/revalia</item>
         <item name="android:color">@color/tileColor</item>
-        <item name="android:textSize">26sp</item>
+        <item name="android:textSize">24sp</item>
     </style>
     <style name="titleExtraStyle" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/roboto_black</item>

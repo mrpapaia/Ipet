@@ -57,7 +57,7 @@ public class OngMain extends AppCompatActivity {
 
         TextView title = findViewById(R.id.toolbar_title);
         title.setText("iPet");
-
+        title.setTextSize(26);
         tvNomeDaOng = findViewById(R.id.tvNomeDaOng);
         tvNomeDaOng.setText("");
 
