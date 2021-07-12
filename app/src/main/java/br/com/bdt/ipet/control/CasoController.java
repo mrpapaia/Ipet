@@ -26,7 +26,6 @@ import br.com.bdt.ipet.repository.StorageRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepositoryCaso;
 import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CasoSingleton;
-import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.view.FimCadastro;
 
 public class CasoController {

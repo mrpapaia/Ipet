@@ -1,5 +1,6 @@
 package br.com.bdt.ipet.util;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
@@ -11,6 +12,7 @@ import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,6 +28,16 @@ import br.com.bdt.ipet.singleton.EstadoSingleton;
 import static android.util.Patterns.EMAIL_ADDRESS;
 
 public class GeralUtils {
+
+    public static void setErrorInput(EditText et, String msg){
+        et.setError(msg);
+        et.requestFocus();
+    }
+
+    @SuppressLint("DefaultLocale")
+    public static String formatarValor(double valor){
+        return String.format("R$ %.2f", valor);
+    }
 
     public static Map<String, Object> CasoToMap(Caso caso){
 

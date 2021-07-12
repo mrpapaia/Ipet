@@ -2,7 +2,6 @@ package br.com.bdt.ipet.control;
 
 import android.app.Activity;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
@@ -15,6 +14,7 @@ import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.repository.OngRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepositoryOng;
 import br.com.bdt.ipet.singleton.OngSingleton;
+import br.com.bdt.ipet.util.GeralUtils;
 
 public class OngMainController {
 
@@ -49,11 +49,7 @@ public class OngMainController {
     }
 
     public void updateDocRemoveFild(Activity act, String email, DadosBancario dadosBancario) {
-
-        ongRepository.updateDocRemoveFild(email, dadosBancario).
-                addOnCompleteListener(aVoid -> {
-                    //ongSingleton.getOng().getDadosBancarios().remove(dadosBancario);
-                });
+        ongRepository.updateDocRemoveFild(email, dadosBancario).addOnCompleteListener(aVoid -> GeralUtils.toast(act, "Banco Removido."));
     }
 
 }

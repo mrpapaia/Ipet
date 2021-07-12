@@ -20,6 +20,7 @@ import java.util.Objects;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.CasoController;
+import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.util.RvTodosCasosOngAdapter;
@@ -61,7 +62,12 @@ public class QueroAjudarOng extends AppCompatActivity {
 
             rvTodosCasosOngAdapter = new RvTodosCasosOngAdapter(getApplicationContext(), casos, position -> {
                 Intent intent = new Intent(getApplicationContext(), DetalhesCasoActivity.class);
-                intent.putExtra("casoOng", (Parcelable) casos.get(position).getCaso());
+
+                Caso caso = casoSingleton.getDadosFiltro().isClear()
+                        ? casos.get(position).getCaso()
+                        : casoSingleton.getCasosFiltrados().get(position).getCaso();
+
+                intent.putExtra("casoOng", (Parcelable) caso);
                 startActivity(intent);
             });
 

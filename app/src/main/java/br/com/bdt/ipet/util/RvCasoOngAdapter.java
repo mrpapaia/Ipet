@@ -7,9 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
@@ -64,7 +61,7 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
         holder.tvTitulo.setText(caso.getTitulo());
         holder.tvDescricao.setText(caso.getDescricao());
         holder.tvAnimalData.setText(caso.getNomeAnimal() + " (" + caso.getEspecie() + ")");
-        holder.tvValor.setText(String.valueOf(caso.getValor()));
+        holder.tvValor.setText(GeralUtils.formatarValor(caso.getValor()));
         holder.tvOptionsCaso.setOnClickListener(view -> {
 
             PopupMenu popup = new PopupMenu(context, holder.tvOptionsCaso);

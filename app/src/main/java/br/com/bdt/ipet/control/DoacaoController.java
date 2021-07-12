@@ -1,14 +1,13 @@
 package br.com.bdt.ipet.control;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import br.com.bdt.ipet.control.interfaces.IChanges;
 import br.com.bdt.ipet.data.model.CasoComDoacao;
@@ -26,7 +25,7 @@ public class DoacaoController {
     public DoacaoController() {
         this.repository = new DoacaoRepository(FirebaseFirestore.getInstance());
         this.casoSingleton = CasoSingleton.getCasoSingleton();
-        this.emailOng = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
+        this.emailOng = new AuthController().getCurrentEmail();
     }
 
     public Task<QuerySnapshot> getAllByCaso(CasoComDoacao caso) {
@@ -43,23 +42,27 @@ public class DoacaoController {
     }
 
     public Task<QuerySnapshot> getQtdPendente(CasoComDoacao caso) {
-
-          return  repository.getQtdPendente("/ongs/"+ FirebaseAuth.getInstance().getCurrentUser().getEmail() +"/casos/"+caso.getCaso().getId()).addOnSuccessListener(
-                    queryDocumentSnapshots -> {
-                        casoSingleton.getCasos().get(casoSingleton.getCasos().indexOf(caso)).setQtdDoacaoPendente(queryDocumentSnapshots.getDocuments().size());
-
-                    });
-
+          return repository.getQtdPendente("/ongs/" + emailOng + "/casos/"+caso.getCaso().getId()).addOnSuccessListener(
+                    queryDocumentSnapshots -> casoSingleton.getCasos()
+                                                           .get(casoSingleton.getCasos().indexOf(caso))
+                                                           .setQtdDoacaoPendente(queryDocumentSnapshots.getDocuments().size())
+          );
     }
 
     public Task<Void> delete(DocumentReference docRef){
-        return repository.delete(docRef).addOnSuccessListener(unused -> {
-
-        });
+        return repository.delete(docRef).addOnSuccessListener(unused -> {});
     }
 
     public void initListenerDoacoes(String idCaso, IChanges iChanges){
         repository.getCollectionDoacoes(emailOng, idCaso).addSnapshotListener((value, error) -> iChanges.onChange());
+    }
+
+    public Task<Void> updateQuantidadeDoacoesAll(){
+        return repository.updateQuantidadeDoacoesAll();
+    }
+
+    public Task<DocumentSnapshot> getQuantidadeDoacoesAll(){
+        return repository.getQuantidadeDoacoesAll();
     }
 
 }

@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -24,11 +24,14 @@ import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.RvDadosBancariosAdapter;
 
 public class ListDadosBancarios extends AppCompatActivity {
+
     private RvDadosBancariosAdapter rvDadosBancariosAdapter;
     private OngSingleton ongSingleton;
     private RecyclerView rvDadosBancarios;
     private List<DadosBancario> dadosBancarioList;
     private  OngMainController ongMainController;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,17 +57,18 @@ public class ListDadosBancarios extends AppCompatActivity {
         rvDadosBancarios.setItemAnimator(new DefaultItemAnimator());
         rvDadosBancarios.setHasFixedSize(true);
         dadosBancarioList=new ArrayList<>();
+
         if(ongSingleton.getOng().getDadosBancarios()!=null){
             dadosBancarioList.addAll(ongSingleton.getOng().getDadosBancarios());
         }
 
         ongMainController.listenner();
-        rvDadosBancariosAdapter = new RvDadosBancariosAdapter(getApplicationContext(), dadosBancarioList, (position, btTrash) -> {
-
-            ongMainController.updateDocRemoveFild(this,ongSingleton.getOng().getEmail(),dadosBancarioList.get(position));
+        rvDadosBancariosAdapter = new RvDadosBancariosAdapter(ListDadosBancarios.this, dadosBancarioList, (position, btTrash) -> {
+            ongMainController.updateDocRemoveFild(this, ongSingleton.getOng().getEmail(), dadosBancarioList.get(position));
             dadosBancarioList.remove(position);
             rvDadosBancariosAdapter.notifyItemRemoved(position);
         });
+
         rvDadosBancarios.setAdapter(rvDadosBancariosAdapter);
     }
 
@@ -72,7 +76,6 @@ public class ListDadosBancarios extends AppCompatActivity {
         Intent it = new Intent(getApplicationContext(), CadastroInfoBanco.class);
         it.putExtra("isAdd", true);
         it.putExtra("email",ongSingleton.getOng().getEmail());
-
         startActivityForResult(it,1);
     }
 
@@ -80,9 +83,7 @@ public class ListDadosBancarios extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1) {
-
             if(resultCode == RESULT_OK) {
-                //Log.d("SaidaListenner2",OngSingleton.getOngSingleton().getOng().getDadosBancarios().toString());
                 dadosBancarioList.clear();
                 dadosBancarioList.addAll(ongSingleton.getOng().getDadosBancarios());
                 rvDadosBancariosAdapter.notifyDataSetChanged();

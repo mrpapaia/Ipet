@@ -123,8 +123,8 @@ public class EnviarFoto extends AppCompatActivity {
         if(isCaso){
             casoController.salvarCaso(this);
         }else{
-            Intent it = new Intent(this, CadastroInfoBanco.class);
-            startActivity(it);
+            startActivity(new Intent(this, CadastroInfoBanco.class));
         }
     }
+
 }

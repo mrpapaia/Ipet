@@ -29,7 +29,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
-import static br.com.bdt.ipet.util.GeralUtils.toast;
 
 public class CriarCasoActivity extends AppCompatActivity {
 
@@ -100,32 +99,27 @@ public class CriarCasoActivity extends AppCompatActivity {
 
         String titulo = etTituloCaso.getText().toString();
         if(!isValidInput(titulo, "text")){
-            etTituloCaso.setError("Insira o título do caso");
+            GeralUtils.setErrorInput(etTituloCaso, "Insira o título do caso");
             return null;
         }
 
         String descricao = etDescricaoCaso.getText().toString();
         if(!isValidInput(descricao, "text")){
-            etDescricaoCaso.setError("Insira a descrição do caso");
+            GeralUtils.setErrorInput(etDescricaoCaso, "Insira a descrição do caso");
             return null;
         }
 
         String nomeAnimal = etNomeAnimalCaso.getText().toString();
         if(!isValidInput(nomeAnimal, "text")){
-            etNomeAnimalCaso.setError("Insira o nome do animal");
+            GeralUtils.setErrorInput(etNomeAnimalCaso, "Insira o nome do animal");
             return null;
         }
 
         String especie = GeralUtils.getDataOfSp(this, R.id.spEspecieCaso);
-        if(!isValidInput(especie, "text")){
-            ((TextView) spEspecieCaso.getSelectedView()).setError("");
-            toast(getApplicationContext(), "Informe a espécie do animal");
-            return null;
-        }
 
         String valorString = etValorCaso.getText().toString();
         if(!isValidInput(valorString, "double")){
-            etValorCaso.setError("Insira um valor válido");
+            GeralUtils.setErrorInput(etValorCaso, "Insira um valor válido");
             return null;
         }
 
@@ -150,6 +144,8 @@ public class CriarCasoActivity extends AppCompatActivity {
     public void criarUmCaso(View view){
 
         Caso caso = obterDadosCaso();
+
+        if(caso == null) return;
 
         if(casoEdit != null){
             new CasoController().alterarCaso(caso).addOnCompleteListener(task -> {

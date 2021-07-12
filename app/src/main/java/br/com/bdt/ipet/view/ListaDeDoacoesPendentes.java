@@ -3,7 +3,6 @@ package br.com.bdt.ipet.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,7 +10,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -19,7 +17,9 @@ import java.util.Objects;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.DoacaoController;
 import br.com.bdt.ipet.control.OngMainController;
+import br.com.bdt.ipet.data.model.CasoComDoacao;
 import br.com.bdt.ipet.singleton.CasoSingleton;
+import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.RvDoacoesPendentesAdapter;
 
 public class ListaDeDoacoesPendentes extends AppCompatActivity {
@@ -68,18 +68,20 @@ public class ListaDeDoacoesPendentes extends AppCompatActivity {
 
         Intent it = getIntent();
         int position = it.getIntExtra("position",-1);
-        Log.d("Valtenis",casoSingleton.getCasos().get(position).getDoacaoList().toString());
+        //Log.d("Valtenis",casoSingleton.getCasos().get(position).getDoacaoList().toString());
 
-        tvNomeCasoDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getTitulo());
-        tvNomeAnimalDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getNomeAnimal());
-        tvMetaDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getValor().toString());
-        tvArrecadadoDynamic.setText(casoSingleton.getCasos().get(position).getCaso().getArrecadado().toString());
+        CasoComDoacao caso = casoSingleton.getCasos().get(position);
+
+        tvNomeCasoDynamic.setText(caso.getCaso().getTitulo());
+        tvNomeAnimalDynamic.setText(caso.getCaso().getNomeAnimal() + " (" + caso.getCaso().getEspecie() + ")");
+        tvMetaDynamic.setText(GeralUtils.formatarValor(caso.getCaso().getValor()));
+        tvArrecadadoDynamic.setText(GeralUtils.formatarValor(caso.getCaso().getArrecadado()));
 
         rvDoacoesPendentesAdapter = new RvDoacoesPendentesAdapter(getApplicationContext(),
-                casoSingleton.getCasos().get(position).getDoacaoList(),
+                caso.getDoacaoList(),
                 doacaoController,
                 position,
-                newValue -> tvArrecadadoDynamic.setText(String.valueOf(newValue))
+                newValue -> tvArrecadadoDynamic.setText(GeralUtils.formatarValor(newValue))
         );
 
         rvDoacaoPendenter.setAdapter(rvDoacoesPendentesAdapter);

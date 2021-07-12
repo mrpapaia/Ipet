@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -74,21 +75,24 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
         holder.tvDataDyanamic.setText(sdf.format(doacao.getData()));
 
         holder.tvTipoTransDyanamic.setText(doacao.getTipo());
-        holder.tvValorDyanamic.setText(doacao.getValor().toString());
+        holder.tvValorDyanamic.setText(GeralUtils.formatarValor(doacao.getValor()));
 
         holder.btConfirmarDoacao.setOnClickListener(v -> {
 
             Caso caso = CasoSingleton.getCasoSingleton().getCasos().get(indexCaso).getCaso();
+
             double newValue = caso.getArrecadado() + doacao.getValor();
 
             casoController.updateValor("arrecadado", newValue, caso.getId())
                     .addOnCompleteListener(task -> {
                         doacaoController.delete(doacao.getId())
                                         .addOnCompleteListener(task1 -> {
-                                            int idx = getIndexByIdDoacao(doacao.getId().getId());
-                                            doacaoList.remove(idx);
-                                            notifyItemRemoved(idx);
+                                            int idx_doacao = getIndexByIdDoacao(doacao.getId().getId());
+                                            doacaoList.remove(idx_doacao);
+                                            notifyItemRemoved(idx_doacao);
+                                            doacaoController.updateQuantidadeDoacoesAll();
                                             updateDetails.onConfirm(newValue);
+                                            Toast.makeText(context, "Doação confirmada", Toast.LENGTH_SHORT).show();
                                         });
                             }
                     );
@@ -96,8 +100,10 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
 
         holder.btNaoRecebido.setOnClickListener(v -> doacaoController.delete(doacao.getId())
                 .addOnCompleteListener(task -> {
-                    doacaoList.remove(position);
-                    notifyItemRemoved(position);
+                    int idx_doacao = getIndexByIdDoacao(doacao.getId().getId());
+                    doacaoList.remove(idx_doacao);
+                    notifyItemRemoved(idx_doacao);
+                    Toast.makeText(context, "Doação removida", Toast.LENGTH_SHORT).show();
                 })
         );
 

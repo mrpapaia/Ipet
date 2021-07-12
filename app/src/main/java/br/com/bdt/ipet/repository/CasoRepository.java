@@ -5,7 +5,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import br.com.bdt.ipet.control.AuthController;

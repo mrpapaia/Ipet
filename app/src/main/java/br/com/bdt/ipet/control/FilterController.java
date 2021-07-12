@@ -89,8 +89,8 @@ public class FilterController {
     }
 
     public void activeFilter(){
-        List<CasoComDoacao> casos = casosFiltrados();
-        casoSingleton.getiFilter().onFilter(casos);
+        casoSingleton.setCasosFiltrados(casosFiltrados());
+        casoSingleton.getiFilter().onFilter(casoSingleton.getCasosFiltrados());
     }
 
     public List<CasoComDoacao> casosFiltrados(){

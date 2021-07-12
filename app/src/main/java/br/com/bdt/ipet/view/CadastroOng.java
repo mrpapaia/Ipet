@@ -46,10 +46,7 @@ public class CadastroOng extends AppCompatActivity {
         TextView title = findViewById(R.id.toolbar_title);
         TextView title_extra = findViewById(R.id.toolbar_extra);
         setSupportActionBar(myToolbar);
-        myToolbar.setNavigationOnClickListener(v -> {
-            
-            onBackPressed();
-        });
+        myToolbar.setNavigationOnClickListener(v -> onBackPressed());
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -76,37 +73,45 @@ public class CadastroOng extends AppCompatActivity {
 
         String nome = etNome.getText().toString();
         if (!isValidInput(nome, "text")) {
-            etNome.setError("Insira o nome da Ong");
+            GeralUtils.setErrorInput(etNome, "Insira o nome da Ong");
             return;
         }
 
         String email = etEmail.getText().toString();
         if (!isValidInput(email, "email")) {
-            etEmail.setError("Insira um email válido");
+            GeralUtils.setErrorInput(etEmail, "Insira um email válido");
             return;
         }
 
         String senha = etSenha.getText().toString();
         if (!isValidInput(senha, "text")) {
-            etSenha.setError("Insira uma senha");
+            GeralUtils.setErrorInput(etSenha, "Insira uma senha");
             return;
         }
 
         String whatsapp = etWhatsapp.getText().toString();
         if (!isValidInput(whatsapp, "number") || whatsapp.length() < 8) {
-            etWhatsapp.setError("Insira um telefone válido");
+            GeralUtils.setErrorInput(etWhatsapp, "Insira um telefone válido");
             return;
         }
 
         String CNPJ = etCNPJ.getText().toString();
         if (!isValidInput(CNPJ, "text")) {
-            etCNPJ.setError("Insira um CNPJ");
+            GeralUtils.setErrorInput(etCNPJ, "Insira um CNPJ");
             return;
         }
 
         String uf = acUf.getText().toString();
+        if (!isValidInput(uf, "text")) {
+            GeralUtils.setErrorInput(acUf, "Informe um Estado");
+            return;
+        }
 
         String cidade = acMunicipio.getText().toString();
+        if (!isValidInput(cidade, "text")) {
+            GeralUtils.setErrorInput(acMunicipio, "Informe um Município");
+            return;
+        }
 
         cadastroController.isValidCNPJ(CNPJ, getApplicationContext(), response -> {
 
@@ -127,7 +132,7 @@ public class CadastroOng extends AppCompatActivity {
                 setEnableViews(false);
                 cadastroController.saveUserOng(this);
             }else{
-                etCNPJ.setError("Insira um CNPJ válido!");
+                GeralUtils.setErrorInput(etCNPJ, "Insira um CNPJ válido!");
             }
 
         });

@@ -3,6 +3,8 @@ package br.com.bdt.ipet.repository;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -57,5 +59,15 @@ public class DoacaoRepository implements IRepositoryDoacao {
     @Override
     public CollectionReference getCollectionDoacoes(String emailOng, String idCaso) {
         return db.collection("/ongs/" + emailOng + "/casos/" + idCaso + "/doacoes");
+    }
+
+    @Override
+    public Task<Void> updateQuantidadeDoacoesAll() {
+        return db.collection("utils").document("doacoes").update("quantidade", FieldValue.increment(1));
+    }
+
+    @Override
+    public Task<DocumentSnapshot> getQuantidadeDoacoesAll() {
+        return db.collection("utils").document("doacoes").get();
     }
 }

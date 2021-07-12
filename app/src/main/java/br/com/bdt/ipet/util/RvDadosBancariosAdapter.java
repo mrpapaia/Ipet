@@ -1,7 +1,9 @@
 package br.com.bdt.ipet.util;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.DadosBancario;
+import br.com.bdt.ipet.singleton.OngSingleton;
 
 public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancariosAdapter.DadosBancariosViewHolder> {
 
@@ -57,13 +60,27 @@ public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancari
         holder.tvAgenciaContaBanco.setText("Agencia: "+dadosBancario.getAgencia());
         holder.tvContaBanco.setText("Conta: "+dadosBancario.getConta());
         holder.tvcpforcnpj.setText("CPF/CNPJ: "+dadosBancario.getCpfCNPJ());
-        if(dadosBancario.getChavePix() != null){
-            holder.tvpix.setText("PIX: "+dadosBancario.getChavePix());
-        }else{
-            holder.tvpix.setText("");
-        }
+        holder.tvpix.setText("PIX: " + (!dadosBancario.getChavePix().equals("") ? dadosBancario.getChavePix() : "Não Cadastrado"));
+        holder.btTrash.setOnClickListener(v -> apagarDadosBancarios(dadosBancarios.indexOf(dadosBancario), holder.btTrash, dadosBancario.getBanco()));
+    }
 
-        holder.btTrash.setOnClickListener(v -> onClickListener.onClickTrash(dadosBancarios.indexOf(dadosBancario), holder.btTrash));
+    public void apagarDadosBancarios(int position, ImageButton btTrash, String banco){
+
+        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+            if(which == DialogInterface.BUTTON_POSITIVE){
+                onClickListener.onClickTrash(position, btTrash);
+            }
+        };
+
+        String nomeOng = OngSingleton.getOngSingleton().getOng().getNome();
+        String msgApagar = nomeOng + ", você deseja realmente apagar o banco (" + banco + ") ?";
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Atenção")
+                .setMessage(msgApagar)
+                .setPositiveButton("Sim", dialogClickListener)
+                .setNegativeButton("Não", dialogClickListener)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     public static class DadosBancariosViewHolder extends RecyclerView.ViewHolder {

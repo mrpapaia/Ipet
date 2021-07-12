@@ -7,15 +7,18 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.Objects;
+
 import br.com.bdt.ipet.R;
+import br.com.bdt.ipet.control.DoacaoController;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView titulo;
-    Button botao1, botao2;
+    private DoacaoController doacaoController;
 
     @SuppressLint("SourceLockedOrientationActivity")
     @Override
@@ -23,11 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        titulo= findViewById(R.id.ivTitulo);
-        botao1= findViewById(R.id.bSouUmaOng);
-        botao2= findViewById(R.id.bQueroAjudarOng);
-
+        doacaoController = new DoacaoController();
         getQtdConexoes();
     }
 
@@ -41,62 +40,26 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*
-     * Acessa a quantidade de conexões já realizadas (quando o usuário entra em contato com a ong)
-     * que está dentro do documento "counter" da coleção "conexoes", é acessado em específico o
-     * atributo quantidade, que é onde esse valor está sendo guardado. Quando houver resposta,
-     * setará na textview de conexões desta tela.
-     * */
     public void getQtdConexoes(){
-//        FirebaseFirestore.getInstance()
-//                .collection("conexoes")
-//                .document("counter")
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            Integer qtd = document.get("quantidade", Integer.class);
-//
-//                            if (document.exists()) { //Se exisitir, le o valor e seta no textview
-//                                setTextQtdConexoes(qtd);
-//                            } else { //Caso não exista, irá criar com valor 0
-//
-//                                HashMap<String, Integer> dataQuantidade = new HashMap<>();
-//                                dataQuantidade.put("quantidade", 0);
-//
-//                                FirebaseFirestore.getInstance()
-//                                        .collection("conexoes")
-//                                        .document("counter")
-//                                        .set(dataQuantidade);
-//
-//                                setTextQtdConexoes(0);
-//                            }
-//                        }
-//                    }
-//                });
+        doacaoController.getQuantidadeDoacoesAll().addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                DocumentSnapshot doc = task.getResult();
+                assert doc != null;
+                int quantidade = Objects.requireNonNull(doc.getLong("quantidade")).intValue();
+                setTextQtdConexoes(quantidade);
+            }
+        });
     }
 
-    /*
-     * Ciclo de Vida para atualizar as informações de conexões quando o usuario voltar
-     * a tela principal
-     * */
     @Override
     protected void onResume() {
         super.onResume();
-        getQtdConexoes();
+        getQtdConexoes(); //atualizar quantidade ao voltar para tela
     }
 
-    /*
-    * Recebe a quantidade de conexões e atualiza o texto da textview de informação sobre conexões.
-    * */
     public void setTextQtdConexoes(Integer qtd){
-
         TextView tvApresentacao = findViewById(R.id.tvApresentacao);
-
-        String msg = "Total de " + qtd + " conexões já realizadas";
-
+        String msg = "Total de " + qtd + " doações já realizadas";
         tvApresentacao.setText(msg);
     }
 }

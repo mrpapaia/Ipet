@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
@@ -21,20 +22,17 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.AuthController;
 import br.com.bdt.ipet.control.CasoController;
 import br.com.bdt.ipet.control.OngMainController;
-import br.com.bdt.ipet.repository.CasoRepository;
-import br.com.bdt.ipet.repository.interfaces.IRepositoryCaso;
+import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.RvCasoOngAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 public class OngMain extends AppCompatActivity {
 
     private FloatingActionButton btCriarCaso;
-
     private RecyclerView rvCasosOng;
     private RvCasoOngAdapter rvCasoOngAdapter;
     private DrawerLayout dLayout;
@@ -62,6 +60,7 @@ public class OngMain extends AppCompatActivity {
         tvNomeDaOng.setText("");
 
         btCriarCaso = findViewById(R.id.btAddCase);
+        btCriarCaso.setEnabled(false);
 
         rvCasosOng = findViewById(R.id.rvCasosOng);
         rvCasosOng.setLayoutManager(new LinearLayoutManager(this));
@@ -92,14 +91,36 @@ public class OngMain extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     public void getDadosOng(){
-        if(ongSingleton.getOng().getImgPerfil()!=null){
+
+        Ong ong = ongSingleton.getOng();
+
+        if(ong.getImgPerfil()!=null){
             Picasso.get().load(ongSingleton.getOng().getImgPerfil()).into(ivUser);
         }
-        tvNomeDaOng.setText("Bem-vinda, " + ongSingleton.getOng().getNome());
-        btCriarCaso.setEnabled(true); //dados da ong carregado, pode criar caso
+        tvNomeDaOng.setText("Bem-vinda, " + ong.getNome());
+
         tvNomeHeader.setText(ongSingleton.getOng().getNome());
         casoController.setiChanges(() -> rvCasoOngAdapter.notifyDataSetChanged());
         casoController.listenerCasosOng();
+
+        btCriarCaso.setEnabled(true);
+        btCriarCaso.setOnClickListener(v -> criarCaso());
+    }
+
+    public void criarCaso(){
+
+        Ong ong = ongSingleton.getOng();
+
+        if(ong.getDadosBancarios() != null && ong.getDadosBancarios().size() > 0){
+            startActivity(new Intent(getApplicationContext(), CriarCasoActivity.class));
+        }else{
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Atenção")
+                    .setMessage(ong.getNome() + ", não é possível criar um caso sem dados bancários, por favor cadastre pelo menos um banco.")
+                    .setNeutralButton("Cadastrar Banco", (dialog1, buttonId) -> initCadastroBancario())
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
     }
 
     @Override
@@ -148,11 +169,6 @@ public class OngMain extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
-    }
-
-    public void criarCaso(View view){
-        Intent intent = new Intent(getApplicationContext(), CriarCasoActivity.class);
-        startActivity(intent);
     }
 
 }

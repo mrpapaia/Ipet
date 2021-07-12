@@ -74,7 +74,9 @@ public class RvTodosCasosOngAdapter extends RecyclerView.Adapter<RvTodosCasosOng
             //Subtrai 1 posição pois a primeira é apenas outro layout com avisos
             final int p = position - 1;
 
-            Caso caso = casosOng.get(p).getCaso();
+            CasoComDoacao casoComDoacao = casosOng.get(p);
+
+            Caso caso = casoComDoacao.getCaso();
             if(caso == null) return; //Evitando bugs
 
             Ong ong = caso.getOng();
@@ -83,7 +85,7 @@ public class RvTodosCasosOngAdapter extends RecyclerView.Adapter<RvTodosCasosOng
             holder.tvOng.setText(caso.getOng().getNome());
             holder.tvTitulo.setText(caso.getTitulo());
             holder.tvDescricao.setText(caso.getDescricao());
-            holder.tvValor.setText(String.valueOf(caso.getValor()));
+            holder.tvValor.setText(GeralUtils.formatarValor(caso.getValor()));
             holder.tvAnimalData.setText(caso.getNomeAnimal() + " (" + caso.getEspecie() + ")");
             holder.tvMaisDetalhes.setOnClickListener(v -> onClickListener.onClickDetails(p));
 

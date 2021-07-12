@@ -6,10 +6,10 @@ import android.os.Parcelable;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.io.Serializable;
-import java.lang.annotation.Documented;
 import java.util.Date;
 
 public class Doacao implements Serializable, Parcelable {
+
     private String banco;
     private String tipo;
     private Double valor;

@@ -22,6 +22,7 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.DetalhesCasoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.view.dialog.ValorPagamentoDialog;
 import jp.wasabeef.picasso.transformations.MaskTransformation;
 
@@ -89,9 +90,9 @@ public class DetalhesCasoActivity extends AppCompatActivity {
 
         setTextTv(R.id.tvOngData, ong.getNome()); //Nome ong
         setTextTv(R.id.tvTitleData, caso.getTitulo()); //Nome caso
-        setTextTv(R.id.tvValorData, String.valueOf(caso.getValor())); //Valor caso
+        setTextTv(R.id.tvValorData, GeralUtils.formatarValor(caso.getValor())); //Valor caso
         setTextTv(R.id.tvDescricaoData, caso.getDescricao()); //Descrição caso
-        setTextTv(R.id.tvValorArrecadado, String.valueOf(caso.getArrecadado()));
+        setTextTv(R.id.tvValorArrecadado, GeralUtils.formatarValor(caso.getArrecadado()));
 
         //Lógica para pegar o height atual e dar um espaçamento no bottom, alterando seu height
         ConstraintLayout main3 = findViewById(R.id.main);

@@ -29,7 +29,6 @@ import br.com.bdt.ipet.control.PagamentoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Doacao;
-import br.com.bdt.ipet.util.GeralUtils;
 
 public class PagamentoDialog extends DialogFragment {
 

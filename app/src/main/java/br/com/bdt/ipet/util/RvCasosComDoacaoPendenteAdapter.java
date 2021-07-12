@@ -65,7 +65,7 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
             Caso caso = casoComDoacao.getCaso();
 
             holder.tvNomeCaso.setText(caso.getTitulo());
-            holder.tvNomeAnimalCaso.setText(caso.getNomeAnimal());
+            holder.tvNomeAnimalCaso.setText(caso.getNomeAnimal() + " (" + caso.getEspecie() + ")");
             doacaoController.initListenerDoacoes(caso.getId(), () -> refreshQtdPendentes(holder, casoComDoacao));
             holder.clCasoComDoacaoPendente.setOnClickListener(v -> {
                 if(casosOng.get(position).getQtdDoacaoPendente() != 0) {

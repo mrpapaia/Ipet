@@ -23,6 +23,9 @@ import br.com.bdt.ipet.control.CadastroController;
 import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
+import br.com.bdt.ipet.util.GeralUtils;
+
+import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
 public class CadastroInfoBanco extends AppCompatActivity {
 
@@ -99,28 +102,46 @@ public class CadastroInfoBanco extends AppCompatActivity {
     }
 
     public void finalizarCadastro(View v) {
-        if(isAdd){
-            DadosBancario dadosBancario= new DadosBancario(
-                    acBanco.getText().toString(),
-                    etConta.getText().toString(),
-                    etAgencia.getText().toString(),
-                    etChavePix.getText().toString(),
-                    etCNPJContaBanco.getText().toString()
-            );
-            cadastroController.updateDadosBancario(this,email,dadosBancario);
-            return ;
 
+        String banco = acBanco.getText().toString();
+        if (!isValidInput(banco, "text")) {
+            GeralUtils.setErrorInput(acBanco, "Informe um Banco");
+            return;
         }
+
+        String conta = etConta.getText().toString();
+        if (!isValidInput(conta, "text")) {
+            GeralUtils.setErrorInput(etConta, "Informe uma Conta");
+            return;
+        }
+
+        String agencia = etAgencia.getText().toString();
+        if (!isValidInput(agencia, "text")) {
+            GeralUtils.setErrorInput(etAgencia, "Informe uma Agência");
+            return;
+        }
+
+        String CNPJContaBanco = etCNPJContaBanco.getText().toString();
+        if (!isValidInput(CNPJContaBanco, "text")) {
+            GeralUtils.setErrorInput(etCNPJContaBanco, "Informe um CNPJ/CPF");
+            return;
+        }
+
+        String chavePix = etChavePix.getText().toString();
+        if(cbHablitapix.isChecked() && !isValidInput(chavePix, "text")){
+            GeralUtils.setErrorInput(etChavePix, "Informe uma Chave Pix");
+            return;
+        }
+
+        DadosBancario dadosBancario = new DadosBancario(banco, conta, agencia, chavePix, CNPJContaBanco);
+
+        if(isAdd){
+            cadastroController.updateDadosBancario(this, email, dadosBancario);
+            return;
+        }
+
         List<DadosBancario> listDadosBancario = new ArrayList<>();
-        listDadosBancario.add(
-                new DadosBancario(
-                        acBanco.getText().toString(),
-                        etConta.getText().toString(),
-                        etAgencia.getText().toString(),
-                        etChavePix.getText().toString(),
-                        etCNPJContaBanco.getText().toString()
-                )
-        );
+        listDadosBancario.add(dadosBancario);
 
         cadastroSingleton.getOng().setDadosBancarios(listDadosBancario);
         cadastroController.saveDadosOng(this);

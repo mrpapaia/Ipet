@@ -12,122 +12,119 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/containerDados"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="572dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/bgColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbNormal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_margin="16dp"
+            android:padding="2dp"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/textStyleBoldTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CASO:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView22"
+                style="@style/textStyleBoldTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="META:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNomeAnimalDynamic" />
+
+            <TextView
+                android:id="@+id/textView24"
+                style="@style/textStyleBoldTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="ARRECADADO:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMetaDynamic" />
+
+            <TextView
+                android:id="@+id/textView20"
+                style="@style/textStyleBoldTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="ANIMAL:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNomeCasoDynamic" />
+
+            <TextView
+                android:id="@+id/tvNomeCasoDynamic"
+                style="@style/textStyleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="62dp"
+                android:text="Caso Teste Teste teste"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvNomeAnimalDynamic"
+                style="@style/textStyleTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Dogin (Cachorro)"
+                app:layout_constraintStart_toEndOf="@+id/textView20"
+                app:layout_constraintTop_toBottomOf="@+id/tvNomeCasoDynamic" />
+
+            <TextView
+                android:id="@+id/tvMetaDynamic"
+                style="@style/textStyleTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="4543356"
+                app:layout_constraintStart_toEndOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/tvNomeAnimalDynamic" />
+
+            <TextView
+                android:id="@+id/tvArrecadadoDynamic"
+                style="@style/textStyleTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="4543356"
+                app:layout_constraintStart_toEndOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/tvMetaDynamic" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDoacoesPendentes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="212dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbNormal"
-        app:layout_constraintVertical_bias="0.0">
-
-        <TextView
-            android:id="@+id/tvStaticCaso"
-            style="@style/textStaticDefaultStart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CASO:"
-            app:layout_constraintBottom_toTopOf="@+id/textView22"
-            app:layout_constraintEnd_toStartOf="@+id/tvNomeCasoDynamic"
-            app:layout_constraintStart_toStartOf="@+id/containerDados"
-            app:layout_constraintTop_toBottomOf="@+id/containerDados" />
-
-        <TextView
-            android:id="@+id/textView22"
-            style="@style/textStaticDefaultStart"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:text="ANIMAL:"
-            app:layout_constraintBottom_toTopOf="@+id/containerDados"
-            app:layout_constraintEnd_toStartOf="@+id/tvNomeAnimalDynamic"
-            app:layout_constraintStart_toStartOf="@+id/containerDados"
-            app:layout_constraintTop_toBottomOf="@+id/tvStaticCaso" />
-
-        <TextView
-            android:id="@+id/textView25"
-            style="@style/textStaticDefaultEnd"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="META:"
-            app:layout_constraintBottom_toTopOf="@+id/textView26"
-            app:layout_constraintEnd_toStartOf="@+id/tvMetaDynamic"
-            app:layout_constraintStart_toEndOf="@+id/tvNomeCasoDynamic"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvArrecadadoDynamic"
-            style="@style/textDynamicDefaultDown"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100 "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView26"
-            app:layout_constraintTop_toBottomOf="@+id/tvMetaDynamic" />
-
-        <TextView
-            android:id="@+id/tvMetaDynamic"
-            style="@style/textDynamicDefaultUp"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="100 "
-            app:layout_constraintBottom_toTopOf="@+id/tvArrecadadoDynamic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView25"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvNomeCasoDynamic"
-            style="@style/textDynamicDefaultUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cadela Atroplada"
-            app:layout_constraintBottom_toTopOf="@+id/tvNomeAnimalDynamic"
-            app:layout_constraintEnd_toStartOf="@+id/textView25"
-            app:layout_constraintStart_toEndOf="@+id/tvStaticCaso"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvNomeAnimalDynamic"
-            style="@style/textDynamicDefaultDown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Toto (Cachorro)"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView26"
-            app:layout_constraintStart_toEndOf="@+id/textView22"
-            app:layout_constraintTop_toBottomOf="@+id/tvNomeCasoDynamic" />
-
-        <TextView
-            android:id="@+id/textView26"
-            style="@style/textStaticDefaultEnd"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Arrecadado:"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvArrecadadoDynamic"
-            app:layout_constraintStart_toEndOf="@+id/tvNomeAnimalDynamic"
-            app:layout_constraintTop_toBottomOf="@+id/textView25" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvDoacoesPendentes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/containerDados" />
+        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

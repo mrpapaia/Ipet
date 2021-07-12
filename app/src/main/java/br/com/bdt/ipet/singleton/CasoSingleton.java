@@ -13,6 +13,7 @@ public class CasoSingleton {
 
     private static CasoSingleton casoSingleton;
     private List<CasoComDoacao> casos;
+    private List<CasoComDoacao> casosFiltrados;
     private DadosFiltro dadosFiltro;
     private IFilter iFilter;
     private Caso caso;
@@ -39,6 +40,14 @@ public class CasoSingleton {
 
     public void setCasos(List<CasoComDoacao> casos) {
         this.casos = casos;
+    }
+
+    public List<CasoComDoacao> getCasosFiltrados() {
+        return casosFiltrados;
+    }
+
+    public void setCasosFiltrados(List<CasoComDoacao> casosFiltrados) {
+        this.casosFiltrados = casosFiltrados;
     }
 
     public DadosFiltro getDadosFiltro() {

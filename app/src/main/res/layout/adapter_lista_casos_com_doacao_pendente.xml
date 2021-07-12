@@ -25,18 +25,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CASO:"
-            app:layout_constraintBottom_toTopOf="@+id/textView18"
-            app:layout_constraintEnd_toStartOf="@+id/tvNomeCaso"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvNomeCaso"
             style="@style/textDynamicDefault"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="90dp"
             android:text="Cadela Atroplada"
-            app:layout_constraintBottom_toTopOf="@+id/tvNomeAnimalCaso"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvCasoTitleStatic"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,33 +45,30 @@
             style="@style/textStaticDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
             android:text="ANIMAL:"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tvNomeAnimalCaso"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCasoTitleStatic" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNomeCaso" />
 
         <TextView
             android:id="@+id/tvNomeAnimalCaso"
             style="@style/textDynamicDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
             android:text="Toto (Cachorro)"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/tvNomeCaso" />
 
         <TextView
             android:id="@+id/tvVerMais"
             style="@style/textVerMais"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="62dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="14dp"
             android:drawableEnd="@drawable/ic_arrow_down_green"
             android:text="@string/ver_mais"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:drawableEndCompat="@drawable/ic_arrow_down_green"
-            app:layout_constraintBottom_toTopOf="@+id/tvAviso"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -80,12 +77,13 @@
             style="@style/textAviso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/h_0_doa_es_pendentes"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvVerMais" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNomeAnimalCaso" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

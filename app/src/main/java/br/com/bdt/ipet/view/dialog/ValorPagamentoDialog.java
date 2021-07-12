@@ -12,6 +12,9 @@ import androidx.fragment.app.DialogFragment;
 
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
+import br.com.bdt.ipet.util.GeralUtils;
+
+import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
 public class ValorPagamentoDialog extends DialogFragment {
 
@@ -40,17 +43,23 @@ public class ValorPagamentoDialog extends DialogFragment {
         Button btnConfirmar = view.findViewById(R.id.bConfirmar);
         View.OnClickListener listenerConfirmar = v -> {
 
-            Double valor = Double.parseDouble(
-                    ((EditText)view.findViewById(R.id.etValorDoacao)).getText().toString());
+            EditText etValorDoacao = view.findViewById(R.id.etValorDoacao);
+            String valorString = etValorDoacao.getText().toString();
 
-            DialogFragment dialog = MetodoPagamentoDialog.newInstance(caso, valor);
+            if(isValidInput(valorString, "double")){
+                Double valor = Double.parseDouble(valorString);
 
-            dialog.show(getActivity().getSupportFragmentManager(), "metodoPagamento");
-            getActivity().getSupportFragmentManager().executePendingTransactions();
+                DialogFragment dialog = MetodoPagamentoDialog.newInstance(caso, valor);
+                dialog.show(getActivity().getSupportFragmentManager(), "metodoPagamento");
 
-            dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                getActivity().getSupportFragmentManager().executePendingTransactions();
+                dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
-            this.dismiss();
+                this.dismiss();
+            }else{
+                GeralUtils.setErrorInput(etValorDoacao, "Insira um valor válido");
+            }
+
         };
 
         btnConfirmar.setOnClickListener(listenerConfirmar);

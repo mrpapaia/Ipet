@@ -135,6 +135,21 @@
         <item name="android:layout_marginStart">0dp</item>
         <item name="android:fontWeight" tools:targetApi="o">700</item>
     </style>
+
+    <style name="textStyleTitle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontWeight" tools:targetApi="o">400</item>
+    </style>
+
+    <style name="textStyleBoldTitle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/roboto_black</item>
+        <item name="android:textColor">@color/fildTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontWeight" tools:targetApi="o">700</item>
+    </style>
+
     <style name="textStaticDefaultEnd" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/roboto_black</item>
         <item name="android:textColor">@color/fildTextColor</item>

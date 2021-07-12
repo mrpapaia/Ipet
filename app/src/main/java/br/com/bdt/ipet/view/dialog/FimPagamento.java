@@ -15,10 +15,9 @@ import br.com.bdt.ipet.R;
 public class FimPagamento extends DialogFragment {
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-
-        //Abrir tela de obrigado aqui?
 
         View view = inflater.inflate(R.layout.activity_fim_pagamento, null);
 
