@@ -1,9 +1,11 @@
 package br.com.bdt.ipet.view.dialog;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -46,6 +48,8 @@ public class ValorPagamentoDialog extends DialogFragment {
             EditText etValorDoacao = view.findViewById(R.id.etValorDoacao);
             String valorString = etValorDoacao.getText().toString();
 
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
             if(isValidInput(valorString, "double")){
                 Double valor = Double.parseDouble(valorString);
 

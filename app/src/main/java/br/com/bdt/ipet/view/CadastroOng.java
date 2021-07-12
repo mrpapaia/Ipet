@@ -20,6 +20,7 @@ import br.com.bdt.ipet.control.CadastroController;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.data.model.Ong;
+import br.com.bdt.ipet.util.Mask;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
@@ -41,7 +42,6 @@ public class CadastroOng extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_ong);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar myToolbar = findViewById(R.id.tbNormal);
         TextView title = findViewById(R.id.toolbar_title);
         TextView title_extra = findViewById(R.id.toolbar_extra);
@@ -65,6 +65,8 @@ public class CadastroOng extends AppCompatActivity {
         etWhatsapp = findViewById(R.id.etWhatsapp);
         etCNPJ = findViewById(R.id.etCNPJ);
         bCadastrar = findViewById(R.id.bFiltrar);
+        etWhatsapp.addTextChangedListener(Mask.insert(Mask.CELULAR_MASK, etWhatsapp));
+        etCNPJ.addTextChangedListener(Mask.insert(Mask.CNPJ_MASK, etCNPJ));
     }
 
     public void cadastrar(View view) {

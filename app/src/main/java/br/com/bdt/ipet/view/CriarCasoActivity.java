@@ -45,7 +45,6 @@ public class CriarCasoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_criar_caso);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         casoEdit = getIntent().getParcelableExtra("casoEdit");
 
@@ -73,10 +72,11 @@ public class CriarCasoActivity extends AppCompatActivity {
         List<String> especies = new ArrayList<>();
 
         especies.add("Cachorro");
-        especies.add("Gato");
         especies.add("Coelho");
+        especies.add("Gato");
 
-        spEspecieCaso.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, especies));
+
+        spEspecieCaso.setAdapter(new ArrayAdapter<>(this, R.layout.adpter_spinner, especies));
 
         if(casoEdit != null){
 

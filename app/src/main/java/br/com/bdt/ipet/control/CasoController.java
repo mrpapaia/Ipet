@@ -52,9 +52,10 @@ public class CasoController {
 
         if(casoSingleton.getUri() != null){
             IStorage storageRepository = new StorageRepository(FirebaseStorage.getInstance());
-            storageRepository.saveImg(casoSingleton.getCaso().getOng().getEmail(), casoSingleton.getUri())
+            storageRepository.saveImg(casoSingleton.getCaso().getOng().getEmail(), casoSingleton.getUri(),casoSingleton.getCaso().getId())
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
+                            Log.d("##############", Objects.requireNonNull(task.getResult()).getLastPathSegment());
                             casoSingleton.getCaso().setLinkImg(Objects.requireNonNull(task.getResult()).toString());
                             Log.d(TAG, "Sucesso save IMG Caso");
                             salvarDadosCaso(act, progressDialog);
@@ -76,8 +77,12 @@ public class CasoController {
         });
     }
 
-    public Task<Void> apagarCaso(String id){
-        return repositoryCaso.delete(id);
+    public Task<Void> apagarCaso(Caso caso){
+        IStorage storageRepository = new StorageRepository(FirebaseStorage.getInstance());
+        storageRepository.deleteImg(caso.getOng().getEmail(),caso.getId());
+
+
+        return repositoryCaso.delete(caso.getId());
     }
 
     public Task<Void> alterarCaso(Caso caso){

@@ -11,32 +11,56 @@
         android:roundIcon="@mipmap/icon_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.dialog.FimPagamento"></activity>
-        <activity android:name=".view.ListaDeDoacoesPendentes" />
-        <activity android:name=".view.ListaCasosComDoacaoPendente" />
-        <activity android:name=".view.ListDadosBancarios" />
-        <activity android:name=".view.FimCadastro" />
+        <activity android:name=".view.dialog.FimPagamento" android:configChanges="orientation"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.ListaDeDoacoesPendentes" android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.ListaCasosComDoacaoPendente" android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.ListDadosBancarios" android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.FimCadastro" android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.CadastroInfoBanco"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".view.EnviarFoto" />
+            android:windowSoftInputMode="adjustResize" android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.EnviarFoto" android:configChanges="orientation"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.CriarCasoActivity"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".view.DetalhesCasoActivity" />
-        <activity android:name=".view.OngMain" />
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.DetalhesCasoActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.OngMain"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.CadastroOng"
-            android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".view.QueroAjudarOng" />
-        <activity android:name=".view.OngLogin" />
-        <activity android:name=".view.MainActivity" />
+            android:windowSoftInputMode="adjustResize" android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.QueroAjudarOng"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.OngLogin"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.MainActivity" android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".view.Filter"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".view.SplashActivity"
-            android:theme="@style/AppThemeSplash">
+            android:theme="@style/AppThemeSplash"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

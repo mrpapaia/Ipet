@@ -48,7 +48,6 @@ public class OngMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ong_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         Toolbar tbMain = findViewById(R.id.tbMain);
         tbMain.setNavigationOnClickListener(view -> dLayout.openDrawer(Gravity.LEFT));
         ongSingleton = OngSingleton.getOngSingleton();
@@ -72,7 +71,7 @@ public class OngMain extends AppCompatActivity {
         casoController.initDataRecyclerView(casos -> {
 
             rvCasoOngAdapter = new RvCasoOngAdapter(OngMain.this, casos, (position) -> {
-                casoController.apagarCaso(casos.get(position).getCaso().getId()).addOnSuccessListener(aVoid -> {
+                casoController.apagarCaso(casos.get(position).getCaso()).addOnSuccessListener(aVoid -> {
                     GeralUtils.toast(getApplicationContext(), "Caso apagado");
                 }).addOnFailureListener(e -> {
                     GeralUtils.toast(getApplicationContext(), "Erro ao apagar, tente novamente mais tarde");

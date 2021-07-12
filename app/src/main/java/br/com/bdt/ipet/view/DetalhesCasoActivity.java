@@ -38,7 +38,6 @@ public class DetalhesCasoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhes_caso);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 
         caso = getIntent().getParcelableExtra("casoOng");
         btEmail = findViewById(R.id.btEmailOngCase);

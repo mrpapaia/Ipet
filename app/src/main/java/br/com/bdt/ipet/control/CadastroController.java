@@ -71,7 +71,7 @@ public class CadastroController {
 
         if (cadastroSingleton.getUri() != null) {
             IStorage storageRepository = new StorageRepository(FirebaseStorage.getInstance());
-            storageRepository.saveImg(cadastroSingleton.getOng().getEmail(), cadastroSingleton.getUri())
+            storageRepository.saveImg(cadastroSingleton.getOng().getEmail(), cadastroSingleton.getUri(),cadastroSingleton.getOng().getEmail())
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             cadastroSingleton.getOng().setImgPerfil(Objects.requireNonNull(task.getResult()).toString());

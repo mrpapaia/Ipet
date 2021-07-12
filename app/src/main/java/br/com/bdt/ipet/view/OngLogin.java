@@ -32,7 +32,6 @@ public class OngLogin extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ong_login_screen);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         etEmail = findViewById(R.id.etEmail);
         etSenha = findViewById(R.id.etSenha);
         bLogin = findViewById(R.id.bLogin);
