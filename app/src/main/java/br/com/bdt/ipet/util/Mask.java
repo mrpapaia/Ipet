@@ -1,13 +1,16 @@
 package br.com.bdt.ipet.util;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
 public abstract class Mask {
+
     public static String CPF_MASK       = "###.###.###-##";
-    public static String CELULAR_MASK   = "(##) # #### #####";
+    public static String CELULAR_MASK   = "(##) # #### ####";
     public static String CEP_MASK       = "#####-###";
-    public static String CNPJ_MASK ="##.###.###/####-##";
+    public static String CNPJ_MASK      = "##.###.###/####-##";
+
     public static String unmask(String s) {
         return s.replaceAll("[.]", "").replaceAll("[-]", "")
                 .replaceAll("[/]", "").replaceAll("[(]", "")

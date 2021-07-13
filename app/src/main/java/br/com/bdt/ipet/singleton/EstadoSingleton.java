@@ -8,6 +8,7 @@ public class EstadoSingleton {
 
     private static EstadoSingleton estadoSingleton;
     private List<Estado> estados;
+    private List<String> cidades;
 
     private EstadoSingleton() {
 
@@ -18,6 +19,14 @@ public class EstadoSingleton {
             estadoSingleton = new EstadoSingleton();
         }
         return estadoSingleton;
+    }
+
+    public List<String> getCidades() {
+        return cidades;
+    }
+
+    public void setCidades(List<String> cidades) {
+        this.cidades = cidades;
     }
 
     public List<Estado> getEstados() {

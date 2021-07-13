@@ -106,6 +106,11 @@ public class Filter extends AppCompatActivity {
         String uf = acUf.getText().toString();
         String cidade = acMunicipio.getText().toString();
 
+        if(!cidade.equals("") && !GeralUtils.existeCidade(cidade)){
+            GeralUtils.setErrorInput(acMunicipio, "Informe um Município Válido");
+            return;
+        }
+
         filterController.setDadosFiltro(especies, minValue, maxValue, uf, cidade);
 
         if(!filterController.getDadosFiltro().isClear()) {

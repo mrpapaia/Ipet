@@ -29,6 +29,30 @@ import static android.util.Patterns.EMAIL_ADDRESS;
 
 public class GeralUtils {
 
+    public static boolean existeCidade(String cidade){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            List<String> cidades = EstadoSingleton.getEstadoSingleton().getCidades();
+            if(cidades != null){
+                return cidades.stream().anyMatch(x -> x.toLowerCase().equals(cidade.toLowerCase()));
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean existeEstado(String estado){
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            List<Estado> estados = EstadoSingleton.getEstadoSingleton().getEstados();
+            if(estados != null){
+                return estados.stream().anyMatch(x -> x.getNome().toLowerCase().equals(estado.toLowerCase()));
+            }
+        }
+
+        return true;
+    }
+
     public static void setErrorInput(EditText et, String msg){
         et.setError(msg);
         et.requestFocus();
@@ -80,10 +104,12 @@ public class GeralUtils {
         });
 
         acMunicipio.setOnFocusChangeListener((view, hasFocus) -> {
-            if(hasFocus) {
+            if (hasFocus) {
                 String textAcUf = acUf.getText().toString();
                 if (textAcUf.isEmpty()) {
-                    GeralUtils.toast(context, "Informe o Estado primeiro para carregar as cidades!");
+                    Toast.makeText(context, "Informe o Estado primeiro para carregar as cidades!", Toast.LENGTH_SHORT).show();
+                } else if (!existeEstado(textAcUf)) {
+                    Toast.makeText(context, "Informe um Estado válido!", Toast.LENGTH_SHORT).show();
                 } else {
                     String uf = findUfByNomeEstado(textAcUf, estadoSingleton.getEstados());
                     loadMunicipios(context, uf, acMunicipio);
@@ -95,7 +121,10 @@ public class GeralUtils {
 
     private static String findUfByNomeEstado(String nome, List<Estado> estados){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            Estado estado = estados.stream().filter(x -> x.getNome().equals(nome)).findAny().orElse(null);
+            Estado estado = estados.stream()
+                    .filter(x -> x.getNome().toLowerCase().equals(nome.toLowerCase()))
+                    .findAny()
+                    .orElse(null);
             return estado != null ? estado.getUf() : "";
         }
         return "";
@@ -105,6 +134,7 @@ public class GeralUtils {
         new ConsumerData().getCidades(context, uf, cidades -> {
             ArrayAdapter<String> adapterMunicipio = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, cidades);
             acMunicipio.setAdapter(adapterMunicipio);
+            EstadoSingleton.getEstadoSingleton().setCidades(cidades);
         });
     }
 
@@ -119,6 +149,8 @@ public class GeralUtils {
             case "text": return !str.equals("");
             case "email": return validateEmailFormat(str);
             case "number": return isInteger(str);
+            case "whatsapp": return str.length() == 16;
+            case "cnpj": return str.length() == 18;
             case "double": return isDouble(str);
         }
 

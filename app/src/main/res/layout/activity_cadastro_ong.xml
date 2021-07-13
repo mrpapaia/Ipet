@@ -34,6 +34,7 @@
                 style="@style/fildTextStyleFrist"
                 android:drawableStart="@drawable/ic_person"
                 android:hint="@string/nome_da_ong"
+                android:maxLength="30"
                 android:inputType="textCapSentences|textAutoCorrect"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -47,6 +48,7 @@
                 android:background="@drawable/style_edit"
                 android:drawableStart="@drawable/ic_email"
                 android:hint="@string/e_mail"
+                android:maxLength="100"
                 android:inputType="textEmailAddress"
                 app:layout_constraintBottom_toTopOf="@+id/etSenha"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +61,7 @@
                 android:background="@drawable/style_edit"
                 android:drawableStart="@drawable/ic_lock"
                 android:hint="@string/senha"
+                android:maxLength="100"
                 android:inputType="textPassword"
                 app:layout_constraintBottom_toTopOf="@+id/etWhatsapp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +74,7 @@
                 android:drawableStart="@drawable/ic_phone"
                 android:hint="@string/whatsapp"
                 android:inputType="phone"
-                android:maxLength="15"
+                android:maxLength="16"
                 app:layout_constraintBottom_toTopOf="@+id/etCNPJ"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,6 +98,7 @@
                 android:completionThreshold="1"
                 android:drawableStart="@drawable/ic_location"
                 android:hint="@string/estado"
+                android:maxLength="50"
                 app:layout_constraintBottom_toTopOf="@+id/acMunicipio"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,6 +111,7 @@
                 android:completionThreshold="1"
                 android:drawableStart="@drawable/ic_location"
                 android:hint="@string/munic_pio"
+                android:maxLength="50"
                 app:layout_constraintBottom_toTopOf="@+id/bFiltrar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +134,9 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/acMunicipio" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
