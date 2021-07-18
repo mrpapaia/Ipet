@@ -2,7 +2,9 @@ package br.com.bdt.ipet.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -28,6 +30,20 @@ import br.com.bdt.ipet.singleton.EstadoSingleton;
 import static android.util.Patterns.EMAIL_ADDRESS;
 
 public class GeralUtils {
+
+    public static AlertDialog.Builder builderDialog(Context context, int idIcon, String title, String message,
+                                             String textBt1, DialogInterface.OnClickListener listenerBt1,
+                                             String textBt2, DialogInterface.OnClickListener listenerBt2){
+        return builderDialog(context, idIcon, title, message, textBt1, listenerBt1).setNegativeButton(textBt2, listenerBt2);
+    }
+
+    public static AlertDialog.Builder builderDialog(Context context, int idIcon, String title, String message, String textBt1, DialogInterface.OnClickListener listenerBt1){
+        return new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(textBt1, listenerBt1)
+                .setIcon(idIcon);
+    }
 
     public static boolean existeCidade(String cidade){
 

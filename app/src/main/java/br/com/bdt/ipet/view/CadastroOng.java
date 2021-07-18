@@ -142,8 +142,7 @@ public class CadastroOng extends AppCompatActivity {
                 Ong ong = new Ong(nome, email, Mask.unmask(whatsapp), CNPJ, uf, cidade);
                 cadastroSingleton.setOng(ong);
                 cadastroSingleton.setSenha(senha);
-                setEnableViews(false);
-                cadastroController.saveUserOng(this);
+                cadastroController.saveUserOng(etEmail, this);
             }else{
                 GeralUtils.setErrorInput(etCNPJ, "Insira um CNPJ válido!");
             }
@@ -152,16 +151,16 @@ public class CadastroOng extends AppCompatActivity {
 
     }
 
-    public void setEnableViews(boolean op) {
-        etNome.setEnabled(op);
-        etEmail.setEnabled(op);
-        etSenha.setEnabled(op);
-        etWhatsapp.setEnabled(op);
-        etCNPJ.setEnabled(op);
-        acUf.setEnabled(op);
-        acMunicipio.setEnabled(op);
-        bCadastrar.setEnabled(op);
-    }
+//    public void setEnableViews(boolean op) {
+//        etNome.setEnabled(op);
+//        etEmail.setEnabled(op);
+//        etSenha.setEnabled(op);
+//        etWhatsapp.setEnabled(op);
+//        etCNPJ.setEnabled(op);
+//        acUf.setEnabled(op);
+//        acMunicipio.setEnabled(op);
+//        bCadastrar.setEnabled(op);
+//    }
 
     public void voltar(View view) {
         onBackPressed();

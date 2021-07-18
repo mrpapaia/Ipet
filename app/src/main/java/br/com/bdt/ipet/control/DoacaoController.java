@@ -4,6 +4,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -21,11 +22,13 @@ public class DoacaoController {
     private IRepositoryDoacao repository;
     private CasoSingleton casoSingleton;
     private String emailOng;
+    private List<ListenerRegistration> listeners;
 
     public DoacaoController() {
         this.repository = new DoacaoRepository(FirebaseFirestore.getInstance());
         this.casoSingleton = CasoSingleton.getCasoSingleton();
         this.emailOng = new AuthController().getCurrentEmail();
+        this.listeners = new ArrayList<>();
     }
 
     public Task<QuerySnapshot> getAllByCaso(CasoComDoacao caso) {
@@ -54,7 +57,14 @@ public class DoacaoController {
     }
 
     public void initListenerDoacoes(String idCaso, IChanges iChanges){
-        repository.getCollectionDoacoes(emailOng, idCaso).addSnapshotListener((value, error) -> iChanges.onChange());
+        ListenerRegistration listener = repository.getCollectionDoacoes(emailOng, idCaso).addSnapshotListener((value, error) -> iChanges.onChange());
+        listeners.add(listener);
+    }
+
+    public void removeListeners(){
+        for(ListenerRegistration l : listeners){
+            l.remove();
+        }
     }
 
     public Task<Void> updateQuantidadeDoacoesAll(){

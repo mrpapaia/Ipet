@@ -1,6 +1,5 @@
 package br.com.bdt.ipet.view;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -9,11 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,7 +39,6 @@ public class OngMain extends AppCompatActivity {
     private OngSingleton ongSingleton;
     private CasoController casoController;
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"RtlHardcoded", "SourceLockedOrientationActivity", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +67,7 @@ public class OngMain extends AppCompatActivity {
         casoController.initDataRecyclerView(casos -> {
 
             rvCasoOngAdapter = new RvCasoOngAdapter(OngMain.this, casos, (position) -> {
+                Log.d("Valtenis", "OngMain:InitAdapter " + this.getClass().getName());
                 casoController.apagarCaso(casos.get(position).getCaso()).addOnSuccessListener(aVoid -> {
                     GeralUtils.toast(getApplicationContext(), "Caso apagado");
                 }).addOnFailureListener(e -> {
@@ -106,6 +103,12 @@ public class OngMain extends AppCompatActivity {
         btCriarCaso.setOnClickListener(v -> criarCaso());
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        casoController.removeListener();
+    }
+
     public void criarCaso(){
 
         Ong ong = ongSingleton.getOng();
@@ -113,12 +116,13 @@ public class OngMain extends AppCompatActivity {
         if(ong.getDadosBancarios() != null && ong.getDadosBancarios().size() > 0){
             startActivity(new Intent(getApplicationContext(), CriarCasoActivity.class));
         }else{
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Atenção")
-                    .setMessage(ong.getNome() + ", não é possível criar um caso sem dados bancários, por favor cadastre pelo menos um banco.")
-                    .setNeutralButton("Cadastrar Banco", (dialog1, buttonId) -> initCadastroBancario())
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+            GeralUtils.builderDialog(
+                    OngMain.this,
+                    android.R.drawable.ic_dialog_alert,
+                    "Atenção",
+                    ong.getNome() + ", não é possível criar um caso sem dados bancários, por favor cadastre pelo menos um banco.",
+                    "Cadastrar Banco", (dialog1, buttonId) -> initCadastroBancario()
+            ).show();
         }
     }
 

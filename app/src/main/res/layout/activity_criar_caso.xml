@@ -40,7 +40,6 @@
             <EditText
                 android:id="@+id/etTituloCaso"
                 style="@style/fildTextStyleFrist"
-
                 android:layout_marginTop="24dp"
                 android:hint="@string/t_tulo_do_caso"
                 android:inputType="textCapSentences|textAutoCorrect"

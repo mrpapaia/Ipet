@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,12 +97,14 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
 
         };
 
-        String msgApagar = caso.getOng().getNome() + ", você deseja realmente apagar o caso (" + caso.getTitulo() + ") ?";
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage(msgApagar)
-                .setPositiveButton("Sim", dialogClickListener)
-                .setNegativeButton("Não", dialogClickListener)
-                .show();
+        GeralUtils.builderDialog(
+                context,
+                android.R.drawable.ic_dialog_alert,
+                "Atenção",
+                caso.getOng().getNome() + ", você deseja realmente apagar o caso (" + caso.getTitulo() + ") ?",
+                "Sim", dialogClickListener,
+                "Não", dialogClickListener
+        ).show();
     }
 
     public static class CasoViewHolder extends RecyclerView.ViewHolder {

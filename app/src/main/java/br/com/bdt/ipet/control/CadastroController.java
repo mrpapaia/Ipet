@@ -5,8 +5,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -26,6 +28,7 @@ import br.com.bdt.ipet.repository.StorageRepository;
 import br.com.bdt.ipet.repository.interfaces.IRepositoryOng;
 import br.com.bdt.ipet.repository.interfaces.IStorage;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
+import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.view.CadastroInfoBanco;
 import br.com.bdt.ipet.view.EnviarFoto;
 import br.com.bdt.ipet.view.FimCadastro;
@@ -48,19 +51,26 @@ public class CadastroController {
         new ConsumerData().sendGetObject(context, url, sendDataObject);
     }
 
-    public void saveUserOng(Activity act) {
+    public void saveUserOng(EditText etEmail, Activity act) {
 
         ProgressDialog progressDialog = ProgressDialog.show(act, "Aguarde um momento", "Estamos criando seu usuário...");
         AuthController authController = new AuthController();
 
         authController.create(cadastroSingleton.getOng().getEmail(), cadastroSingleton.getSenha())
                 .addOnCompleteListener(act, task -> {
+                    progressDialog.dismiss();
                     if (task.isSuccessful()) {
-                        progressDialog.dismiss();
                         Log.d(TAG, "Sucesso criarUserOng");
                         act.startActivity(new Intent(act, EnviarFoto.class));
                     } else {
                         Log.d(TAG, "Falha criarUserOng");
+                        try{
+                            throw Objects.requireNonNull(task.getException());
+                        } catch (FirebaseAuthUserCollisionException e) {
+                            GeralUtils.setErrorInput(etEmail, "Este email já esta sendo utilizado!");
+                        } catch (Exception e){
+                            GeralUtils.toast(act, "Falha ao criar o usuário.");
+                        }
                     }
                 });
     }

@@ -72,15 +72,14 @@ public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancari
             }
         };
 
-        String nomeOng = OngSingleton.getOngSingleton().getOng().getNome();
-        String msgApagar = nomeOng + ", você deseja realmente apagar o banco (" + banco + ") ?";
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Atenção")
-                .setMessage(msgApagar)
-                .setPositiveButton("Sim", dialogClickListener)
-                .setNegativeButton("Não", dialogClickListener)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        GeralUtils.builderDialog(
+                context,
+                android.R.drawable.ic_dialog_alert,
+                "Atenção",
+                OngSingleton.getOngSingleton().getOng().getNome() + ", você deseja realmente apagar o banco (" + banco + ") ?",
+                "Sim", dialogClickListener,
+                "Não", dialogClickListener
+        ).show();
     }
 
     public static class DadosBancariosViewHolder extends RecyclerView.ViewHolder {

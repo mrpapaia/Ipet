@@ -2,6 +2,7 @@ package br.com.bdt.ipet.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,35 +78,65 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
         holder.tvTipoTransDyanamic.setText(doacao.getTipo());
         holder.tvValorDyanamic.setText(GeralUtils.formatarValor(doacao.getValor()));
 
+        Caso caso = CasoSingleton.getCasoSingleton().getCasos().get(indexCaso).getCaso();
+
         holder.btConfirmarDoacao.setOnClickListener(v -> {
 
-            Caso caso = CasoSingleton.getCasoSingleton().getCasos().get(indexCaso).getCaso();
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    double newValue = caso.getArrecadado() + doacao.getValor();
+                    casoController.updateValor("arrecadado", newValue, caso.getId())
+                            .addOnCompleteListener(task -> {
+                                        doacaoController.delete(doacao.getId())
+                                                .addOnCompleteListener(task1 -> {
+                                                    int idx_doacao = getIndexByIdDoacao(doacao.getId().getId());
+                                                    doacaoList.remove(idx_doacao);
+                                                    notifyItemRemoved(idx_doacao);
+                                                    doacaoController.updateQuantidadeDoacoesAll();
+                                                    updateDetails.onConfirm(newValue);
+                                                    Toast.makeText(context, "Doação confirmada", Toast.LENGTH_SHORT).show();
+                                                });
+                                    }
+                            );
+                }
+            };
 
-            double newValue = caso.getArrecadado() + doacao.getValor();
+            GeralUtils.builderDialog(
+                    context,
+                    android.R.drawable.ic_dialog_alert,
+                    "Atenção",
+                    caso.getOng().getNome()+ ", você confirma que RECEBEU esta doação de " + GeralUtils.formatarValor(doacao.getValor()) + ", no Banco (" + doacao.getBanco() + ") ?",
+                    "Sim", dialogClickListener,
+                    "Não", dialogClickListener
+            ).show();
 
-            casoController.updateValor("arrecadado", newValue, caso.getId())
-                    .addOnCompleteListener(task -> {
-                        doacaoController.delete(doacao.getId())
-                                        .addOnCompleteListener(task1 -> {
-                                            int idx_doacao = getIndexByIdDoacao(doacao.getId().getId());
-                                            doacaoList.remove(idx_doacao);
-                                            notifyItemRemoved(idx_doacao);
-                                            doacaoController.updateQuantidadeDoacoesAll();
-                                            updateDetails.onConfirm(newValue);
-                                            Toast.makeText(context, "Doação confirmada", Toast.LENGTH_SHORT).show();
-                                        });
-                            }
-                    );
+
         });
 
-        holder.btNaoRecebido.setOnClickListener(v -> doacaoController.delete(doacao.getId())
-                .addOnCompleteListener(task -> {
-                    int idx_doacao = getIndexByIdDoacao(doacao.getId().getId());
-                    doacaoList.remove(idx_doacao);
-                    notifyItemRemoved(idx_doacao);
-                    Toast.makeText(context, "Doação removida", Toast.LENGTH_SHORT).show();
-                })
-        );
+        holder.btNaoRecebido.setOnClickListener(v -> {
+
+            DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
+                if(which == DialogInterface.BUTTON_POSITIVE){
+                    doacaoController.delete(doacao.getId())
+                            .addOnCompleteListener(task -> {
+                                int idx_doacao = getIndexByIdDoacao(doacao.getId().getId());
+                                doacaoList.remove(idx_doacao);
+                                notifyItemRemoved(idx_doacao);
+                                Toast.makeText(context, "Doação removida", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            };
+
+            GeralUtils.builderDialog(
+                    context,
+                    android.R.drawable.ic_dialog_alert,
+                    "Atenção",
+                    caso.getOng().getNome()+ ", você confirma que NÃO RECEBEU esta doação de " +  GeralUtils.formatarValor(doacao.getValor()) + ", no Banco (" + doacao.getBanco() + ") ?",
+                    "Sim", dialogClickListener,
+                    "Não", dialogClickListener
+            ).show();
+
+        });
 
     }
 

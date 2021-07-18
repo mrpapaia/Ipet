@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -37,6 +38,7 @@ public class CasoController {
     private final FirebaseFirestore db;
     private final String emailOng;
     private IChanges iChanges;
+    private ListenerRegistration listener;
 
     public CasoController() {
         casoSingleton = CasoSingleton.getCasoSingleton();
@@ -95,7 +97,7 @@ public class CasoController {
     }
 
     public void listenerCasosAll(){
-        repositoryCaso.findAll().addSnapshotListener((value, error) -> {
+        listener = repositoryCaso.findAll().addSnapshotListener((value, error) -> {
             if(value != null){
                 runActions(value.getDocumentChanges());
             }
@@ -103,11 +105,17 @@ public class CasoController {
     }
 
     public void listenerCasosOng(){
-        repositoryCaso.findByOng(emailOng).addSnapshotListener((value, error) -> {
+        listener = repositoryCaso.findByOng(emailOng).addSnapshotListener((value, error) -> {
             if(value != null){
                 runActions(value.getDocumentChanges());
             }
         });
+    }
+
+    public void removeListener(){
+        if(listener != null){
+            listener.remove();
+        }
     }
 
     public void runActions(List<DocumentChange> docs){
@@ -166,6 +174,7 @@ public class CasoController {
 
     public void adicionarCaso(Caso caso){
         CasoComDoacao casoComDoacao = new CasoComDoacao(caso);
+        if(casoSingleton.getCasos().contains(casoComDoacao)) return;
         casoSingleton.getCasos().add(casoComDoacao);
         iChanges.onChange();
     }

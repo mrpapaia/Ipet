@@ -77,7 +77,7 @@ public class ListaDeDoacoesPendentes extends AppCompatActivity {
         tvMetaDynamic.setText(GeralUtils.formatarValor(caso.getCaso().getValor()));
         tvArrecadadoDynamic.setText(GeralUtils.formatarValor(caso.getCaso().getArrecadado()));
 
-        rvDoacoesPendentesAdapter = new RvDoacoesPendentesAdapter(getApplicationContext(),
+        rvDoacoesPendentesAdapter = new RvDoacoesPendentesAdapter(ListaDeDoacoesPendentes.this,
                 caso.getDoacaoList(),
                 doacaoController,
                 position,

@@ -10,7 +10,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.util.Objects;
@@ -67,17 +66,19 @@ public class ListaCasosComDoacaoPendente extends AppCompatActivity {
         rvCasosComDoacaoPendenteAdapter = new RvCasosComDoacaoPendenteAdapter(getApplicationContext(), casoSingleton.getCasos(), position -> {
 
             doacaoController.getAllByCaso(casoSingleton.getCasos().get(position)).addOnCompleteListener(command -> {
-                Log.d("Valtenis", casoSingleton.getCasos().get(position).getDoacaoList().toString());
                 Intent it = new Intent(getApplicationContext(), ListaDeDoacoesPendentes.class);
                 it.putExtra("position", position);
                 startActivity(it);
             });
 
-        }, qtdCasos -> {
-            tvQtdCasosPendentes.setText("No momento há " + qtdCasos + " caso(s) pendente(s)!");
-        });
+        }, qtdCasos -> tvQtdCasosPendentes.setText("No momento há " + qtdCasos + " caso(s) pendente(s)!"));
 
         rvCasosComDoacaoPendenter.setAdapter(rvCasosComDoacaoPendenteAdapter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        rvCasosComDoacaoPendenteAdapter.removeListeners();
+    }
 }

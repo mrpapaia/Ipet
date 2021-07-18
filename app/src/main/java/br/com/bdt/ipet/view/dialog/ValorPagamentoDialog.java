@@ -48,8 +48,8 @@ public class ValorPagamentoDialog extends DialogFragment {
             EditText etValorDoacao = view.findViewById(R.id.etValorDoacao);
             String valorString = etValorDoacao.getText().toString();
 
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+            //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
             if(isValidInput(valorString, "double")){
                 Double valor = Double.parseDouble(valorString);
 

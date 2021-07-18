@@ -45,13 +45,20 @@ public abstract class Mask {
         return mascara;
     }
 
-    public static TextWatcher insert(final String mask, final EditText ediTxt) {
+    public static TextWatcher insert(final String mask1, final EditText ediTxt) {
+
         return new TextWatcher() {
             boolean isUpdating;
             String old = "";
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String str = Mask.unmask(s.toString());
+                String mask = mask1;
+
+                if(mask.equals(Mask.CPF_MASK) && str.length() > 11){
+                    mask = Mask.CNPJ_MASK;
+                }
+
                 String mascara = "";
                 if (isUpdating) {
                     old = str;

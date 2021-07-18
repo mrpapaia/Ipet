@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.ListenerRegistration;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -75,6 +77,10 @@ public class RvCasosComDoacaoPendenteAdapter extends RecyclerView.Adapter<RvCaso
 
         }
 
+    }
+
+    public void removeListeners(){
+        doacaoController.removeListeners();
     }
 
     @SuppressLint("SetTextI18n")

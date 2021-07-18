@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -105,6 +104,12 @@ public class QueroAjudarOng extends AppCompatActivity {
 
     public void voltar(View view){
         onBackPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        casoController.removeListener();
     }
 
 }

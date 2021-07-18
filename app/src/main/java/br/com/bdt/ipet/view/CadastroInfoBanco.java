@@ -24,6 +24,7 @@ import br.com.bdt.ipet.data.model.Banco;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.singleton.CadastroSingleton;
 import br.com.bdt.ipet.util.GeralUtils;
+import br.com.bdt.ipet.util.Mask;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
@@ -38,7 +39,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
     private EditText etCNPJContaBanco;
     private CadastroSingleton cadastroSingleton;
     private boolean isAdd;
-    private  String email;
+    private String email;
 
 
     @SuppressWarnings("ConstantConditions")
@@ -57,6 +58,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
         cbHablitapix = findViewById(R.id.cbHabilitaPix);
         etChavePix = findViewById(R.id.etChavePix);
         etCNPJContaBanco = findViewById(R.id.etCNPJContaBanco);
+        etCNPJContaBanco.addTextChangedListener(Mask.insert(Mask.CPF_MASK, etCNPJContaBanco));
 
         isAdd = getIntent().getBooleanExtra("isAdd", false);
         if (isAdd) {
@@ -64,6 +66,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
             Button btPularEtapa = findViewById(R.id.btPularEtapa);
             btPularEtapa.setText("Cancelar");
         }
+
         title.setText("Dados Bancarios");
         title_extra.setText("");
         setSupportActionBar(myToolbar);
@@ -76,6 +79,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
 
             onBackPressed();
         });
+
         etChavePix.setVisibility(View.INVISIBLE);
         cadastroSingleton = CadastroSingleton.getCadastroSingleton();
         initAutoComplet();

@@ -1,9 +1,6 @@
 package br.com.bdt.ipet.control;
 
 import android.app.Activity;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,15 +23,11 @@ public class OngMainController {
         ongRepository = new OngRepository(FirebaseFirestore.getInstance());
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public Task<DocumentSnapshot> initOng() {
-
         AuthController authController = new AuthController();
         String email = authController.getCurrentEmail();
         return ongRepository.findById(email).addOnSuccessListener(doc -> {
             Ong ong = doc.toObject(Ong.class);
-            // String imgPerfil = doc.getString("imgPerfil");
-            // ong.setImgPerfil(imgPerfil != null ? imgPerfil : "");
             ongSingleton.setOng(ong);
         });
     }
@@ -44,7 +37,6 @@ public class OngMainController {
         String email = authController.getCurrentEmail();
         ongRepository.listennerDoc(email).addSnapshotListener((documentSnapshot, error) -> {
             ongSingleton.setOng(documentSnapshot.toObject(Ong.class));
-            //Log.d("SaidaListenner", documentSnapshot.toString());
         });
     }
 
