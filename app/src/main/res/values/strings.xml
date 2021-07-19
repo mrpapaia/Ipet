@@ -50,7 +50,7 @@
     <string name="valor_em_reais_r">Valor em Reais (R$)</string>
     <string name="pr_xima_etapa">Próxima etapa</string>
     <string name="esp_cie">Espécie</string>
-    <string name="faixa_de_valor">Faixa de valor</string>
+    <string name="faixa_de_valor">Faixa de valor (R$)</string>
     <string name="sep">-</string>
     <string name="confirmar">Confirmar</string>
     <string name="filtro_por_esp_cie">Filtro por espécie</string>

@@ -29,7 +29,10 @@ import br.com.bdt.ipet.control.PagamentoController;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Doacao;
+import br.com.bdt.ipet.util.GeralUtils;
 import br.com.bdt.ipet.util.MoneyTextWatcher;
+
+import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
 public class PagamentoDialog extends DialogFragment {
 
@@ -49,6 +52,7 @@ public class PagamentoDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Caso caso = getArguments().getParcelable("caso");
         double valor = getArguments().getDouble("valor");
+        System.out.println(this.getClass().toString() + " valor: " + valor);
         int index = getArguments().getInt("indexBanco");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -59,7 +63,7 @@ public class PagamentoDialog extends DialogFragment {
 
         EditText et = view.findViewById(R.id.etValorPagar);
         et.addTextChangedListener(new MoneyTextWatcher(et));
-        et.setText(Double.toString(valor));
+        et.setText(MoneyTextWatcher.formatTextPrice(String.valueOf(valor)));
 
         et.setFocusable(false);
         et.setOnClickListener(view1 -> et.setFocusableInTouchMode(true));
@@ -130,11 +134,17 @@ public class PagamentoDialog extends DialogFragment {
 
             String bancoDoacao = dadosBancario.getBanco();
             String metodoDoacao = spMetodoPagamento.getSelectedItem().toString();
-            double valorDoacao = Double.parseDouble(MoneyTextWatcher.formatPrice(et.getText().toString()));
+            String valorString = et.getText().toString();
+
+            if(!isValidInput(valorString, "double")){
+                GeralUtils.setErrorInput(et, "Insira um valor válido");
+                return;
+            }
+
+            double valorDoacao = Double.parseDouble(MoneyTextWatcher.formatPriceSave(valorString));
             Date dataDoacao = new Date();
 
             Doacao doacao = new Doacao(bancoDoacao, metodoDoacao, valorDoacao, dataDoacao);
-            System.out.println(doacao.toString());
 
             PagamentoController pagamentoController = new PagamentoController();
             pagamentoController.saveDoacao(caso, doacao);
@@ -145,7 +155,6 @@ public class PagamentoDialog extends DialogFragment {
             getActivity().getSupportFragmentManager().executePendingTransactions();
 
             dialog.getDialog().getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-
             this.dismiss();
         });
 

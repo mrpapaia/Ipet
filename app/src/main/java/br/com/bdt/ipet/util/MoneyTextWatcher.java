@@ -39,7 +39,8 @@ public class MoneyTextWatcher implements TextWatcher {
         //Remove o símbolo da moeda e espaçamento pra evitar bug
         String replaceable = String.format("[%s\\s]", getCurrencySymbol());
         String cleanString = formatted.replaceAll(replaceable, "");
-
+        cleanString = formatPrice(cleanString).equals("0.00") ? "" : cleanString;
+        System.out.println("cleanString: " + cleanString);
         editText.setText(cleanString);
         editText.setSelection(cleanString.length());
         editText.addTextChangedListener(this);
@@ -65,8 +66,7 @@ public class MoneyTextWatcher implements TextWatcher {
         //Ex - price = 2222
         //retorno = 2222.00
         DecimalFormat df = new DecimalFormat("0.00");
-        return String.valueOf(df.format(Double.valueOf(price)));
-
+        return String.valueOf(df.format(Double.valueOf(price.replace(",", ""))));
     }
 
     public static String formatTextPrice(String price) {
@@ -78,18 +78,16 @@ public class MoneyTextWatcher implements TextWatcher {
         String newFormat = String.valueOf(NumberFormat.getCurrencyInstance(Locale.getDefault()).format(bD));
         String replaceable = String.format("[%s]", getCurrencySymbol());
         return newFormat.replaceAll(replaceable, "");
-
     }
 
     public static String formatPriceSave(String price) {
+        if(price.equals("")) return "";
         //Ex - price = $ 5555555
         //return = 55555.55 para salvar no banco de dados
         String replaceable = String.format("[%s,.\\s]", getCurrencySymbol());
         String cleanString = price.replaceAll(replaceable, "");
         StringBuilder stringBuilder = new StringBuilder(cleanString.replaceAll(" ", ""));
-
         return String.valueOf(stringBuilder.insert(cleanString.length() - 2, '.'));
-
     }
 
     public static String getCurrencySymbol() {

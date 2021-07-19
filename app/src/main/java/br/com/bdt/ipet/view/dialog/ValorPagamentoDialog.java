@@ -44,17 +44,13 @@ public class ValorPagamentoDialog extends DialogFragment {
 
         builder.setView(view);
 
-        // Dialogo do valor do Pagamento.
-
         Button btnConfirmar = view.findViewById(R.id.bConfirmar);
         View.OnClickListener listenerConfirmar = v -> {
 
-            String valorString = MoneyTextWatcher.formatPrice(etValorDoacao.getText().toString());
+            String valorString = etValorDoacao.getText().toString();
 
-            //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
             if(isValidInput(valorString, "double")){
-                Double valor = Double.parseDouble(valorString);
+                Double valor = Double.parseDouble(MoneyTextWatcher.formatPrice(etValorDoacao.getText().toString()));
 
                 DialogFragment dialog = MetodoPagamentoDialog.newInstance(caso, valor);
                 dialog.show(getActivity().getSupportFragmentManager(), "metodoPagamento");

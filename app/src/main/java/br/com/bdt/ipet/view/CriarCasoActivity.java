@@ -92,7 +92,7 @@ public class CriarCasoActivity extends AppCompatActivity {
             etDescricaoCaso.setText(casoEdit.getDescricao());
             etNomeAnimalCaso.setText(casoEdit.getNomeAnimal());
             spEspecieCaso.setSelection(especies.indexOf(casoEdit.getEspecie()));
-            etValorCaso.setText(String.valueOf(casoEdit.getValor()));
+            etValorCaso.setText(MoneyTextWatcher.formatTextPrice(String.valueOf(casoEdit.getValor())));
         }
 
     }

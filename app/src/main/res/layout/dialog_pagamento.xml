@@ -115,7 +115,7 @@
         <EditText
             android:id="@+id/etValorPagar"
             style="@style/fildTextStyleFrist"
-            android:layout_width="142dp"
+            android:layout_width="170dp"
             android:layout_height="45dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="6dp"

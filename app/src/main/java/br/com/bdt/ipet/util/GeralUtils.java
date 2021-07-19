@@ -186,13 +186,13 @@ public class GeralUtils {
     }
 
     public static boolean isDouble(String str) {
-
-        try {
-            Double.parseDouble(str.replace(',', '.'));
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+        return !str.equals("");
+//        try {
+//            Double.parseDouble(str.replace(',', '.'));
+//            return true;
+//        } catch (NumberFormatException e) {
+//            return false;
+//        }
     }
 
     public static boolean isInteger(String str){

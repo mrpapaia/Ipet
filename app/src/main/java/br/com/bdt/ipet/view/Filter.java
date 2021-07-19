@@ -88,8 +88,14 @@ public class Filter extends AppCompatActivity {
 
         DadosFiltro dados = filterController.getDadosFiltro();
 
-        etValorMin.setText((dados.getMinValue() == 0.0 ? "" : String.valueOf(dados.getMinValue())));
-        etValorMax.setText((dados.getMaxValue() == 0.0 ? "" : String.valueOf(dados.getMaxValue())));
+        if(dados.getMinValue() != 0.0){
+            etValorMin.setText(MoneyTextWatcher.formatTextPrice(String.valueOf(dados.getMinValue())));
+        }
+
+        if(dados.getMaxValue() != 0.0){
+            etValorMax.setText(MoneyTextWatcher.formatTextPrice(String.valueOf(dados.getMaxValue())));
+        }
+
         acUf.setText(dados.getUf());
         acMunicipio.setText(dados.getCidade());
 
@@ -103,8 +109,18 @@ public class Filter extends AppCompatActivity {
     public void filtrar(View view){
 
         String[] especies = filterController.especiesSelected();
-        Double minValue = GeralUtils.getDouble(MoneyTextWatcher.formatPrice(etValorMin.getText().toString()));
-        Double maxValue = GeralUtils.getDouble(MoneyTextWatcher.formatPrice(etValorMax.getText().toString()));
+
+        String strMinValue = etValorMin.getText().toString();
+        String strMaxValue = etValorMax.getText().toString();
+
+        Double minValue = GeralUtils.getDouble(MoneyTextWatcher.formatPrice(strMinValue.equals("") ? "0.0" : strMinValue));
+        Double maxValue = GeralUtils.getDouble(MoneyTextWatcher.formatPrice(strMaxValue.equals("") ? "0.0" : strMaxValue));
+
+        if(maxValue < minValue && !strMaxValue.equals("")){
+            GeralUtils.setErrorInput(etValorMax, "Informe um valor máximo maior que o valor mínimo.");
+            return;
+        }
+
         String uf = acUf.getText().toString();
         String cidade = acMunicipio.getText().toString();
 
