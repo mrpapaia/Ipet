@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
-import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +16,7 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.FilterController;
 import br.com.bdt.ipet.data.model.DadosFiltro;
 import br.com.bdt.ipet.util.GeralUtils;
+import br.com.bdt.ipet.util.MoneyTextWatcher;
 
 import java.util.Objects;
 
@@ -57,7 +57,9 @@ public class Filter extends AppCompatActivity {
 
     public void initViews(){
         etValorMin = findViewById(R.id.etValorMin);
+        etValorMin.addTextChangedListener(new MoneyTextWatcher(etValorMin));
         etValorMax = findViewById(R.id.etValorMax);
+        etValorMax.addTextChangedListener(new MoneyTextWatcher(etValorMax));
         acUf = findViewById(R.id.acUF);
         acMunicipio = findViewById(R.id.acMunicipio);
         GeralUtils.initAutoCompletUfCity(getApplicationContext(), acUf, acMunicipio);
@@ -101,8 +103,8 @@ public class Filter extends AppCompatActivity {
     public void filtrar(View view){
 
         String[] especies = filterController.especiesSelected();
-        Double minValue = GeralUtils.getDouble(etValorMin.getText().toString());
-        Double maxValue = GeralUtils.getDouble(etValorMax.getText().toString());
+        Double minValue = GeralUtils.getDouble(MoneyTextWatcher.formatPrice(etValorMin.getText().toString()));
+        Double maxValue = GeralUtils.getDouble(MoneyTextWatcher.formatPrice(etValorMax.getText().toString()));
         String uf = acUf.getText().toString();
         String cidade = acMunicipio.getText().toString();
 

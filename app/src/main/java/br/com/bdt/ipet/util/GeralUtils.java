@@ -77,7 +77,7 @@ public class GeralUtils {
 
     @SuppressLint("DefaultLocale")
     public static String formatarValor(double valor){
-        return String.format("R$ %.2f", valor);
+        return String.format("R$ %s", MoneyTextWatcher.formatTextPrice(valor+""));
     }
 
     public static Map<String, Object> CasoToMap(Caso caso){
