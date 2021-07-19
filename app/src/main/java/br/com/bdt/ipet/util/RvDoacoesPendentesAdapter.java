@@ -103,11 +103,11 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
 
             GeralUtils.builderDialog(
                     context,
-                    android.R.drawable.ic_dialog_alert,
-                    "Atenção",
-                    caso.getOng().getNome()+ ", você confirma que RECEBEU esta doação de " + GeralUtils.formatarValor(doacao.getValor()) + ", no Banco (" + doacao.getBanco() + ") ?",
-                    "Sim", dialogClickListener,
-                    "Não", dialogClickListener
+                    R.drawable.ic_alerta,
+                    "Opa... vamos com calma!",
+                    caso.getOng().getNome()+ ", você confirma que RECEBEU à doação de " + GeralUtils.formatarValor(doacao.getValor()) + " no '" + doacao.getBanco() + "' ?",
+                    "Confirmo", dialogClickListener,
+                    "Não garanto muito", dialogClickListener
             ).show();
 
 
@@ -129,11 +129,11 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
 
             GeralUtils.builderDialog(
                     context,
-                    android.R.drawable.ic_dialog_alert,
-                    "Atenção",
-                    caso.getOng().getNome()+ ", você confirma que NÃO RECEBEU esta doação de " +  GeralUtils.formatarValor(doacao.getValor()) + ", no Banco (" + doacao.getBanco() + ") ?",
-                    "Sim", dialogClickListener,
-                    "Não", dialogClickListener
+                    R.drawable.ic_alerta,
+                    "Opa... vamos com calma!",
+                    caso.getOng().getNome()+ ", você confirma que NÃO RECEBEU à doação de " +  GeralUtils.formatarValor(doacao.getValor()) + " no '" + doacao.getBanco() + "' ?",
+                    "Não recebi", dialogClickListener,
+                    "Não garanto muito", dialogClickListener
             ).show();
 
         });

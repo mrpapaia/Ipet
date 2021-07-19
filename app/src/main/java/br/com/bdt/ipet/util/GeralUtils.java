@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Estado;
@@ -38,7 +39,7 @@ public class GeralUtils {
     }
 
     public static AlertDialog.Builder builderDialog(Context context, int idIcon, String title, String message, String textBt1, DialogInterface.OnClickListener listenerBt1){
-        return new AlertDialog.Builder(context)
+        return new AlertDialog.Builder(context, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT)
                 .setTitle(title)
                 .setMessage(message)
                 .setPositiveButton(textBt1, listenerBt1)

@@ -22,6 +22,7 @@ import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.util.GeralUtils;
+import br.com.bdt.ipet.util.MoneyTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,7 @@ public class CriarCasoActivity extends AppCompatActivity {
         etDescricaoCaso = findViewById(R.id.etDescricaoCaso);
         etNomeAnimalCaso = findViewById(R.id.etNomeAnimalCaso);
         etValorCaso = findViewById(R.id.etValorCaso);
+        etValorCaso.addTextChangedListener(new MoneyTextWatcher(etValorCaso));
         spEspecieCaso = findViewById(R.id.spEspecieCaso);
 
         List<String> especies = new ArrayList<>();
@@ -117,7 +119,7 @@ public class CriarCasoActivity extends AppCompatActivity {
 
         String especie = GeralUtils.getDataOfSp(this, R.id.spEspecieCaso);
 
-        String valorString = etValorCaso.getText().toString();
+        String valorString = MoneyTextWatcher.formatPriceSave(etValorCaso.getText().toString());
         if(!isValidInput(valorString, "double")){
             GeralUtils.setErrorInput(etValorCaso, "Insira um valor válido");
             return null;

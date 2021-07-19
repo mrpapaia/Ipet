@@ -15,6 +15,7 @@ import androidx.fragment.app.DialogFragment;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.util.GeralUtils;
+import br.com.bdt.ipet.util.MoneyTextWatcher;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
@@ -38,6 +39,9 @@ public class ValorPagamentoDialog extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_valor_pagamento, null);
 
+        EditText etValorDoacao = view.findViewById(R.id.etValorDoacao);
+        etValorDoacao.addTextChangedListener(new MoneyTextWatcher(etValorDoacao));
+
         builder.setView(view);
 
         // Dialogo do valor do Pagamento.
@@ -45,8 +49,7 @@ public class ValorPagamentoDialog extends DialogFragment {
         Button btnConfirmar = view.findViewById(R.id.bConfirmar);
         View.OnClickListener listenerConfirmar = v -> {
 
-            EditText etValorDoacao = view.findViewById(R.id.etValorDoacao);
-            String valorString = etValorDoacao.getText().toString();
+            String valorString = MoneyTextWatcher.formatPrice(etValorDoacao.getText().toString());
 
             //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             //imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);

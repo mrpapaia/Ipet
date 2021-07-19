@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -118,9 +119,10 @@ public class OngMain extends AppCompatActivity {
         }else{
             GeralUtils.builderDialog(
                     OngMain.this,
-                    android.R.drawable.ic_dialog_alert,
-                    "Atenção",
-                    ong.getNome() + ", não é possível criar um caso sem dados bancários, por favor cadastre pelo menos um banco.",
+                    //android.R.drawable.ic_dialog_alert,
+                    R.drawable.ic_alerta,
+                    "Ops.. Algo não está certo!",
+                    ong.getNome() + ", não é possível criar um caso sem dados bancários, vamos cadastrar um banco ? ",
                     "Cadastrar Banco", (dialog1, buttonId) -> initCadastroBancario()
             ).show();
         }

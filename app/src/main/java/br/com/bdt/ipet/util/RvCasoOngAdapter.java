@@ -99,11 +99,11 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
 
         GeralUtils.builderDialog(
                 context,
-                android.R.drawable.ic_dialog_alert,
-                "Atenção",
-                caso.getOng().getNome() + ", você deseja realmente apagar o caso (" + caso.getTitulo() + ") ?",
+                R.drawable.ic_alerta,
+                "Muita atenção agora",
+                caso.getOng().getNome() + ", realmente deseja excluir o caso '" + caso.getTitulo() + "' ?",
                 "Sim", dialogClickListener,
-                "Não", dialogClickListener
+                "Não, cliquei errado", dialogClickListener
         ).show();
     }
 

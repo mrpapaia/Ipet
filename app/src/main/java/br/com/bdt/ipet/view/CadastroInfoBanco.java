@@ -97,7 +97,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
 
     }
 
-    public void hablitaPix(View v) {
+    public void habilitaPix(View v) {
         if (cbHablitapix.isChecked()) {
             etChavePix.setVisibility(View.VISIBLE);
             return;
@@ -141,6 +141,7 @@ public class CadastroInfoBanco extends AppCompatActivity {
 
         if(isAdd){
             cadastroController.updateDadosBancario(this, email, dadosBancario);
+            GeralUtils.toast(this, "Banco criado com sucesso");
             return;
         }
 

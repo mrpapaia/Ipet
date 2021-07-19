@@ -91,6 +91,10 @@ public class CadastroOng extends AppCompatActivity {
         if (!isValidInput(senha, "text")) {
             GeralUtils.setErrorInput(etSenha, "Insira uma senha");
             return;
+        } else if (!senha.matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+            GeralUtils.setErrorInput(etSenha, "Senha inválida, informe uma senha com 8+ caracteres, " +
+                    "letras maiúsculas e minúsculas, números, caracteres especiais");
+            return;
         }
 
         String whatsapp = etWhatsapp.getText().toString();

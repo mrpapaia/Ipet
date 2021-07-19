@@ -50,6 +50,7 @@
             android:text="@string/caixa_economica_federal"
             android:textColorLink="@color/fildTextColor"
             android:textSize="14sp"
+            android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/tvContaBanco"
             app:layout_constraintStart_toStartOf="parent"

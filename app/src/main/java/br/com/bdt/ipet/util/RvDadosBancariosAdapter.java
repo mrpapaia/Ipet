@@ -74,9 +74,9 @@ public class RvDadosBancariosAdapter extends RecyclerView.Adapter<RvDadosBancari
 
         GeralUtils.builderDialog(
                 context,
-                android.R.drawable.ic_dialog_alert,
-                "Atenção",
-                OngSingleton.getOngSingleton().getOng().getNome() + ", você deseja realmente apagar o banco (" + banco + ") ?",
+                R.drawable.ic_alerta,
+                "Muita atenção agora!",
+                OngSingleton.getOngSingleton().getOng().getNome() + ", você de fato deseja apagar o '" + banco + "' ?",
                 "Sim", dialogClickListener,
                 "Não", dialogClickListener
         ).show();
