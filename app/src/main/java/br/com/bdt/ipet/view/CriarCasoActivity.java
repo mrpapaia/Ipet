@@ -5,7 +5,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +21,6 @@ import br.com.bdt.ipet.singleton.CasoSingleton;
 import br.com.bdt.ipet.singleton.OngSingleton;
 import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.util.GeralUtils;
-import br.com.bdt.ipet.util.MoneyTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +66,6 @@ public class CriarCasoActivity extends AppCompatActivity {
         etDescricaoCaso = findViewById(R.id.etDescricaoCaso);
         etNomeAnimalCaso = findViewById(R.id.etNomeAnimalCaso);
         etValorCaso = findViewById(R.id.etValorCaso);
-        etValorCaso.addTextChangedListener(new MoneyTextWatcher(etValorCaso));
         spEspecieCaso = findViewById(R.id.spEspecieCaso);
 
         List<String> especies = new ArrayList<>();
@@ -92,7 +89,7 @@ public class CriarCasoActivity extends AppCompatActivity {
             etDescricaoCaso.setText(casoEdit.getDescricao());
             etNomeAnimalCaso.setText(casoEdit.getNomeAnimal());
             spEspecieCaso.setSelection(especies.indexOf(casoEdit.getEspecie()));
-            etValorCaso.setText(MoneyTextWatcher.formatTextPrice(String.valueOf(casoEdit.getValor())));
+            etValorCaso.setText(String.valueOf(casoEdit.getValor()));
         }
 
     }
@@ -119,7 +116,7 @@ public class CriarCasoActivity extends AppCompatActivity {
 
         String especie = GeralUtils.getDataOfSp(this, R.id.spEspecieCaso);
 
-        String valorString = MoneyTextWatcher.formatPriceSave(etValorCaso.getText().toString());
+        String valorString = etValorCaso.getText().toString();
         if(!isValidInput(valorString, "double")){
             GeralUtils.setErrorInput(etValorCaso, "Insira um valor válido");
             return null;

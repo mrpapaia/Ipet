@@ -1,11 +1,9 @@
 package br.com.bdt.ipet.view.dialog;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -15,7 +13,6 @@ import androidx.fragment.app.DialogFragment;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.util.GeralUtils;
-import br.com.bdt.ipet.util.MoneyTextWatcher;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
@@ -40,7 +37,6 @@ public class ValorPagamentoDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_valor_pagamento, null);
 
         EditText etValorDoacao = view.findViewById(R.id.etValorDoacao);
-        etValorDoacao.addTextChangedListener(new MoneyTextWatcher(etValorDoacao));
 
         builder.setView(view);
 
@@ -50,7 +46,7 @@ public class ValorPagamentoDialog extends DialogFragment {
             String valorString = etValorDoacao.getText().toString();
 
             if(isValidInput(valorString, "double")){
-                Double valor = Double.parseDouble(MoneyTextWatcher.formatPrice(etValorDoacao.getText().toString()));
+                Double valor = Double.parseDouble(etValorDoacao.getText().toString());
 
                 DialogFragment dialog = MetodoPagamentoDialog.newInstance(caso, valor);
                 dialog.show(getActivity().getSupportFragmentManager(), "metodoPagamento");

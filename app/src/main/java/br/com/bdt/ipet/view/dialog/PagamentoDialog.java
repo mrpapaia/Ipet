@@ -30,7 +30,6 @@ import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Doacao;
 import br.com.bdt.ipet.util.GeralUtils;
-import br.com.bdt.ipet.util.MoneyTextWatcher;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
@@ -62,8 +61,7 @@ public class PagamentoDialog extends DialogFragment {
         DadosBancario dadosBancario = caso.getOng().getDadosBancarios().get(index);
 
         EditText et = view.findViewById(R.id.etValorPagar);
-        et.addTextChangedListener(new MoneyTextWatcher(et));
-        et.setText(MoneyTextWatcher.formatTextPrice(String.valueOf(valor)));
+        et.setText(String.valueOf(valor));
 
         et.setFocusable(false);
         et.setOnClickListener(view1 -> et.setFocusableInTouchMode(true));
@@ -141,7 +139,7 @@ public class PagamentoDialog extends DialogFragment {
                 return;
             }
 
-            double valorDoacao = Double.parseDouble(MoneyTextWatcher.formatPriceSave(valorString));
+            double valorDoacao = Double.parseDouble(valorString);
             Date dataDoacao = new Date();
 
             Doacao doacao = new Doacao(bancoDoacao, metodoDoacao, valorDoacao, dataDoacao);

@@ -57,13 +57,10 @@ public class ConsumerData {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                },
-                error -> Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show());
+                }, error -> {});
 
         requestQueue.add(jsonObjectRequest);
-
     }
-
 
     public void getEstados(Context context, DataSiteEstado dataSiteEstado){
 

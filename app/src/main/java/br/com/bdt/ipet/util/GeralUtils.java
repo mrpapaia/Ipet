@@ -18,8 +18,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import br.com.bdt.ipet.R;
@@ -77,7 +79,8 @@ public class GeralUtils {
 
     @SuppressLint("DefaultLocale")
     public static String formatarValor(double valor){
-        return String.format("R$ %s", MoneyTextWatcher.formatTextPrice(valor+""));
+        NumberFormat nf = NumberFormat.getInstance(new Locale("pt", "BR"));
+        return String.format("R$ %s", nf.format(valor));
     }
 
     public static Map<String, Object> CasoToMap(Caso caso){

@@ -107,7 +107,7 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
                     "Opa... vamos com calma!",
                     caso.getOng().getNome()+ ", você confirma que RECEBEU à doação de " + GeralUtils.formatarValor(doacao.getValor()) + " no '" + doacao.getBanco() + "' ?",
                     "Confirmo", dialogClickListener,
-                    "Não garanto muito", dialogClickListener
+                    "Não Confirmo", dialogClickListener
             ).show();
 
 
@@ -132,8 +132,8 @@ public class RvDoacoesPendentesAdapter extends RecyclerView.Adapter<RvDoacoesPen
                     R.drawable.ic_alerta,
                     "Opa... vamos com calma!",
                     caso.getOng().getNome()+ ", você confirma que NÃO RECEBEU à doação de " +  GeralUtils.formatarValor(doacao.getValor()) + " no '" + doacao.getBanco() + "' ?",
-                    "Não recebi", dialogClickListener,
-                    "Não garanto muito", dialogClickListener
+                    "Confirmo", dialogClickListener,
+                    "Não Confirmo", dialogClickListener
             ).show();
 
         });

@@ -122,7 +122,7 @@
             android:layout_marginBottom="10dp"
             android:drawableRight="@drawable/icon_pencil"
             android:ems="10"
-            android:maxLength="10"
+            android:maxLength="6"
             android:inputType="numberDecimal"
             android:textColor="#000"
             android:textSize="24sp"

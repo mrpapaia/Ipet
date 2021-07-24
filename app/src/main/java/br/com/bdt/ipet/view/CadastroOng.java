@@ -140,8 +140,6 @@ public class CadastroOng extends AppCompatActivity {
                 valid = code.equals("94.30-8-00");
             }
 
-            valid = true; //Remover esta linha para validar corretamente um CNPJ
-
             if(valid) {
                 Ong ong = new Ong(nome, email, Mask.unmask(whatsapp), CNPJ, uf, cidade);
                 cadastroSingleton.setOng(ong);
