@@ -39,7 +39,6 @@
             android:layout_marginBottom="15dp"
             android:drawableStart="@drawable/ic_cifrao"
             android:hint="@string/valor"
-            android:maxLength="6"
             android:inputType="numberDecimal"
             app:layout_constraintBottom_toTopOf="@+id/bConfirmar"
             app:layout_constraintEnd_toEndOf="parent"

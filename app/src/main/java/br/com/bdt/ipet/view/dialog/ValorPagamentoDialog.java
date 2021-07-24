@@ -2,6 +2,7 @@ package br.com.bdt.ipet.view.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.util.GeralUtils;
+import br.com.bdt.ipet.util.Mask;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
@@ -39,14 +41,15 @@ public class ValorPagamentoDialog extends DialogFragment {
         EditText etValorDoacao = view.findViewById(R.id.etValorDoacao);
 
         builder.setView(view);
+        etValorDoacao.addTextChangedListener(Mask.insertCurrency(etValorDoacao));
 
         Button btnConfirmar = view.findViewById(R.id.bConfirmar);
         View.OnClickListener listenerConfirmar = v -> {
 
-            String valorString = etValorDoacao.getText().toString();
+            String valorString = etValorDoacao.getText().toString().replaceAll("[R$.]", "").replaceAll("\\s","").replaceAll("[,]", ".");
 
             if(isValidInput(valorString, "double")){
-                Double valor = Double.parseDouble(etValorDoacao.getText().toString());
+                Double valor = Double.parseDouble(valorString);
 
                 DialogFragment dialog = MetodoPagamentoDialog.newInstance(caso, valor);
                 dialog.show(getActivity().getSupportFragmentManager(), "metodoPagamento");
