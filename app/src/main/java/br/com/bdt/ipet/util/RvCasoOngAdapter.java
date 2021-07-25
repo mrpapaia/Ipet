@@ -63,6 +63,7 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
         holder.tvDescricao.setText(caso.getDescricao());
         holder.tvAnimalData.setText(caso.getNomeAnimal() + " (" + caso.getEspecie() + ")");
         holder.tvValor.setText(GeralUtils.formatarValor(caso.getValor()));
+        holder.tvValorArrecadado.setText(GeralUtils.formatarValor(caso.getArrecadado()));
         holder.tvOptionsCaso.setOnClickListener(view -> {
 
             PopupMenu popup = new PopupMenu(context, holder.tvOptionsCaso);
@@ -112,6 +113,7 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
         TextView tvTitulo;
         TextView tvDescricao;
         TextView tvValor;
+        TextView tvValorArrecadado;
         TextView tvOptionsCaso;
         TextView tvAnimalData;
         View view;
@@ -122,6 +124,7 @@ public class RvCasoOngAdapter extends RecyclerView.Adapter<RvCasoOngAdapter.Caso
             tvTitulo = view.findViewById(R.id.tvTitleData);
             tvDescricao = view.findViewById(R.id.tvDescricaoData);
             tvValor = view.findViewById(R.id.tvValorData);
+            tvValorArrecadado = view.findViewById(R.id.tvValorArrecadado);
             tvOptionsCaso = view.findViewById(R.id.tvOptionsCaso);
             tvAnimalData = view.findViewById(R.id.tvAnimalData);
         }

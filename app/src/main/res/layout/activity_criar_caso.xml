@@ -92,7 +92,7 @@
                 style="@style/fildTextStyle"
                 android:layout_marginTop="16dp"
                 android:hint="@string/valor_em_reais_r"
-                android:maxLength="6"
+                android:maxLength="15"
                 android:inputType="textAutoCorrect|textCapSentences|numberDecimal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spEspecieCaso" />

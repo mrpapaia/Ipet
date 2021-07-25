@@ -63,16 +63,20 @@ public class FilterController {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-            Ong ong = ongSingleton.getOngs()
-                    .stream()
-                    .filter(x -> x.getEmail().equals(email))
-                    .findAny()
-                    .orElse(null);
+            List<Ong> ongs = ongSingleton.getOngs();
 
-            return (ong != null) ? ong.getNome() : "";
+            if(ongs != null) {
+                Ong ong = ongSingleton.getOngs()
+                        .stream()
+                        .filter(x -> x.getEmail().equals(email))
+                        .findAny()
+                        .orElse(null);
+
+                return (ong != null) ? ong.getNome() : "";
+            }
         }
 
-        return null;
+        return "";
     }
 
     public void setDadosFiltro(String[] especies, Double minValue, Double maxValue, String uf, String cidade){

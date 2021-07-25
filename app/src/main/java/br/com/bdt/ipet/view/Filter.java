@@ -16,6 +16,7 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.control.FilterController;
 import br.com.bdt.ipet.data.model.DadosFiltro;
 import br.com.bdt.ipet.util.GeralUtils;
+import br.com.bdt.ipet.util.Mask;
 
 import java.util.Objects;
 
@@ -56,7 +57,9 @@ public class Filter extends AppCompatActivity {
 
     public void initViews(){
         etValorMin = findViewById(R.id.etValorMin);
+        etValorMin.addTextChangedListener(Mask.insertCurrency(etValorMin));
         etValorMax = findViewById(R.id.etValorMax);
+        etValorMax.addTextChangedListener(Mask.insertCurrency(etValorMax));
         acUf = findViewById(R.id.acUF);
         acMunicipio = findViewById(R.id.acMunicipio);
         GeralUtils.initAutoCompletUfCity(getApplicationContext(), acUf, acMunicipio);
@@ -86,15 +89,17 @@ public class Filter extends AppCompatActivity {
         DadosFiltro dados = filterController.getDadosFiltro();
 
         if(dados.getMinValue() != 0.0){
-            etValorMin.setText(String.valueOf(dados.getMinValue()));
+            etValorMin.setText(GeralUtils.formatarValor(dados.getMinValue()));
         }
 
         if(dados.getMaxValue() != 0.0){
-            etValorMax.setText(String.valueOf(dados.getMaxValue()));
+            etValorMax.setText(GeralUtils.formatarValor(dados.getMaxValue()));
         }
 
         acUf.setText(dados.getUf());
         acMunicipio.setText(dados.getCidade());
+
+        acOng.setText(filterController.getNomeByEmailOng(dados.getEmailOng()));
 
         filterController.initValuesFilter(this);
     }
@@ -107,8 +112,8 @@ public class Filter extends AppCompatActivity {
 
         String[] especies = filterController.especiesSelected();
 
-        String strMinValue = etValorMin.getText().toString();
-        String strMaxValue = etValorMax.getText().toString();
+        String strMinValue = Mask.unMaskBRL(etValorMin.getText().toString());
+        String strMaxValue = Mask.unMaskBRL(etValorMax.getText().toString());
 
         Double minValue = GeralUtils.getDouble(strMinValue.equals("") ? "0.0" : strMinValue);
         Double maxValue = GeralUtils.getDouble(strMaxValue.equals("") ? "0.0" : strMaxValue);
@@ -119,10 +124,23 @@ public class Filter extends AppCompatActivity {
         }
 
         String uf = acUf.getText().toString();
-        String cidade = acMunicipio.getText().toString();
+        if(!uf.equals("") && !GeralUtils.existeEstado(uf)){
+            GeralUtils.setErrorInput(acUf, "Informe um Estado Válido");
+            return;
+        }
 
-        if(!cidade.equals("") && !GeralUtils.existeCidade(cidade)){
+        String cidade = acMunicipio.getText().toString();
+        if(!cidade.equals("") && uf.equals("")){
+            GeralUtils.setErrorInput(acMunicipio, "Informe um Estado Válido Primeiro");
+            return;
+        }else if(!cidade.equals("") && !GeralUtils.existeCidade(cidade)){
             GeralUtils.setErrorInput(acMunicipio, "Informe um Município Válido");
+            return;
+        }
+
+        String nomeOng = acOng.getText().toString();
+        if(!nomeOng.equals("") && !GeralUtils.existeNomeOng(nomeOng)){
+            GeralUtils.setErrorInput(acOng, "Informe um Nome de Ong Válida");
             return;
         }
 

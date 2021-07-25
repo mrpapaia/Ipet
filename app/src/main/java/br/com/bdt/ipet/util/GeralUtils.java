@@ -28,7 +28,9 @@ import br.com.bdt.ipet.R;
 import br.com.bdt.ipet.data.api.ConsumerData;
 import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.Estado;
+import br.com.bdt.ipet.data.model.Ong;
 import br.com.bdt.ipet.singleton.EstadoSingleton;
+import br.com.bdt.ipet.singleton.OngSingleton;
 
 import static android.util.Patterns.EMAIL_ADDRESS;
 
@@ -48,12 +50,27 @@ public class GeralUtils {
                 .setIcon(idIcon);
     }
 
+    public static boolean existeNomeOng(String nomeOng){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            List<Ong> ongs = OngSingleton.getOngSingleton().getOngs();
+            if (ongs != null) {
+                return ongs.stream().anyMatch(x -> x.getNome().toLowerCase().equals(nomeOng.toLowerCase()));
+            }else{
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public static boolean existeCidade(String cidade){
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             List<String> cidades = EstadoSingleton.getEstadoSingleton().getCidades();
             if(cidades != null){
                 return cidades.stream().anyMatch(x -> x.toLowerCase().equals(cidade.toLowerCase()));
+            }else{
+                return false;
             }
         }
 
@@ -66,6 +83,8 @@ public class GeralUtils {
             List<Estado> estados = EstadoSingleton.getEstadoSingleton().getEstados();
             if(estados != null){
                 return estados.stream().anyMatch(x -> x.getNome().toLowerCase().equals(estado.toLowerCase()));
+            }else{
+                return false;
             }
         }
 
@@ -77,10 +96,8 @@ public class GeralUtils {
         et.requestFocus();
     }
 
-    @SuppressLint("DefaultLocale")
     public static String formatarValor(double valor){
-        NumberFormat nf = NumberFormat.getInstance(new Locale("pt", "BR"));
-        return String.format("R$ %s", nf.format(valor));
+        return Mask.doubleToStrBRL(valor, false);
     }
 
     public static Map<String, Object> CasoToMap(Caso caso){

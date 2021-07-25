@@ -39,14 +39,15 @@ public class ValorPagamentoDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_valor_pagamento, null);
 
         EditText etValorDoacao = view.findViewById(R.id.etValorDoacao);
-
-        builder.setView(view);
         etValorDoacao.addTextChangedListener(Mask.insertCurrency(etValorDoacao));
 
+        builder.setView(view);
+
         Button btnConfirmar = view.findViewById(R.id.bConfirmar);
+
         View.OnClickListener listenerConfirmar = v -> {
 
-            String valorString = etValorDoacao.getText().toString().replaceAll("[R$.]", "").replaceAll("\\s","").replaceAll("[,]", ".");
+            String valorString = Mask.unMaskBRL(etValorDoacao.getText().toString());
 
             if(isValidInput(valorString, "double")){
                 Double valor = Double.parseDouble(valorString);

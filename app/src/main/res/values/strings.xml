@@ -50,7 +50,7 @@
     <string name="valor_em_reais_r">Valor em Reais (R$)</string>
     <string name="pr_xima_etapa">Próxima etapa</string>
     <string name="esp_cie">Espécie</string>
-    <string name="faixa_de_valor">Faixa de valor (R$)</string>
+    <string name="faixa_de_valor">Faixa de valor</string>
     <string name="sep">-</string>
     <string name="filtro_por_esp_cie">Filtro por espécie</string>
     <string name="h_0_doa_es_pendentes">Há 0 doações pendentes!</string>
@@ -58,6 +58,6 @@
     <string name="editar">Editar</string>
     <string name="apagar">Apagar</string>
     <string name="ficamos_feliz_pela_sua_ajuda">Ficamos feliz pela sua ajuda</string>
-    <string name="valor">Valor</string>
+    <string name="valor">Valor (R$)</string>
     <string name="confirmar">Confirmar</string>
 </resources>

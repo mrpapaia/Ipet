@@ -97,7 +97,7 @@
                 android:background="@drawable/style_edit"
                 android:elevation="5dp"
                 android:ems="10"
-                android:maxLength="6"
+                android:maxLength="15"
                 android:hint="@string/minimo"
                 android:inputType="numberDecimal"
                 android:padding="5dp"
@@ -131,7 +131,7 @@
                 android:background="@drawable/style_edit"
                 android:elevation="5dp"
                 android:ems="10"
-                android:maxLength="6"
+                android:maxLength="15"
                 android:hint="@string/m_ximo"
                 android:inputType="numberDecimal"
                 android:padding="5dp"
@@ -177,6 +177,8 @@
                 android:completionThreshold="1"
                 android:drawableStart="@drawable/ic_location"
                 android:hint="@string/estado"
+                android:maxLength="50"
+                android:inputType="textAutoCorrect"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -189,10 +191,13 @@
                 android:layout_marginTop="16dp"
                 android:completionThreshold="1"
                 android:drawableStart="@drawable/ic_location"
+                android:inputType="textAutoCorrect"
                 android:hint="@string/munic_pio"
+                android:maxLength="50"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/acUF" />
+
 
             <AutoCompleteTextView
                 android:id="@+id/acOng"
@@ -201,11 +206,13 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:completionThreshold="1"
+                android:inputType="textAutoCorrect"
+                android:maxLength="30"
                 android:hint="@string/nome_da_ong"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.05"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
 
             <Button
                 android:id="@+id/bFiltrar"

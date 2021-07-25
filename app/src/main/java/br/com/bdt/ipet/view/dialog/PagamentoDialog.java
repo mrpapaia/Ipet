@@ -30,6 +30,7 @@ import br.com.bdt.ipet.data.model.Caso;
 import br.com.bdt.ipet.data.model.DadosBancario;
 import br.com.bdt.ipet.data.model.Doacao;
 import br.com.bdt.ipet.util.GeralUtils;
+import br.com.bdt.ipet.util.Mask;
 
 import static br.com.bdt.ipet.util.GeralUtils.isValidInput;
 
@@ -49,10 +50,11 @@ public class PagamentoDialog extends DialogFragment {
     @SuppressLint({"SetTextI18n", "ClickableViewAccessibility"})
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+
         Caso caso = getArguments().getParcelable("caso");
         double valor = getArguments().getDouble("valor");
-        System.out.println(this.getClass().toString() + " valor: " + valor);
         int index = getArguments().getInt("indexBanco");
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
@@ -61,10 +63,8 @@ public class PagamentoDialog extends DialogFragment {
         DadosBancario dadosBancario = caso.getOng().getDadosBancarios().get(index);
 
         EditText et = view.findViewById(R.id.etValorPagar);
-        et.setText(String.valueOf(valor));
-
-        et.setFocusable(false);
-        et.setOnClickListener(view1 -> et.setFocusableInTouchMode(true));
+        et.setText(GeralUtils.formatarValor(valor));
+        et.addTextChangedListener(Mask.insertCurrency(et));
 
         setTextTv(R.id.tvNomeOngPagamento,caso.getOng().getNome(), view);
         setTextTv(R.id.tvChavePix, dadosBancario.getChavePix(), view);
@@ -132,7 +132,7 @@ public class PagamentoDialog extends DialogFragment {
 
             String bancoDoacao = dadosBancario.getBanco();
             String metodoDoacao = spMetodoPagamento.getSelectedItem().toString();
-            String valorString = et.getText().toString();
+            String valorString = Mask.unMaskBRL(et.getText().toString());
 
             if(!isValidInput(valorString, "double")){
                 GeralUtils.setErrorInput(et, "Insira um valor válido");
