@@ -1,12 +1,10 @@
-# iPet
-
 <!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
 
-![GitHub repo size](https://img.shields.io/github/repo-size/Thiagomdias22/ipet2.0?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/Thiagomdias22/ipet2.0?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/Thiagomdias22/ipet2.0?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/Thiagomdias22/ipet2.0?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/Thiagomdias22/ipet2.0?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/mrpapaia/Ipet?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/mrpapaia/Ipet?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/mrpapaia/Ipet?style=for-the-badge)
+![Bitbucket open issues](https://img.shields.io/bitbucket/issues/mrpapaia/Ipet?style=for-the-badge)
+![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/mrpapaia/Ipet?style=for-the-badge)
 
 <img src="https://github.com/Thiagomdias22/ipet2.0/blob/master/screenshots/logogrande.png" width="400px;" alt="Logo iPet">
 
@@ -21,15 +19,19 @@ Para instalar o iPet, siga estas etapas:
 3. Abra a pasta extraida em uma IDE de sua preferência, recomendamos Android Studio
 4. Execute o projeto no emulador
 
-### ▶️ Playstore
+## ▶️ Playstore
 
 Caso preferir, disponibilizamos este projeto na playstore -> [iPet](https://play.google.com/store/apps/details?id=com.bdtgo.ipet)
 
 ## 🔋 Stacks Utilizadas
 
-1. Java
-2. Firebase
-3. Android Studio
+![](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![](https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=white)
+![](https://img.shields.io/badge/Android_Studio-3DDC84?style=for-the-badge&logo=android-studio&logoColor=white)
+
+## 📚 Gerenciamento de projeto
+
+![](https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white)
 
 ## 📷 Screenshots
 
