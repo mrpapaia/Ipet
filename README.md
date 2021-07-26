@@ -38,25 +38,69 @@ Caso preferir, disponibilizamos este projeto na playstore -> [iPet](https://play
     <td>Tela Inicial</td>
     <td>Login</td>
     <td>Cadastro ONG</td>
-    <td>Administração da ONG</td>
+    <td>Upload de Imagem da ONG</td>
   </tr>
   <tr>
-    <td><img src="/screenshots/1.jpg" width="200px;" alt="Tela Inicial"/></td>
-    <td><img src="/screenshots/2.jpg" width="200px;" alt="Tela de Login"/></td>
-    <td><img src="/screenshots/3.jpg" width="200px;" alt="Tela de Cadastro"/></td>
-    <td><img src="/screenshots/4.jpg" width="200px;" alt="Tela de Administração"/></td>
+    <td><img src="/Screenshots/main.png" width="200px;" alt="Tela Inicial"/></td>
+    <td><img src="/Screenshots/login.png" width="200px;" alt="Tela de Login"/></td>
+    <td><img src="/Screenshots/cadastroong1.png" width="200px;" alt="Tela de Cadastro"/></td>
+    <td><img src="/Screenshots/cadastroong2.png" width="200px;" alt="Tela de Cadastro2"/></td>
   </tr>
   <tr>
-    <td>Criar novo caso</td>
-    <td>Visualização dos casos</td>
-    <td>Filtro de casos</td>
-    <td>Visualização de um caso</td>
+    <td>Cadastro de Banco</td>
+    <td>Tela de Obrigado</td>
+    <td>Tela inicial após login</td>
+    <td>Menu Hamburguer da Ong</td>
   </tr>
   <tr>
-    <td><img src="/screenshots/5.jpg" width="200px;" alt="Tela Criar novo caso"/></td>
-    <td><img src="/screenshots/6.jpg" width="200px;" alt="Tela de Visualização de casos"/></td>
-    <td><img src="/screenshots/7.jpg" width="200px;" alt="Tela de Filtro de casos"/></td>
-    <td><img src="/screenshots/8.png" width="200px;" height="400px" alt="Tela de caso"/></td>
+    <td><img src="/Screenshots/cadastroong3.png" width="200px;" alt="Tela Criar novo caso"/></td>
+    <td><img src="/Screenshots/cadastroon4.png" width="200px;" alt="Tela de Visualização de casos"/></td>
+    <td><img src="/Screenshots/mainong.png" width="200px;" alt="Tela de Filtro de casos"/></td>
+    <td><img src="/Screenshots/menuhamburguer.png" width="200px;" alt="Tela de caso"/></td>
+  </tr>
+  <tr>
+    <td>Dados Bancários</td>
+    <td>1 - Tela de Confirmar Doações</td>
+    <td>2 - Tela de Confirmar Doações</td>
+    <td>Tela de Criar um caso</td>
+  </tr>
+  <tr>
+    <td><img src="/Screenshots/bancos.png" width="200px;" alt="Tela Criar novo caso"/></td>
+    <td><img src="/Screenshots/casoscomdoacao.png" width="200px;" alt="Tela de Visualização de casos"/></td>
+    <td><img src="/Screenshots/doacoescaso.png" width="200px;" alt="Tela de Filtro de casos"/></td>
+    <td><img src="/Screenshots/criarcaso1.png" width="200px;" alt="Tela de caso"/></td>
+  </tr>
+  <tr>
+    <td>Upload de Imagem do pet</td>
+    <td>Tela de Obrigado</td>
+    <td>Tela para ajudar uma ong</td>
+    <td>1 - Tela de detalhes do caso</td>
+  </tr>
+  <tr>
+    <td><img src="/Screenshots/criarcaso2.png" width="200px;" alt="Tela Criar novo caso"/></td>
+    <td><img src="/Screenshots/criarcaso3.png" width="200px;" alt="Tela de Visualização de casos"/></td>
+    <td><img src="/Screenshots/queroajudarong.png" width="200px;" alt="Tela de Filtro de casos"/></td>
+    <td><img src="/Screenshots/detalhescaso1.png" width="200px;" alt="Tela de caso"/></td>
+  </tr>
+   <tr>
+    <td>2 - Tela de detalhes do caso</td>
+    <td>Tela de Filtro</td>
+    <td>Pop-up valor do pagamento</td>
+    <td>Pop-up escolher um banco</td>
+  </tr>
+  <tr>
+    <td><img src="/Screenshots/detalhescaso2.png" width="200px;" alt="Tela Criar novo caso"/></td>
+    <td><img src="/Screenshots/filtro.png" width="200px;" alt="Tela de Visualização de casos"/></td>
+    <td><img src="/Screenshots/valorpagamento.png" width="200px;" alt="Tela de Filtro de casos"/></td>
+    <td><img src="/Screenshots/selecionabanco.png" width="200px;" alt="Tela de caso"/></td>
+  </tr>
+   <tr>
+    <td>Pop-up pagamento</td>
+    <td>Pop-up de Obrigado</td>
+  </tr>
+  <tr>
+    <td><img src="/Screenshots/pagamento.png" width="200px;" alt="Tela Criar novo caso"/></td>
+    <td><img src="/Screenshots/obrigadodoacao.png" width="200px;" alt="Tela de Visualização de casos"/></td>
   </tr>
  </table>
 
