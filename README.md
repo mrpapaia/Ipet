@@ -113,7 +113,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 <table>
   <tr>
     <td align="center">
-      <a href="#">
+      <a href="https://github.com/Thiagomdias22">
         <img src="https://avatars.githubusercontent.com/u/61828200" width="100px;" alt="Foto do Thiago Moreira no GitHub"/><br>
         <sub>
           <b>Thiago Moreira</b>
@@ -121,7 +121,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
       </a>
     </td>
     <td align="center">
-      <a href="#">
+      <a href="https://github.com/souzavaltenis">
         <img src="https://avatars.githubusercontent.com/u/47244327" width="100px;" alt="Foto do Valtenis Souza no GitHub"/><br>
         <sub>
           <b>Valtenis Souza</b>
@@ -129,7 +129,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
       </a>
     </td>
     <td align="center">
-      <a href="#">
+      <a href="https://github.com/mrpapaia">
         <img src="https://avatars.githubusercontent.com/u/43225982?v=4" width="100px;" alt="Foto do Mrpapaia no GitHub"/><br>
         <sub> 
           <b>Diogo José</b>
